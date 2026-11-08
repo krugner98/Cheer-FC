@@ -74,7 +74,17 @@ main{max-width:1450px;margin:auto;padding:30px clamp(14px,3vw,42px) 60px}.eyebro
 .pitch-slot .slot-role{font-size:9px;font-weight:900;letter-spacing:.5px;color:#e8dccb}
 .pitch-slot .slot-name{font-size:9px;font-weight:800;line-height:1.1;max-width:62px;overflow-wrap:anywhere}
 .pitch-slot .slot-ovr{font-size:11px;font-weight:900;color:#fff}
-.pitch-slot.filled{background:#5a1028eF;border:1px solid #e8dccb}
+.pitch-slot.filled{background:#5a1028eF;border:1px solid #e8dccb;width:clamp(108px,9vw,128px);min-height:68px;flex-direction:row;justify-content:flex-start;gap:4px;padding:5px;transform:translate(-50%,-50%)}
+.pitch-player-core{width:39px;min-width:39px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding-top:5px}
+.pitch-player-core .slot-name{max-width:39px;font-size:7.5px;line-height:1.05;overflow-wrap:anywhere}
+.pitch-slot .pitch-strengths{display:flex;flex-direction:column;align-items:flex-start;gap:1px;min-width:0;flex:1;text-align:left;border-left:1px solid #e8dccb66;padding-left:4px}
+.pitch-slot .pitch-strength{font-size:6.5px;line-height:1.18;color:#f4eee8;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.pitch-slot .pitch-strength b{color:#68d4a8;margin-left:2px;font-size:6.5px}
+.pitch-slot.filled .slot-role{position:absolute;left:5px;top:3px;font-size:6px}
+.pitch-slot.filled .remove-player{right:-6px;top:-6px}
+.pitch-slot .remove-player{position:absolute;right:-6px;top:-6px;width:15px;height:15px;border:1px solid #e8dccb;border-radius:50%;background:#211d22;color:#fff;font-size:11px;line-height:12px;font-weight:900;padding:0;cursor:pointer;z-index:5}
+.roster-player{align-items:center}.roster-main{display:flex;align-items:center;gap:8px;min-width:100px;flex:0 0 auto}.roster-strengths{margin-left:auto;min-width:0;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:3px}.roster-strength{font-size:8px;line-height:1.2;padding:3px 5px;border-radius:5px;background:#e8dccb12;color:#e8dccb;white-space:nowrap}.roster-strength b{color:#68d4a8;margin-left:3px}
+.tactics-filters{display:grid;grid-template-columns:minmax(130px,170px) minmax(130px,170px) minmax(130px,170px) minmax(180px,1fr) auto;gap:9px;align-items:center}.tactics-filters select,.tactics-filters input{min-width:0;width:100%}.tactics-actions{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}.tactics-actions select,.tactics-actions button{background:#211d22;color:#f5eee8;border:1px solid #51444d;border-radius:8px;padding:10px 12px;font-size:11px;cursor:pointer}.tactics-actions button.primary{background:#5a1028;border-color:#e8dccb;color:#e8dccb;font-weight:800}.tactics-actions button:hover{border-color:#e8dccb}@media(max-width:950px){.tactics-filters{grid-template-columns:repeat(2,minmax(0,1fr))}.tactics-actions{align-items:stretch}}@media(max-width:700px){.tactics-filters{grid-template-columns:1fr 1fr}.tactics-filters input{grid-column:1/-1}.roster-strengths{gap:2px}.roster-strength{font-size:7px;padding:2px 3px}.pitch-slot.filled{width:clamp(104px,14vw,120px);min-height:64px}.pitch-player-core{width:35px;min-width:35px}.pitch-player-core .slot-name{max-width:35px;font-size:7px}.pitch-slot .pitch-strength{font-size:6px}.pitch-slot .pitch-strength b{font-size:6px}}
 .pitch-slot.selected{outline:3px solid #e8dccb;outline-offset:2px}
 .roster-list{display:flex;flex-direction:column;gap:7px;max-height:690px;overflow:auto}
 .roster-player{display:flex;align-items:center;gap:8px;padding:9px;border:1px solid #51434b;background:#ffffff06;border-radius:8px;cursor:grab}
@@ -199,7 +209,8 @@ main{max-width:1450px;margin:auto;padding:30px clamp(14px,3vw,42px) 60px}.eyebro
 </section>
 <section id="tacticsView" class="hidden">
  <div class="toolbar view-mode-toolbar"><label>Visualizar fichas:</label><select id="attributeModeTactics"><option value="base">Ficha base</option><option value="final">Ficha final</option></select><span class="sub">A ficha completa abaixo do campo acompanha esta seleção.</span></div><div class="detail-head"><div><h2>Campo tático</h2><div class="sub">Arraste os jogadores para o campo. Ao selecionar um atleta, veja seus pontos fortes e pontos de atenção</div></div><div class="chips"><span class="chip">CHEER FC</span><span class="chip" id="lineupCount">0/11 titulares</span></div></div>
- <div class="toolbar"><select id="formationSelect"><option value="433">4-3-3</option><option value="442">4-4-2</option><option value="4231">4-2-3-1</option><option value="352">3-5-2</option><option value="343">3-4-3</option><option value="4141">4-1-4-1</option><option value="4411">4-4-1-1</option><option value="4222">4-2-2-2</option><option value="4321">4-3-2-1</option><option value="41212">4-1-2-1-2 (losango)</option><option value="4312">4-3-1-2</option><option value="532">5-3-2</option><option value="541">5-4-1</option><option value="3421">3-4-2-1</option><option value="3412">3-4-1-2</option><option value="3241">3-2-4-1</option><option value="424">4-2-4</option></select><input id="rosterSearch" placeholder="Buscar jogador para escalar..."><button class="tab" id="clearLineup">Limpar escalação</button></div>
+ <div class="toolbar tactics-filters"><select id="tacticsTeamFilter" title="Clube do elenco"><option value="CHEER FC">CHEER FC</option></select><select id="formationSelect"><option value="433">4-3-3</option><option value="442">4-4-2</option><option value="4231">4-2-3-1</option><option value="352">3-5-2</option><option value="343">3-4-3</option><option value="4141">4-1-4-1</option><option value="4411">4-4-1-1</option><option value="4222">4-2-2-2</option><option value="4321">4-3-2-1</option><option value="41212">4-1-2-1-2 (losango)</option><option value="4312">4-3-1-2</option><option value="532">5-3-2</option><option value="541">5-4-1</option><option value="3421">3-4-2-1</option><option value="3412">3-4-1-2</option><option value="3241">3-2-4-1</option><option value="424">4-2-4</option></select><select id="rosterPositionFilter"><option value="">Todas as posições</option></select><input id="rosterSearch" placeholder="Buscar jogador para escalar..."><button class="tab" id="clearLineup">Limpar escalação</button></div>
+ <div class="tactics-actions"><button class="primary" id="saveNamedLineup">Salvar escalação</button><select id="savedLineupSelect"><option value="">Escalações salvas...</option></select><button id="loadNamedLineup">Carregar</button><button id="deleteNamedLineup">Excluir salva</button><button id="exportLineupPdf">Exportar / imprimir PDF</button><button id="exportLineupImage">Exportar imagem PNG</button></div>
  <div class="tactics-layout">
   <div class="pitch-card"><div class="pitch" id="pitchBoard"><div class="pitch-lines"><div class="pitch-mid"></div><div class="pitch-circle"></div><div class="pitch-box top-box"></div><div class="pitch-box bottom-box"></div><div class="pitch-goal top-goal"></div><div class="pitch-goal bottom-goal"></div></div><div id="pitchSlots"></div></div><div class="pitch-legend"><span>Arraste um atleta do elenco para uma posição</span><span>Toque no atleta escalado para ver sua ficha</span></div></div>
   <div class="roster-card"><div class="section-title">ELENCO DISPONÍVEL</div><div id="rosterList" class="roster-list"></div></div>
@@ -269,12 +280,56 @@ const formations={
  "424":[["GOL",50,91],["LE",15,72],["ZAG",38,72],["ZAG",62,72],["LD",85,72],["VOL",38,55],["VOL",62,55],["PE",15,27],["ATA",38,17],["ATA",62,17],["PD",85,27]]
 };
 let lineup={},selectedRoster=null,selectedSlot=null;
-try{const saved=JSON.parse(localStorage.getItem("cheerfc-lineup-v1")||"null");if(saved&&saved.lineup){lineup=saved.lineup;if(saved.formation&&$("formationSelect"))$("formationSelect").value=saved.formation}}catch(e){}
-function saveLineup(){try{localStorage.setItem("cheerfc-lineup-v1",JSON.stringify({lineup,formation:$("formationSelect").value}))}catch(e){}}
+try{const saved=JSON.parse(localStorage.getItem("cheerfc-lineup-v1")||"null");if(saved&&saved.lineup){lineup=saved.lineup;if(saved.formation&&$("formationSelect"))$("formationSelect").value=saved.formation;if(saved.club&&$("tacticsTeamFilter"))$("tacticsTeamFilter").value=saved.club}}catch(e){}
+function saveLineup(){try{localStorage.setItem("cheerfc-lineup-v1",JSON.stringify({lineup,formation:$("formationSelect").value,club:$("tacticsTeamFilter")?.value||"CHEER FC"}))}catch(e){}}
+function savedLineups(){try{return JSON.parse(localStorage.getItem("cheerfc-saved-lineups-v1")||"{}")}catch(e){return {}}}
+function refreshSavedLineups(){const sel=$("savedLineupSelect"),items=savedLineups(),old=sel.value;sel.innerHTML='<option value="">Escalações salvas...</option>'+Object.keys(items).sort((a,b)=>a.localeCompare(b,"pt-BR")).map(n=>`<option value="${escapeHtml(n)}">${escapeHtml(n)}</option>`).join("");if(items[old])sel.value=old}
+function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function downloadText(filename,text,mime){const blob=new Blob([text],{type:mime});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+function exportLineupImage(){
+ const slots=formations[$("formationSelect").value]||formations["433"];
+ const W=1500,H=1740,canvas=document.createElement("canvas");canvas.width=W;canvas.height=H;
+ const ctx=canvas.getContext("2d");
+ const roundRect=(x,y,w,h,r,fill,stroke)=>{ctx.beginPath();ctx.roundRect(x,y,w,h,r);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=2;ctx.stroke()}};
+ const bg=ctx.createLinearGradient(0,0,W,H);bg.addColorStop(0,"#21151d");bg.addColorStop(1,"#111519");ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+ ctx.fillStyle="#E8DCCB";ctx.font="800 25px Arial";ctx.fillText("CHEER FC · PLAYER HUB",90,72);
+ ctx.fillStyle="#ffffff";ctx.font="900 48px Arial";ctx.fillText("ESCALAÇÃO",90,132);
+ ctx.fillStyle="#d7c8ce";ctx.font="24px Arial";ctx.fillText(`${$("tacticsTeamFilter").value}  ·  ${$("formationSelect").selectedOptions[0]?.text||""}  ·  ${Object.values(lineup).filter(Boolean).length}/11 titulares`,90,174);
+ const fx=235,fy=220,fw=1030,fh=1370;
+ // Campo com faixas alternadas
+ ctx.save();ctx.beginPath();ctx.roundRect(fx,fy,fw,fh,18);ctx.clip();
+ const turf=ctx.createLinearGradient(fx,fy,fx+fw,fy+fh);turf.addColorStop(0,"#176b45");turf.addColorStop(1,"#218454");ctx.fillStyle=turf;ctx.fillRect(fx,fy,fw,fh);
+ for(let i=0;i<10;i++){ctx.fillStyle=i%2?"#ffffff08":"#00000008";ctx.fillRect(fx,fy+i*fh/10,fw,fh/10)}
+ ctx.strokeStyle="#e9f3e8cc";ctx.lineWidth=3;ctx.strokeRect(fx+34,fy+34,fw-68,fh-68);
+ ctx.beginPath();ctx.moveTo(fx+34,fy+fh/2);ctx.lineTo(fx+fw-34,fy+fh/2);ctx.stroke();
+ ctx.beginPath();ctx.arc(fx+fw/2,fy+fh/2,fw*.135,0,Math.PI*2);ctx.stroke();
+ ctx.strokeRect(fx+fw*.25,fy+34,fw*.5,fh*.16);ctx.strokeRect(fx+fw*.25,fy+fh-34-fh*.16,fw*.5,fh*.16);
+ ctx.restore();
+ const cardW=150,cardH=92;
+ slots.forEach(([role,x,y],i)=>{
+  const name=lineup[i],p=players.find(z=>z.name===name);if(!p)return;
+  const cx=fx+x/100*fw,cy=fy+y/100*fh, left=cx-cardW/2,top=cy-cardH/2;
+  ctx.save();ctx.shadowColor="#0009";ctx.shadowBlur=14;ctx.shadowOffsetY=5;
+  roundRect(left,top,cardW,cardH,12,"#55152feF","#E8DCCB");ctx.restore();
+  ctx.fillStyle="#E8DCCB";ctx.font="800 11px Arial";ctx.fillText(role,left+8,top+15);
+  ctx.fillStyle="#ffffff";ctx.font="900 23px Arial";ctx.fillText(String(p.ovr??""),left+9,top+48);
+  // Nome e posição ficam confinados à coluna esquerda para nunca invadir os atributos.
+  const fitText=(text,maxWidth,font)=>{ctx.font=font;let out=String(text??"");if(ctx.measureText(out).width<=maxWidth)return out;while(out.length>1&&ctx.measureText(out+"…").width>maxWidth)out=out.slice(0,-1);return out+"…"};
+  ctx.fillStyle="#ffffff";ctx.font="bold 9px Arial";ctx.fillText(fitText(p.name,47,"bold 9px Arial"),left+8,top+66);
+  ctx.fillStyle="#d9cbd0";ctx.font="8px Arial";ctx.fillText(fitText(p.pos,47,"8px Arial"),left+8,top+80);
+  const topAttrs=Object.entries(p.attrs||{}).filter(([,v])=>Number.isFinite(Number(v))).sort((a,b)=>Number(b[1])-Number(a[1])).slice(0,5);
+  ctx.strokeStyle="#e8dccb77";ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(left+59,top+22);ctx.lineTo(left+59,top+82);ctx.stroke();
+  topAttrs.forEach(([k,v],j)=>{const yy=top+29+j*11;const label=fitText(k,48,"8px Arial");ctx.fillStyle="#f4eee8";ctx.font="8px Arial";ctx.textAlign="left";ctx.fillText(label,left+66,yy);ctx.fillStyle="#68d4a8";ctx.font="bold 8px Arial";ctx.textAlign="right";ctx.fillText(fmt(v),left+cardW-7,yy);});ctx.textAlign="left";
+ });
+ ctx.fillStyle="#b9adb5";ctx.font="17px Arial";ctx.fillText("CHEER FC · Escalação criada no Player Hub",90,H-55);
+ canvas.toBlob(blob=>{if(!blob){alert("Não foi possível gerar a imagem neste navegador.");return}const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="escalacao-"+($("tacticsTeamFilter").value||"time").replace(/[^a-z0-9]+/gi,"-").toLowerCase()+".png";a.click();setTimeout(()=>URL.revokeObjectURL(url),1500)},"image/png");
+}
+function exportLineupPdf(){const slots=formations[$("formationSelect").value]||formations["433"];const rows=slots.map(([role],i)=>{const p=players.find(x=>x.name===lineup[i]);if(!p)return "";const top=Object.entries(p.attrs||{}).filter(([,v])=>Number.isFinite(Number(v))).sort((a,b)=>Number(b[1])-Number(a[1])).slice(0,5).map(([k,v])=>`${k} (${fmt(v)})`).join(", ");return `<tr><td>${escapeHtml(role)}</td><td>${escapeHtml(p.name)}</td><td>${escapeHtml(p.pos)}</td><td>${p.ovr}</td><td>${escapeHtml(top)}</td></tr>`}).join("");const w=window.open("","_blank");if(!w){alert("Permita pop-ups para exportar a escalação em PDF.");return}w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>Escalação ${escapeHtml($("tacticsTeamFilter").value)}</title><style>body{font:14px Arial;padding:28px;color:#222}h1{color:#5a1028}table{width:100%;border-collapse:collapse}th,td{padding:9px;border:1px solid #ccc;text-align:left}th{background:#eee}@media print{button{display:none}}</style></head><body><h1>CHEER FC · Escalação</h1><p><b>Clube:</b> ${escapeHtml($("tacticsTeamFilter").value)} &nbsp; <b>Formação:</b> ${escapeHtml($("formationSelect").selectedOptions[0]?.text||"")}</p><table><thead><tr><th>Função</th><th>Jogador</th><th>Posição</th><th>OVR</th><th>5 principais atributos</th></tr></thead><tbody>${rows}</tbody></table><p><button onclick="window.print()">Imprimir / Salvar PDF</button></p></body></html>`);w.document.close();setTimeout(()=>w.print(),300)}
 function renderRoster(){
  const q=($("rosterSearch")?.value||"").toLocaleLowerCase("pt-BR");
- const used=Object.values(lineup);
- $("rosterList").innerHTML=[...players].sort((a,b)=>a.name.localeCompare(b.name,"pt-BR",{sensitivity:"base"})).filter(p=>p.name.toLocaleLowerCase("pt-BR").includes(q)).map(p=>`<div class="roster-player ${selectedRoster===p.name?"selected":""}" draggable="true" data-player="${p.name}"><div class="rp-ovr">${p.ovr}</div><div><div class="rp-name">${p.name}</div><div class="rp-pos">${p.pos}${used.includes(p.name)?" · ESCALADO":""}</div></div></div>`).join("");
+ const pos=$("rosterPositionFilter")?.value||"";
+ const used=Object.values(lineup);const club=$("tacticsTeamFilter")?.value||"CHEER FC";
+ $("rosterList").innerHTML=[...players].filter(p=>clubOf(p)===club).sort((a,b)=>a.name.localeCompare(b.name,"pt-BR",{sensitivity:"base"})).filter(p=>p.name.toLocaleLowerCase("pt-BR").includes(q)&&(!pos||p.pos===pos)).map(p=>{const top=Object.entries(p.attrs||{}).filter(([,v])=>Number.isFinite(Number(v))).sort((a,b)=>Number(b[1])-Number(a[1])).slice(0,5);return `<div class="roster-player ${selectedRoster===p.name?"selected":""}" draggable="true" data-player="${p.name}"><div class="roster-main"><div class="rp-ovr">${p.ovr}</div><div><div class="rp-name">${p.name}</div><div class="rp-pos">${p.pos}${used.includes(p.name)?" · ESCALADO":""}</div></div></div><div class="roster-strengths">${top.map(([k,v])=>`<span class="roster-strength">${k} <b>${fmt(v)}</b></span>`).join("")}</div></div>`}).join("");
  document.querySelectorAll(".roster-player").forEach(el=>{
   el.addEventListener("dragstart",e=>{e.dataTransfer.setData("text/player",el.dataset.player);selectedRoster=el.dataset.player});
   el.addEventListener("click",()=>{selectedRoster=el.dataset.player;showTacticsPlayer(selectedRoster);renderRoster()});
@@ -282,8 +337,9 @@ function renderRoster(){
 }
 function renderPitch(){
  const slots=formations[$("formationSelect").value]||formations["433"];
- $("pitchSlots").innerHTML=slots.map(([role,x,y],i)=>{const name=lineup[i],p=players.find(z=>z.name===name);return `<button class="pitch-slot ${p?"filled":""} ${selectedSlot===i?"selected":""}" data-slot="${i}" style="left:${x}%;top:${y}%"><span class="slot-role">${role}</span>${p?`<span class="slot-ovr">${p.ovr}</span><span class="slot-name">${p.name}</span>`:`<span class="slot-name">+ Escalar</span>`}</button>`}).join("");
+ $("pitchSlots").innerHTML=slots.map(([role,x,y],i)=>{const name=lineup[i],p=players.find(z=>z.name===name);const top=p?Object.entries(p.attrs||{}).filter(([,v])=>Number.isFinite(Number(v))).sort((a,b)=>Number(b[1])-Number(a[1])).slice(0,5):[];return `<button class="pitch-slot ${p?"filled":""} ${selectedSlot===i?"selected":""}" data-slot="${i}" style="left:${x}%;top:${y}%"><span class="slot-role">${role}</span>${p?`<span class="pitch-player-core"><span class="slot-ovr">${p.ovr}</span><span class="slot-name">${p.name}</span></span><span class="pitch-strengths">${top.map(([k,v])=>`<span class="pitch-strength">${k} <b>${fmt(v)}</b></span>`).join("")}</span><span class="remove-player" role="button" aria-label="Remover ${p.name}" data-remove-slot="${i}">×</span>`:`<span class="slot-name">+ Escalar</span>`}</button>`}).join("");
  document.querySelectorAll(".pitch-slot").forEach(el=>{
+  const remove=el.querySelector(".remove-player");if(remove)remove.addEventListener("click",e=>{e.stopPropagation();const i=Number(remove.dataset.removeSlot);delete lineup[i];selectedSlot=null;saveLineup();renderPitch();renderRoster();$("tacticsPlayerDetail").innerHTML='<div class="empty">Atleta removido da escalação.</div>'});
   el.addEventListener("dragover",e=>{e.preventDefault();el.classList.add("over")});
   el.addEventListener("dragleave",()=>el.classList.remove("over"));
   el.addEventListener("drop",e=>{e.preventDefault();el.classList.remove("over");const n=e.dataTransfer.getData("text/player");if(n)assignPlayer(Number(el.dataset.slot),n)});
@@ -335,7 +391,7 @@ function clubOf(p){return p.club||"CHEER FC"}
 function clubNames(){return [...new Set(players.map(clubOf))].sort((a,b)=>a.localeCompare(b,"pt-BR",{sensitivity:"base"}))}
 function populateClubFilters(){
  const clubs=clubNames();
- ["playerTeamFilter","compareTeamA","compareTeamB"].forEach(id=>{const el=$(id),old=el.value||"CHEER FC";el.innerHTML=clubs.map(c=>`<option value="${c}">${c}</option>`).join("");el.value=clubs.includes(old)?old:(clubs.includes("CHEER FC")?"CHEER FC":clubs[0]||"CHEER FC")});
+ ["playerTeamFilter","compareTeamA","compareTeamB","tacticsTeamFilter"].forEach(id=>{const el=$(id),old=el.value||"CHEER FC";el.innerHTML=clubs.map(c=>`<option value="${c}">${c}</option>`).join("");el.value=clubs.includes(old)?old:(clubs.includes("CHEER FC")?"CHEER FC":clubs[0]||"CHEER FC")});
  refreshCompareOptions();
 }
 function refreshCompareOptions(){
@@ -399,7 +455,14 @@ $("tabRanking").onclick=()=>showTab("ranking");
 $("tabTactics").onclick=()=>showTab("tactics");$("tabImport").onclick=()=>showTab("import");
 $("formationSelect").onchange=()=>{lineup={};selectedSlot=null;saveLineup();renderPitch();renderRoster()};
 $("rosterSearch").oninput=renderRoster;
+$("rosterPositionFilter").onchange=renderRoster;
+[...new Set(players.map(p=>p.pos).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"pt-BR",{sensitivity:"base"})).forEach(pos=>$("rosterPositionFilter").insertAdjacentHTML("beforeend",`<option value="${pos}">${pos}</option>`));
 $("clearLineup").onclick=()=>{lineup={};selectedSlot=null;saveLineup();renderPitch();renderRoster();$("tacticsPlayerDetail").innerHTML='<div class="empty">Escalação limpa. Arraste jogadores para o campo.</div>'};
+$("tacticsTeamFilter").addEventListener("change",()=>{lineup={};selectedSlot=null;selectedRoster=null;saveLineup();renderPitch();renderRoster();$("tacticsPlayerDetail").innerHTML='<div class="empty">Elenco do clube selecionado. Monte uma nova escalação.</div>'});
+$("saveNamedLineup").onclick=()=>{const name=prompt("Nome para salvar esta escalação:");if(!name||!name.trim())return;const items=savedLineups();items[name.trim()]={lineup:{...lineup},formation:$("formationSelect").value,club:$("tacticsTeamFilter").value,savedAt:new Date().toISOString()};localStorage.setItem("cheerfc-saved-lineups-v1",JSON.stringify(items));refreshSavedLineups();$("savedLineupSelect").value=name.trim();alert("Escalação salva neste navegador.")};
+$("loadNamedLineup").onclick=()=>{const name=$("savedLineupSelect").value,item=savedLineups()[name];if(!item)return;$("tacticsTeamFilter").value=item.club||"CHEER FC";$("formationSelect").value=item.formation||"433";lineup={...(item.lineup||{})};selectedSlot=null;selectedRoster=null;saveLineup();renderPitch();renderRoster();$("tacticsPlayerDetail").innerHTML='<div class="empty">Escalação carregada: '+escapeHtml(name)+'.</div>'};
+$("deleteNamedLineup").onclick=()=>{const name=$("savedLineupSelect").value;if(!name)return;if(!confirm('Excluir a escalação salva "'+name+'"?'))return;const items=savedLineups();delete items[name];localStorage.setItem("cheerfc-saved-lineups-v1",JSON.stringify(items));refreshSavedLineups()};
+$("exportLineupImage").onclick=exportLineupImage;$("exportLineupPdf").onclick=exportLineupPdf;refreshSavedLineups();
 $("rankAttribute").onchange=ranking;$("rankPosition").onchange=ranking;
 $("compareA").onchange=compare;$("compareB").onchange=compare;
 $("compareAInput").addEventListener("input",compare);$("compareBInput").addEventListener("input",compare);$("comparePositionA").addEventListener("change",refreshCompareOptions);$("comparePositionB").addEventListener("change",refreshCompareOptions);
