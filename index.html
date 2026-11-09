@@ -404,14 +404,14 @@ function renderRadar(p){
  $("radarChart").innerHTML=`<svg viewBox="0 0 360 275" role="img" aria-label="Radar de atributos de ${p.name}">${[20,40,60,80,100].map(level=>`<polygon class="radar-grid" points="${ring(level)}"/>`).join("")}${axes}<polygon class="radar-area" points="${polygon}"/></svg>`;
 }
 function ranking(){
- const attr=$("rankAttribute").value,pos=$("rankPosition").value;
- const list=players.filter(p=>p.attrs[attr]!=null&&(!pos||p.pos===pos)).sort((a,b)=>b.attrs[attr]-a.attrs[attr]);
+ const attr=$("rankAttribute").value,pos=$("rankPosition").value,team=$("rankTeam").value;
+ const list=players.filter(p=>p.attrs[attr]!=null&&(!pos||p.pos===pos)&&(!team||clubOf(p)===team)).sort((a,b)=>b.attrs[attr]-a.attrs[attr]);
  $("rankTitle").textContent="Ranking · "+attr;
  $("rankCount").textContent=list.length+" jogadores";
  const top=list.slice(0,3);
  $("rankingTable").innerHTML=`<div class="rank-top">${top.map((p,i)=>`<div class="rank-top-card"><small>${["1º LUGAR","2º LUGAR","3º LUGAR"][i]}</small><b>${p.name}</b><strong>${fmt(p.attrs[attr])}</strong></div>`).join("")}</div><table class="ranking-table"><thead><tr><th>#</th><th>JOGADOR</th><th>POS.</th><th style="text-align:right">VALOR</th></tr></thead><tbody>${list.map((p,i)=>`<tr><td class="rank-num">${i+1}</td><td><div class="rank-player">${p.name}</div><div class="rank-bar"><i style="width:${p.attrs[attr]}%"></i></div></td><td class="rank-pos"><span class="position-badge ${positionClass(p.pos)}">${p.pos}</span></td><td class="rank-value">${fmt(p.attrs[attr])}</td></tr>`).join("")}</tbody></table>`;
  const categoryRows=Object.entries(groups).filter(([g])=>g!=="GOLEIRO").map(([g,keys])=>{let rows=players.filter(p=>!team||clubOf(p)===team).map(p=>({p,vals:keys.filter(k=>p.attrs[k]!=null).map(k=>p.attrs[k])})).filter(x=>x.vals.length).map(x=>({...x,avg:x.vals.reduce((a,b)=>a+b,0)/x.vals.length})).sort((a,b)=>b.avg-a.avg);return {g,rows};});
- $("categoryLeaders").innerHTML=categoryRows.map(({g,rows})=>`<div class="comparison-row"><div class="comparison-side left"><strong>${fmt(rows[0].avg)}</strong></div><div class="comparison-label">${g}</div><div class="comparison-side right"><strong>${rows[0].p.name}</strong></div></div>`).join("");
+ $("categoryLeaders").innerHTML=categoryRows.filter(({rows})=>rows.length).map(({g,rows})=>`<div class="comparison-row"><div class="comparison-side left"><strong>${fmt(rows[0].avg)}</strong></div><div class="comparison-label">${g}</div><div class="comparison-side right"><strong>${rows[0].p.name}</strong></div></div>`).join("");
 }
 
 
@@ -435,10 +435,11 @@ const formations={
  "424":[["GOL",50,91],["LE",15,72],["ZAG",38,72],["ZAG",62,72],["LD",85,72],["VOL",38,55],["VOL",62,55],["PE",15,27],["ATA",38,17],["ATA",62,17],["PD",85,27]]
 };
 let lineup={},selectedRoster=null,selectedSlot=null;
+let cloudSavedLineups=null;
 try{const saved=JSON.parse(localStorage.getItem("cheerfc-lineup-v1")||"null");if(saved&&saved.lineup){lineup=saved.lineup;if(saved.formation&&$("formationSelect"))$("formationSelect").value=saved.formation;if(saved.club&&$("tacticsTeamFilter"))$("tacticsTeamFilter").value=saved.club}}catch(e){}
-function saveLineup(){try{localStorage.setItem("cheerfc-lineup-v1",JSON.stringify({lineup,formation:$("formationSelect").value,club:$("tacticsTeamFilter")?.value||"CHEER FC"}))}catch(e){}}
-function savedLineups(){try{return JSON.parse(localStorage.getItem("cheerfc-saved-lineups-v1")||"{}")}catch(e){return {}}}
-function refreshSavedLineups(){const sel=$("savedLineupSelect"),items=savedLineups(),old=sel.value;sel.innerHTML='<option value="">Escalações salvas...</option>'+Object.keys(items).sort((a,b)=>a.localeCompare(b,"pt-BR")).map(n=>`<option value="${escapeHtml(n)}">${escapeHtml(n)}</option>`).join("");if(items[old])sel.value=old}
+function saveLineup(){if(window.cheerCloudSaveCurrentLineup)window.cheerCloudSaveCurrentLineup().catch(e=>alert("Escalação não salva: "+e.message));}
+function savedLineups(){if(cloudSavedLineups)return cloudSavedLineups;try{return JSON.parse(localStorage.getItem("cheerfc-saved-lineups-v1")||"{}")}catch(e){return {}}}
+function refreshSavedLineups(){const sel=$("savedLineupSelect"),items=savedLineups(),old=sel.value;sel.innerHTML='<option value="">Escalações salvas...</option>'+Object.keys(items).sort((a,b)=>a.localeCompare(b,"pt-BR")).map(n=>`<option value="${escapeHtml(n)}">${items[n]._official?"★ OFICIAL · ":""}${escapeHtml(n)}</option>`).join("");if(items[old])sel.value=old}
 function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function downloadText(filename,text,mime){const blob=new Blob([text],{type:mime});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
 function exportLineupImage(){
@@ -641,18 +642,18 @@ function orderedPositions(list){return [...new Set(list.map(p=>p.pos).filter(Boo
 function fillPositionFilter(id,list){const el=$(id),old=el.value,positions=orderedPositions(list);el.innerHTML='<option value="">Todas as posições</option>'+positions.map(pos=>`<option value="${pos}">${pos}</option>`).join("");el.value=positions.includes(old)?old:"";el.classList.toggle("position-filter-active",!!el.value);el.dataset.positionClass=positionClass(el.value)}
 function clubOf(p){return p.club||"CHEER FC"}
 function clubNames(){return [...new Set(players.map(clubOf))].sort((a,b)=>a.localeCompare(b,"pt-BR",{sensitivity:"base"}))}
-function persistPlayerData(){try{localStorage.setItem("cheerfc-imported-players-v1",JSON.stringify(players))}catch(e){console.warn("Não foi possível salvar os dados dos atletas",e)}}
+async function persistPlayerData(){if(window.cheerCloudSavePlayers)return await window.cheerCloudSavePlayers();throw new Error("Banco de dados ainda não conectado. Nenhuma alteração foi salva.")}
 function populateShirtFilters(){const el=$("shirtTeamFilter");if(!el)return;const old=el.value||"CHEER FC";el.innerHTML=clubNames().map(c=>`<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join("");el.value=clubNames().includes(old)?old:(clubNames()[0]||"CHEER FC")}
 function renderShirtEditor(){
  const club=$("shirtTeamFilter")?.value||"CHEER FC",q=($("shirtSearch")?.value||"").toLocaleLowerCase("pt-BR");
  const arr=players.filter(p=>clubOf(p)===club&&p.name.toLocaleLowerCase("pt-BR").includes(q)).sort(comparePlayersByPosition);
  $("shirtCount").textContent=arr.length+" atletas";
  $("shirtTableBody").innerHTML=arr.map(p=>`<tr><td><strong>${escapeHtml(p.name)}</strong></td><td><span class="position-badge ${positionClass(p.pos)}">${escapeHtml(p.pos)}</span></td><td>${p.ovr}</td><td><input type="number" min="0" max="99" step="1" inputmode="numeric" aria-label="Número da camisa de ${escapeHtml(p.name)}" data-shirt-player="${escapeHtml(p.name)}" value="${p.shirtNumber??""}" placeholder="—"></td></tr>`).join("")||'<tr><td colspan="4">Nenhum atleta encontrado.</td></tr>';
- document.querySelectorAll("[data-shirt-player]").forEach(input=>input.addEventListener("change",()=>{
+ document.querySelectorAll("[data-shirt-player]").forEach(input=>input.addEventListener("change",async()=>{
   const p=players.find(x=>x.name===input.dataset.shirtPlayer);if(!p)return;const raw=input.value.trim();
   if(raw!==""&&(!/^\d{1,2}$/.test(raw)||Number(raw)<0||Number(raw)>99)){alert("Informe um número de camisa entre 0 e 99, ou deixe em branco.");input.value=p.shirtNumber??"";return}
-  p.shirtNumber=raw===""?null:Number(raw);persistPlayerData();
-  $("shirtSaveNote").textContent=`Número de ${p.name} salvo neste navegador.`;
+  p.shirtNumber=raw===""?null:Number(raw);
+  try{await persistPlayerData();$("shirtSaveNote").textContent=`Número de ${p.name} salvo na nuvem.`}catch(err){alert("Não foi possível salvar na nuvem: "+err.message);return}
   if(selected?.name===p.name)renderPlayer(p);renderPitch();renderRoster();
  }));
 }
@@ -732,9 +733,9 @@ $("rosterPositionFilter").onchange=renderRoster;
 [...new Set(players.map(p=>p.pos).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"pt-BR",{sensitivity:"base"})).forEach(pos=>$("rosterPositionFilter").insertAdjacentHTML("beforeend",`<option value="${pos}">${pos}</option>`));
 $("clearLineup").onclick=()=>{lineup={};selectedSlot=null;saveLineup();renderPitch();renderRoster();$("tacticsPlayerDetail").innerHTML='<div class="empty">Escalação limpa. Arraste jogadores para o campo.</div>'};
 $("tacticsTeamFilter").addEventListener("change",()=>{lineup={};selectedSlot=null;selectedRoster=null;saveLineup();renderPitch();renderRoster();$("tacticsPlayerDetail").innerHTML='<div class="empty">Elenco do clube selecionado. Monte uma nova escalação.</div>'});
-$("saveNamedLineup").onclick=()=>{const name=prompt("Nome para salvar esta escalação:");if(!name||!name.trim())return;const items=savedLineups();items[name.trim()]={lineup:{...lineup},formation:$("formationSelect").value,club:$("tacticsTeamFilter").value,savedAt:new Date().toISOString()};localStorage.setItem("cheerfc-saved-lineups-v1",JSON.stringify(items));refreshSavedLineups();$("savedLineupSelect").value=name.trim();alert("Escalação salva neste navegador.")};
+$("saveNamedLineup").onclick=async()=>{const name=prompt("Nome para salvar esta escalação:");if(!name||!name.trim())return;const staff=["admin","assistant"].includes(window.CHEERFC_AUTH?.role);const official=staff&&confirm("Deseja salvar como ESCALAÇÃO OFICIAL?\n\nOK = oficial (comissão).\nCancelar = experimental.");try{if(!window.cheerCloudSaveNamedLineup)throw new Error("Banco ainda não conectado.");await window.cheerCloudSaveNamedLineup(name.trim(),official);refreshSavedLineups();$("savedLineupSelect").value=name.trim();alert(official?"Escalação oficial salva na nuvem.":"Escalação experimental salva na nuvem e compartilhada.")}catch(e){alert("Não foi possível salvar: "+e.message)}};
 $("loadNamedLineup").onclick=()=>{const name=$("savedLineupSelect").value,item=savedLineups()[name];if(!item)return;$("tacticsTeamFilter").value=item.club||"CHEER FC";$("formationSelect").value=item.formation||"433";lineup={...(item.lineup||{})};selectedSlot=null;selectedRoster=null;saveLineup();renderPitch();renderRoster();$("tacticsPlayerDetail").innerHTML='<div class="empty">Escalação carregada: '+escapeHtml(name)+'.</div>'};
-$("deleteNamedLineup").onclick=()=>{const name=$("savedLineupSelect").value;if(!name)return;if(!confirm('Excluir a escalação salva "'+name+'"?'))return;const items=savedLineups();delete items[name];localStorage.setItem("cheerfc-saved-lineups-v1",JSON.stringify(items));refreshSavedLineups()};
+$("deleteNamedLineup").onclick=async()=>{const name=$("savedLineupSelect").value;if(!name)return;if(!confirm('Excluir a escalação salva "'+name+'"?'))return;try{await window.cheerCloudDeleteNamedLineup(name);refreshSavedLineups()}catch(e){alert("Não foi possível excluir: "+e.message)}};
 $("exportLineupImage").onclick=exportLineupImage;$("exportLineupPdf").onclick=exportLineupPdf;refreshSavedLineups();
 $("rankAttribute").onchange=ranking;$("rankPosition").onchange=ranking;$("rankTeam").onchange=ranking;
 $("compareA").onchange=compare;$("compareB").onchange=compare;
@@ -1059,11 +1060,15 @@ $("parsePdf").onclick=async()=>{
 // a exclusão fica desabilitada para evitar que qualquer visitante apague jogadores.
 function canDeletePlayers(){return window.CHEERFC_AUTH?.role==="admin"||window.CHEERFC_AUTH?.role==="assistant";}
 
-function deleteSelectedPlayer(playerName){
+async function deleteSelectedPlayer(playerName){
  const p=players.find(x=>x.name===playerName);if(!p)return;
- if(!canDeletePlayers()){alert("A exclusão estará disponível somente para treinador e assistente após a conexão segura com o Supabase.");return}
+ if(!canDeletePlayers()){alert("Somente administração e auxiliares podem excluir jogadores.");return}
  if(!window.confirm("Excluir definitivamente "+p.name+"? Essa ação não pode ser desfeita."))return;
- const idx=players.findIndex(x=>x.name===playerName);if(idx<0)return;
+ try{
+  if(!window.cheerCloudDeletePlayer)throw new Error("Conexão com o banco indisponível.");
+  await window.cheerCloudDeletePlayer(p);
+ }catch(err){alert("O jogador NÃO foi excluído do banco: "+err.message);return}
+ const idx=players.findIndex(x=>x===p);if(idx<0)return;
  players.splice(idx,1);
  Object.keys(lineup).forEach(slot=>{if(lineup[slot]===playerName)delete lineup[slot]});
  try{
@@ -1082,7 +1087,7 @@ function deleteSelectedPlayer(playerName){
  alert(p.name+" foi excluído.");
 }
 
-$("confirmImport").onclick=()=>{
+$("confirmImport").onclick=async()=>{
  if(!pendingImport)return;
  const importJob=pendingImport;
  let deleteMissing=false;
@@ -1107,9 +1112,9 @@ $("confirmImport").onclick=()=>{
  });
  if(deleteMissing&&importJob.validation?.missing?.length){
   const missingKeys=new Set(importJob.validation.missing.map(normalizeText));
-  players=players.filter(p=>p.external||!missingKeys.has(normalizeText(p.name)));
+  const kept=players.filter(p=>p.external||!missingKeys.has(normalizeText(p.name)));players.splice(0,players.length,...kept);
  }
- try{localStorage.setItem("cheerfc-imported-players-v1",JSON.stringify(players));const savedLine=JSON.parse(localStorage.getItem("cheerfc-lineup-v1")||"null");if(savedLine?.lineup){Object.keys(savedLine.lineup).forEach(k=>{if(normalizeText(savedLine.lineup[k])==="teste")delete savedLine.lineup[k]});localStorage.setItem("cheerfc-lineup-v1",JSON.stringify(savedLine))}}catch(e){}
+ try{await persistPlayerData()}catch(err){alert("A importação foi aplicada apenas temporariamente e NÃO foi salva. Erro: "+err.message);return}
  
 removeTestPlayer();sortPlayersAlphabetically();const completedKind=importJob.kind;const pendingClubToSelect=completedKind==="external"?importJob.items[0]?.club:null;
  $("importPreviewPanel").classList.add("hidden");pendingImport=null;
@@ -1121,17 +1126,10 @@ removeTestPlayer();sortPlayersAlphabetically();const completedKind=importJob.kin
  $("rankAttribute").innerHTML=[...new Set(players.flatMap(p=>Object.keys(p.attrs)))].sort().map(a=>`<option>${a}</option>`).join("");
  populateClubFilters();$("playerTeamFilter").value=clubNames().includes("CHEER FC")?"CHEER FC":clubNames()[0];refreshCompareOptions();updateList();compare();ranking();renderPitch();renderRoster();
  $("individualStatus").textContent=changed+" jogador(es) atualizado(s)/adicionado(s) com sucesso. Visualização atual: "+(attributeMode==="base"?"Ficha base":"Ficha final")+".";
- alert(changed+" jogador(es) atualizado(s)/adicionado(s) neste navegador. Os dados foram salvos neste navegador.");
+ alert(changed+" jogador(es) atualizado(s)/adicionado(s). Dados confirmados no Supabase.");
 };
 $("cancelImport").onclick=()=>{$("importPreviewPanel").classList.add("hidden");pendingImport=null};
-try{
- const savedPlayers=JSON.parse(localStorage.getItem("cheerfc-imported-players-v1")||"null");
- if(savedPlayers&&Array.isArray(savedPlayers)&&savedPlayers.length){
-  const cheerOnly=savedPlayers.filter(p=>!p.external&&(!p.club||p.club==="CHEER FC"));
-  players.splice(0,players.length,...cheerOnly);
-  localStorage.setItem("cheerfc-imported-players-v1",JSON.stringify(cheerOnly));
- }
-}catch(e){}
+
 let attributeMode="base";
 function initializeAttributeVersions(){
  players.forEach(p=>{
@@ -1156,7 +1154,6 @@ $("attributeModeCompare").onchange=e=>{ $("attributeMode").value=e.target.value;
 $("attributeModeTactics").onchange=e=>{ $("attributeMode").value=e.target.value;setAttributeMode(e.target.value); };
 
 removeTestPlayer();sortPlayersAlphabetically();
-try{localStorage.setItem("cheerfc-imported-players-v1",JSON.stringify(players));const savedLine=JSON.parse(localStorage.getItem("cheerfc-lineup-v1")||"null");if(savedLine?.lineup){Object.keys(savedLine.lineup).forEach(k=>{if(normalizeText(savedLine.lineup[k])==="teste")delete savedLine.lineup[k]});localStorage.setItem("cheerfc-lineup-v1",JSON.stringify(savedLine))}}catch(e){}
 initializeAttributeVersions();
 $("compareAInput").value=players.find(p=>clubOf(p)==="CHEER FC")?.name||"";
 $("compareBInput").value=players.filter(p=>clubOf(p)==="CHEER FC")[1]?.name||$("compareAInput").value;
@@ -1193,7 +1190,7 @@ refreshCompareOptions();updateList();compare();ranking();renderPitch();renderRos
     submit.textContent = busy ? "Entrando..." : "Entrar";
   }
   function roleLabel(role) {
-    return ({admin:"Administrador", assistant:"Assistente", player:"Jogador"})[role] || role;
+    return ({admin:"Administrador", assistant:"Auxiliar", player:"Jogador"})[role] || role;
   }
   function showSessionBadge(email, role) {
     let badge = document.getElementById("sessionBadge");
@@ -1233,9 +1230,14 @@ refreshCompareOptions();updateList();compare();ranking();renderPitch();renderRos
     if (badge) badge.style.display = "none";
     if (text) showMessage(text, type);
   }
+  function applyRolePermissions(role){
+    const staff=["admin","assistant"].includes(role);
+    ["tabImport","tabShirts"].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=staff?"":"none";});
+    if(!staff){const tab=document.getElementById("tabPlayer");if(tab)tab.click();}
+  }
   async function resolveSession(session) {
     if (!session || !session.user) {
-      activeUserId = null;
+      activeUserId = null;window.CHEERFC_AUTH=null;
       roleLookupInProgress = false;
       showGate("Informe seu e-mail e sua senha para entrar.");
       return;
@@ -1251,16 +1253,32 @@ refreshCompareOptions();updateList();compare();ranking();renderPitch();renderRos
         .maybeSingle();
       if (error) throw error;
       if (!data || !data.role) {
-        activeUserId = null;
+        activeUserId = null;window.CHEERFC_AUTH=null;
         await supabaseClient.auth.signOut();
         showGate("Seu e-mail foi autenticado, mas ainda não possui uma função no Player Hub. Peça à administração para liberar seu acesso.", "error");
         return;
       }
       activeUserId = session.user.id;
+      activeRole = data.role;
+      window.CHEERFC_AUTH = {userId:activeUserId, role:activeRole, email:session.user.email, assignedPlayerIds:[]};
+      // O login não deve ser bloqueado por uma falha separada de leitura/sincronização.
+      // Mantém o mesmo comportamento de autenticação da versão pública v4.41.
       document.body.classList.remove("auth-locked");
       gate.style.display = "none";
       showSessionBadge(session.user.email, data.role);
-      console.info("CHEER FC: sessão autenticada", {role:data.role});
+      applyRolePermissions(data.role);
+      showMessage("Login confirmado. Sincronizando dados do banco...", "success");
+      try {
+        const {data:assignments,error:assignmentError}=await supabaseClient.from("player_editors").select("player_id").eq("user_id",activeUserId);
+        if(assignmentError)throw assignmentError;
+        window.CHEERFC_AUTH.assignedPlayerIds=(assignments||[]).map(x=>x.player_id);
+        await loadCloudData(session.user, data.role);
+        console.info("CHEER FC: sessão autenticada e dados sincronizados", {role:data.role, players:players.length});
+        showMessage("Conectado e sincronizado com o Supabase.", "success");
+      } catch (syncErr) {
+        console.error("Falha na sincronização do Supabase:", syncErr);
+        showMessage("Login realizado, mas os dados da nuvem não foram carregados: " + (syncErr.message || "erro desconhecido") + ". Não faça alterações até corrigirmos a sincronização.", "error");
+      }
     } catch (err) {
       console.error("Falha ao verificar permissões:", err);
       activeUserId = null;
@@ -1277,6 +1295,113 @@ refreshCompareOptions();updateList();compare();ranking();renderPitch();renderRos
   supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
     auth: {persistSession:true, autoRefreshToken:true, detectSessionInUrl:true}
   });
+
+  let activeRole = null;
+  let currentLineupRowId = null;
+  const keyOf = p => `${String(p.club||"CHEER FC").trim().toLocaleLowerCase("pt-BR")}::${String(p.name||"").trim().toLocaleLowerCase("pt-BR")}`;
+  function toDbPlayer(p){
+    const base=p.attrsBase||p.attrs||{}, final=p.attrsFinal||p.attrsBase||p.attrs||{};
+    return {name:p.name,alias:p.alias||p.name,position:p.pos||"",section:p.section||"",club:p.club||"CHEER FC",is_external:!!p.external,overall_base:Number(p.overallBase??p.ovr??0),overall_final:Number(p.overallFinal??p.ovr??0),attributes_base:base,attributes_final:final,qualitative_attributes:p.qualitative||{},shirt_number:p.shirtNumber??null};
+  }
+  function fromDbPlayer(r){
+    const base=r.attributes_base||{},final=r.attributes_final||base;
+    return {dbId:r.id,name:r.name,alias:r.alias||r.name,pos:r.position||"",section:r.section||"",club:r.club||"CHEER FC",external:!!r.is_external,ovr:Number(r.overall_final??r.overall_base??0),overallBase:Number(r.overall_base??0),overallFinal:Number(r.overall_final??r.overall_base??0),attrsBase:base,attrsFinal:final,attrs:{...(document.getElementById("attributeMode")?.value==="final"?final:base)},qualitative:r.qualitative_attributes||{},shirtNumber:r.shirt_number??null};
+  }
+  function refreshAfterCloudLoad(){
+    if(typeof initializeAttributeVersions==="function")initializeAttributeVersions();
+    if(typeof populateClubFilters==="function")populateClubFilters();
+    const preferred=clubNames().includes("CHEER FC")?"CHEER FC":(clubNames()[0]||"CHEER FC");
+    ["playerTeamFilter","rankTeam","shirtTeamFilter","tacticsTeamFilter"].forEach(id=>{const el=document.getElementById(id);if(el){const val=id==="playerTeamFilter"||id==="tacticsTeamFilter"?preferred:el.value;if([...el.options].some(o=>o.value===val))el.value=val;}});
+    fillSelect(document.getElementById("playerSelect"));fillSelect(document.getElementById("compareA"),players[0]?.name);fillSelect(document.getElementById("compareB"),players[1]?.name||players[0]?.name);
+    document.getElementById("rankAttribute").innerHTML=[...new Set(players.flatMap(p=>Object.keys(p.attrs||{})))].sort().map(a=>`<option>${escapeHtml(a)}</option>`).join("");
+    refreshCompareOptions();updateList();compare();ranking();renderPitch();renderRoster();refreshSavedLineups();
+  }
+  async function loadCloudData(user, role){
+    const {data:rows,error}=await supabaseClient.from("players").select("*").order("club").order("name");
+    if(error)throw error;
+    if(!rows.length){
+      if(!["admin","assistant"].includes(role))throw new Error("O banco de jogadores está vazio. Peça ao administrador para fazer a carga inicial.");
+      const seed=players.map(toDbPlayer);
+      const {error:seedError}=await supabaseClient.from("players").upsert(seed,{onConflict:"club,name"});
+      if(seedError)throw seedError;
+      const {data:seeded,error:readError}=await supabaseClient.from("players").select("*").order("club").order("name");
+      if(readError)throw readError;
+      players.splice(0,players.length,...seeded.map(fromDbPlayer));
+    }else{
+      players.splice(0,players.length,...rows.map(fromDbPlayer));
+    }
+    const {data:lineRows,error:lineErr}=await supabaseClient.from("lineups").select("*");
+    if(lineErr)throw lineErr;
+    cloudSavedLineups={};
+    for(const row of (lineRows||[])){
+      if(row.name==="__CURRENT__"){
+        if(row.created_by===user.id){currentLineupRowId=row.id;lineup=row.slots?.lineup||{};if(row.formation)document.getElementById("formationSelect").value=row.formation;if(row.slots?.club)document.getElementById("tacticsTeamFilter").value=row.slots.club;}
+        continue;
+      }
+      cloudSavedLineups[row.name]={lineup:row.slots?.lineup||{},formation:row.formation||"433",club:row.slots?.club||"CHEER FC",savedAt:row.updated_at,_dbId:row.id,_owner:row.created_by,_official:!!row.is_official};
+    }
+    refreshAfterCloudLoad();
+  }
+  window.cheerCloudSavePlayers=async()=>{
+    if(!activeUserId||!["admin","assistant"].includes(activeRole))throw new Error("Somente administração e auxiliares podem importar ou atualizar o elenco.");
+    const payload=players.map(toDbPlayer);
+    const {error}=await supabaseClient.from("players").upsert(payload,{onConflict:"club,name"});
+    if(error)throw error;
+    // Nunca reconciliar apagando linhas ausentes da memória do navegador.
+    // A remoção de um atleta é uma operação explícita e individual.
+    const {data:rows,error:readErr}=await supabaseClient.from("players").select("id,name,club");
+    if(readErr)throw readErr;
+    const ids=new Map(rows.map(r=>[`${String(r.club||"CHEER FC").trim().toLocaleLowerCase("pt-BR")}::${String(r.name||"").trim().toLocaleLowerCase("pt-BR")}`,r.id]));
+    players.forEach(p=>{const id=ids.get(keyOf(p));if(id)p.dbId=id;});
+    return true;
+  };
+  window.cheerCloudSaveOwnPlayer=async(player,updates)=>{
+    if(!activeUserId||!player?.dbId)throw new Error("Jogador ou sessão não identificado.");
+    const staff=["admin","assistant"].includes(activeRole);
+    const assigned=(window.CHEERFC_AUTH?.assignedPlayerIds||[]).includes(player.dbId);
+    if(!staff&&!assigned)throw new Error("Sua conta não está vinculada à ficha deste jogador.");
+    const payload={
+      attributes_base:updates.attributes_base,
+      attributes_final:updates.attributes_final,
+      overall_base:updates.overall_base,
+      overall_final:updates.overall_final
+    };
+    const {data,error}=await supabaseClient.from("players").update(payload).eq("id",player.dbId).select("*").single();
+    if(error)throw error;
+    return fromDbPlayer(data);
+  };
+  window.cheerCloudDeletePlayer=async(player)=>{
+    if(!activeUserId||!["admin","assistant"].includes(activeRole))throw new Error("Somente administração e auxiliares podem excluir jogadores.");
+    if(!player?.dbId)throw new Error("Não foi possível identificar o registro do jogador no banco.");
+    const {error}=await supabaseClient.from("players").delete().eq("id",player.dbId);
+    if(error)throw error;
+    return true;
+  };
+  window.cheerCloudSaveCurrentLineup=async()=>{
+    if(!activeUserId)throw new Error("Sessão não autenticada.");
+    const payload={name:"__CURRENT__",formation:document.getElementById("formationSelect").value,slots:{lineup:{...lineup},club:document.getElementById("tacticsTeamFilter").value},created_by:activeUserId,is_official:false,updated_at:new Date().toISOString()};
+    if(currentLineupRowId)payload.id=currentLineupRowId;
+    const {data,error}=await supabaseClient.from("lineups").upsert(payload).select("id").single();
+    if(error)throw error;currentLineupRowId=data.id;return true;
+  };
+  window.cheerCloudSaveNamedLineup=async(name,isOfficial=false)=>{
+    if(!activeUserId)throw new Error("Sessão não autenticada.");
+    const staff=["admin","assistant"].includes(activeRole);
+    if(isOfficial&&!staff)throw new Error("Somente administração e auxiliares podem publicar escalações oficiais.");
+    const old=cloudSavedLineups?.[name];
+    if(old?._official&&!staff)throw new Error("Jogadores não podem sobrescrever escalações oficiais.");
+    const payload={name,formation:document.getElementById("formationSelect").value,slots:{lineup:{...lineup},club:document.getElementById("tacticsTeamFilter").value},created_by:old?._owner||activeUserId,is_official:!!isOfficial,updated_at:new Date().toISOString()};
+    if(old?._dbId)payload.id=old._dbId;
+    const {data,error}=await supabaseClient.from("lineups").upsert(payload).select("id,updated_at").single();
+    if(error)throw error;
+    cloudSavedLineups[name]={lineup:{...lineup},formation:payload.formation,club:payload.slots.club,savedAt:data.updated_at,_dbId:data.id,_owner:payload.created_by,_official:!!isOfficial};
+  };
+  window.cheerCloudDeleteNamedLineup=async(name)=>{
+    const item=cloudSavedLineups?.[name];if(!item)return;
+    const staff=["admin","assistant"].includes(activeRole);
+    if(!staff&&(item._owner!==activeUserId||item._official))throw new Error("Você só pode excluir suas próprias escalações experimentais.");
+    const {error}=await supabaseClient.from("lineups").delete().eq("id",item._dbId);if(error)throw error;delete cloudSavedLineups[name];
+  };
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -1300,7 +1425,7 @@ refreshCompareOptions();updateList();compare();ranking();renderPitch();renderRos
 
   supabaseClient.auth.onAuthStateChange((event, session) => {
     if (event === "SIGNED_OUT") {
-      activeUserId = null;
+      activeUserId = null;activeRole=null;window.CHEERFC_AUTH=null;
       showGate("Você saiu da sua conta. Entre novamente para acessar o Player Hub.");
     } else if (event === "SIGNED_IN" && session) {
       setTimeout(() => resolveSession(session), 0);
