@@ -58,35 +58,59 @@ main{max-width:1450px;margin:auto;padding:30px clamp(14px,3vw,42px) 60px}.eyebro
 .ranking-table{width:100%;border-collapse:collapse;font-size:12px}.ranking-table th{color:#b9adb5;font-size:10px;letter-spacing:1px;text-align:left;padding:11px 8px;border-bottom:1px solid #4a3d46}.ranking-table td{padding:12px 8px;border-bottom:1px solid #ffffff10}.ranking-table tr:last-child td{border-bottom:0}.rank-num{color:var(--champ);font-weight:900;width:34px}.rank-player{font-weight:800}.rank-pos{color:#a99ea5;font-size:10px}.rank-value{font-weight:900;color:var(--champ);font-size:14px;text-align:right}.rank-bar{height:5px;background:#ffffff12;border-radius:8px;overflow:hidden;margin-top:5px}.rank-bar i{display:block;height:100%;background:linear-gradient(90deg,#7b1e3d,#e8dccb)}
 .rank-top{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:15px}.rank-top-card{background:#ffffff06;border:1px solid #453740;border-radius:10px;padding:12px}.rank-top-card small{display:block;color:#b7aab2;font-size:10px}.rank-top-card b{display:block;font-size:13px;margin:5px 0}.rank-top-card strong{color:var(--champ);font-size:20px}
 
-.tactics-layout{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(240px,.8fr);gap:14px;align-items:start}
+.tactics-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;align-items:start}
 .pitch-card,.roster-card{background:linear-gradient(145deg,#29232a,#1d1a20);border:1px solid #55424b;border-radius:14px;padding:12px;min-width:0}
-.pitch{position:relative;width:100%;aspect-ratio: .78;max-height:760px;min-height:430px;border-radius:10px;overflow:hidden;background:repeating-linear-gradient(0deg,#176b45 0,#176b45 10%,#1b754b 10%,#1b754b 20%);border:2px solid #c8d8c6}
+.pitch{position:relative;width:100%;aspect-ratio:1.65;max-height:900px;min-height:700px;border-radius:10px;overflow:hidden;background:repeating-linear-gradient(0deg,#176b45 0,#176b45 10%,#1b754b 10%,#1b754b 20%);border:2px solid #c8d8c6}
 .pitch:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#ffffff08 50%,transparent 50%);pointer-events:none}
 .pitch-lines{position:absolute;inset:3%;border:1.5px solid #ffffffa8;border-radius:2px;pointer-events:none}
-.pitch-mid{position:absolute;left:0;right:0;top:50%;border-top:1.5px solid #ffffffa8}
-.pitch-circle{position:absolute;width:27%;aspect-ratio:1;left:36.5%;top:calc(50% - 13.5%);border:1.5px solid #ffffffa8;border-radius:50%}
-.pitch-box{position:absolute;left:25%;width:50%;height:16%;border:1.5px solid #ffffffa8}
-.top-box{top:0;border-top:0}.bottom-box{bottom:0;border-bottom:0}
-.pitch-goal{position:absolute;left:39%;width:22%;height:3%;border:1.5px solid #ffffffa8}
-.top-goal{top:0;border-top:0}.bottom-goal{bottom:0;border-bottom:0}
-.pitch-slot{position:absolute;transform:translate(-50%,-50%);width:66px;min-height:60px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:1px dashed #ffffffa8;border-radius:10px;background:#102c22a8;color:#fff;cursor:pointer;padding:4px;z-index:2;text-align:center}
+.pitch-mid{position:absolute;top:0;bottom:0;left:50%;border-left:1.5px solid #ffffffa8}
+.pitch-circle{position:absolute;height:43%;aspect-ratio:1;width:auto;left:50%;top:50%;transform:translate(-50%,-50%);border:1.5px solid #ffffffa8;border-radius:50%}
+.pitch-box{position:absolute;top:25%;height:50%;width:16%;border:1.5px solid #ffffffa8}
+.top-box{left:0;border-left:0}.bottom-box{right:0;border-right:0}
+.pitch-goal{position:absolute;top:39%;height:22%;width:3%;border:1.5px solid #ffffffa8}
+.top-goal{left:0;border-left:0}.bottom-goal{right:0;border-right:0}
+.pitch-slot{position:absolute;transform:translate(-50%,-50%);width:66px;min-height:60px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:1px dashed #ffffffa8;border-radius:10px;background:#102c22d9;color:#fff;cursor:pointer;padding:4px;z-index:2;text-align:center}
 .pitch-slot.over{background:#e8dccb;color:#5a1028;border:2px solid #fff}
 .pitch-slot .slot-role{font-size:9px;font-weight:900;letter-spacing:.5px;color:#e8dccb}
 .pitch-slot .slot-name{font-size:9px;font-weight:800;line-height:1.1;max-width:62px;overflow-wrap:anywhere}
 .pitch-slot .slot-ovr{font-size:11px;font-weight:900;color:#fff}
-.pitch-slot.filled{background:#5a1028eF;border:1px solid #e8dccb;width:clamp(108px,9vw,128px);min-height:68px;flex-direction:row;justify-content:flex-start;gap:4px;padding:5px;transform:translate(-50%,-50%)}
-.pitch-player-core{width:39px;min-width:39px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding-top:5px}
-.pitch-player-core .slot-name{max-width:39px;font-size:7.5px;line-height:1.05;overflow-wrap:anywhere}
+.pitch-slot.filled{background:linear-gradient(145deg,#681b35f5,#481126f5);border:1px solid #e8dccb;width:clamp(176px,15.5vw,194px);min-height:100px;box-shadow:0 8px 20px #09060966,inset 0 1px #ffffff20;flex-direction:row;justify-content:flex-start;gap:4px;padding:5px;transform:translate(-50%,-50%)}
+.pitch-player-core{width:62px;min-width:62px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding-top:5px}
+.pitch-player-core .slot-name{max-width:62px;font-size:9.5px;line-height:1.05;overflow-wrap:anywhere}
 .pitch-slot .pitch-strengths{display:flex;flex-direction:column;align-items:flex-start;gap:1px;min-width:0;flex:1;text-align:left;border-left:1px solid #e8dccb66;padding-left:4px}
-.pitch-slot .pitch-strength{font-size:6.5px;line-height:1.18;color:#f4eee8;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
-.pitch-slot .pitch-strength b{color:#68d4a8;margin-left:2px;font-size:6.5px}
-.pitch-slot.filled .slot-role{position:absolute;left:5px;top:3px;font-size:6px}
+.pitch-slot .pitch-strength{font-size:9px;line-height:1.25;color:#f4eee8;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.pitch-slot .pitch-strength b{color:#68d4a8;margin-left:3px;font-size:9px}
+.pitch-slot.filled .slot-role{position:absolute;left:6px;top:4px;font-size:9px;font-weight:950;letter-spacing:.7px;padding:2px 5px;border-radius:4px;background:#171318;color:#fff}
+.pitch-slot .slot-role.role-gol{background:#e58a22;color:#21160b}
+.pitch-slot .slot-role.role-def{background:#2878d0;color:#fff}
+.pitch-slot .slot-role.role-mid{background:#269b63;color:#fff}
+.pitch-slot .slot-role.role-att{background:#c83b45;color:#fff}
+
 .pitch-slot.filled .remove-player{right:-6px;top:-6px}
 .pitch-slot .remove-player{position:absolute;right:-6px;top:-6px;width:15px;height:15px;border:1px solid #e8dccb;border-radius:50%;background:#211d22;color:#fff;font-size:11px;line-height:12px;font-weight:900;padding:0;cursor:pointer;z-index:5}
 .roster-player{align-items:center}.roster-main{display:flex;align-items:center;gap:8px;min-width:100px;flex:0 0 auto}.roster-strengths{margin-left:auto;min-width:0;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:3px}.roster-strength{font-size:8px;line-height:1.2;padding:3px 5px;border-radius:5px;background:#e8dccb12;color:#e8dccb;white-space:nowrap}.roster-strength b{color:#68d4a8;margin-left:3px}
-.tactics-filters{display:grid;grid-template-columns:minmax(130px,170px) minmax(130px,170px) minmax(130px,170px) minmax(180px,1fr) auto;gap:9px;align-items:center}.tactics-filters select,.tactics-filters input{min-width:0;width:100%}.tactics-actions{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}.tactics-actions select,.tactics-actions button{background:#211d22;color:#f5eee8;border:1px solid #51444d;border-radius:8px;padding:10px 12px;font-size:11px;cursor:pointer}.tactics-actions button.primary{background:#5a1028;border-color:#e8dccb;color:#e8dccb;font-weight:800}.tactics-actions button:hover{border-color:#e8dccb}@media(max-width:950px){.tactics-filters{grid-template-columns:repeat(2,minmax(0,1fr))}.tactics-actions{align-items:stretch}}@media(max-width:700px){.tactics-filters{grid-template-columns:1fr 1fr}.tactics-filters input{grid-column:1/-1}.roster-strengths{gap:2px}.roster-strength{font-size:7px;padding:2px 3px}.pitch-slot.filled{width:clamp(104px,14vw,120px);min-height:64px}.pitch-player-core{width:35px;min-width:35px}.pitch-player-core .slot-name{max-width:35px;font-size:7px}.pitch-slot .pitch-strength{font-size:6px}.pitch-slot .pitch-strength b{font-size:6px}}
+.tactics-filters{display:grid;grid-template-columns:minmax(130px,170px) minmax(130px,170px) minmax(130px,170px) minmax(180px,1fr) auto;gap:9px;align-items:center}.tactics-filters select,.tactics-filters input{min-width:0;width:100%}.tactics-actions{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}.tactics-actions select,.tactics-actions button{background:#211d22;color:#f5eee8;border:1px solid #51444d;border-radius:8px;padding:10px 12px;font-size:11px;cursor:pointer}.tactics-actions button.primary{background:#5a1028;border-color:#e8dccb;color:#e8dccb;font-weight:800}.tactics-actions button:hover{border-color:#e8dccb}
+.pitch-slot.filled{background:linear-gradient(145deg,#29252b,#211d23);border:1px solid #62515d;width:clamp(190px,16vw,214px);min-height:112px;border-left:4px solid #2878d0;border-radius:11px;box-shadow:0 5px 14px #08060855;gap:7px;padding:8px}
+.pitch-player-core{width:76px;min-width:76px;align-items:flex-start;justify-content:center;padding:8px 0 0 7px;gap:5px;text-align:left}
+.pitch-player-core .slot-name{max-width:68px;font-size:11px;line-height:1.15;text-align:left;overflow-wrap:anywhere}
+.pitch-slot .slot-ovr{font-size:16px;color:#e8dccb}
+.pitch-slot .pitch-strengths{border:0;padding:0 2px 0 0;gap:4px;align-items:flex-end;justify-content:center}
+.pitch-slot .pitch-strength{font-size:10px;line-height:1.3;background:#3a343d;border-radius:5px;padding:3px 6px}
+.pitch-slot .pitch-strength b{font-size:10px}
+.pitch-slot.filled .slot-role{position:static;display:inline-block;align-self:flex-start;font-size:8px;margin-bottom:1px}
+.pitch-slot.filled .pitch-player-core{padding-top:0}
+.pitch-player-picker{position:absolute;z-index:20;left:50%;top:50%;transform:translate(-50%,-50%);width:min(390px,82%);max-height:76%;overflow:auto;background:#211d23;border:1px solid #8b6b7d;border-radius:13px;box-shadow:0 16px 44px #000a;padding:12px;color:#f8f1e9}
+.pitch-player-picker[hidden]{display:none}
+.pitch-picker-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px;font-weight:900}
+.pitch-picker-search{width:100%;margin-bottom:9px;background:#171419;color:#fff;border:1px solid #65515d;border-radius:8px;padding:9px}
+.pitch-picker-list{display:grid;grid-template-columns:1fr;gap:6px}
+.pitch-picker-player{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;text-align:left;background:#302a32;border:1px solid #554650;border-radius:8px;padding:8px;color:#fff;cursor:pointer}
+.pitch-picker-player:hover{border-color:#e8dccb;background:#3b303a}
+.pitch-picker-meta{font-size:10px;color:#cbbec8}
+.pitch-picker-empty{font-size:12px;color:#cbbec8;padding:10px}
+@media(max-width:950px){.tactics-filters{grid-template-columns:repeat(2,minmax(0,1fr))}.tactics-actions{align-items:stretch}}@media(max-width:700px){.tactics-filters{grid-template-columns:1fr 1fr}.tactics-filters input{grid-column:1/-1}.roster-strengths{gap:2px}.roster-strength{font-size:7px;padding:2px 3px}.pitch{aspect-ratio:1.45;min-height:330px}.pitch-slot.filled{width:clamp(150px,28vw,185px);min-height:88px}.pitch-player-core{width:62px;min-width:62px;padding-left:4px}.pitch-player-core .slot-name{max-width:58px;font-size:9px}.pitch-slot .pitch-strength{font-size:8.5px}.pitch-slot .pitch-strength b{font-size:8.5px}}
 .pitch-slot.selected{outline:3px solid #e8dccb;outline-offset:2px}
-.roster-list{display:flex;flex-direction:column;gap:7px;max-height:690px;overflow:auto}
+.roster-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px;max-height:520px;overflow:auto}
 .roster-player{display:flex;align-items:center;gap:8px;padding:9px;border:1px solid #51434b;background:#ffffff06;border-radius:8px;cursor:grab}
 .roster-player:active{cursor:grabbing}.roster-player.selected{border-color:#e8dccb;background:#5a102833}
 .roster-player .rp-ovr{font-weight:900;color:#e8dccb;font-size:17px;min-width:27px}
@@ -96,8 +120,8 @@ main{max-width:1450px;margin:auto;padding:30px clamp(14px,3vw,42px) 60px}.eyebro
 .tactics-attr-section{margin-top:18px}.tactics-attr-section .section-title{margin-bottom:10px;letter-spacing:2px;font-weight:900}
 .tactics-attr-section .detail-stat{min-width:0}
 @media(max-width:700px){.tactics-player-detail .detail-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}.detail-stat{padding:9px;border:1px solid #453740;border-radius:8px}.detail-stat small{display:block;color:#aaa0a7;font-size:10px}.detail-stat b{color:var(--champ);font-size:15px}
-@media(max-width:850px){.tactics-layout{grid-template-columns:1fr}.roster-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));max-height:350px}.pitch{min-height:390px}}
-@media(max-width:560px){.pitch{min-height:370px}.pitch-slot{width:54px;min-height:52px}.pitch-slot .slot-name{font-size:8px}.pitch-legend{flex-direction:column}.tactics-player-detail .detail-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:850px){.tactics-layout{grid-template-columns:1fr}.roster-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));max-height:420px}.pitch{min-height:360px}}
+@media(max-width:560px){.pitch{aspect-ratio:1.15;min-height:300px}.pitch-slot.filled{width:clamp(116px,30vw,145px);min-height:72px;padding:4px}.pitch-player-core{width:48px;min-width:48px;padding-left:2px}.pitch-player-core .slot-name{max-width:44px;font-size:8px}.pitch-slot .pitch-strength{font-size:7px}.pitch-slot .pitch-strength b{font-size:7px}.pitch-legend{flex-direction:column}.tactics-player-detail .detail-grid{grid-template-columns:repeat(2,1fr)}}
 
 .import-mode-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:14px}
 .import-mode{background:#ffffff08;border:1px solid #51444d;border-radius:11px;color:#f4eee8;padding:15px;text-align:left;cursor:pointer}
@@ -120,7 +144,7 @@ main{max-width:1450px;margin:auto;padding:30px clamp(14px,3vw,42px) 60px}.eyebro
 .compare-controls input{background:#211d22;color:#f5eee8;border:1px solid #51444d;border-radius:8px;padding:12px;font-size:12px;min-width:0;flex:1}
 
 .crest-img{width:58px;height:66px;object-fit:contain;filter:drop-shadow(0 2px 5px #0008)}
-#playerTeamFilter,.team-compare-controls select{background:#211d22;color:#f5eee8;border:1px solid #51444d;border-radius:8px;padding:12px;font-size:12px;min-width:150px}
+#playerTeamFilter,.compare-player-select{background:#211d22;color:#f5eee8;border:1px solid #51444d;border-radius:8px;padding:10px;font-size:12px;min-width:150px;width:100%}.team-compare-controls select{background:#211d22;color:#f5eee8;border:1px solid #51444d;border-radius:8px;padding:12px;font-size:12px;min-width:150px}
 .team-compare-controls{display:grid;grid-template-columns:minmax(130px,.7fr) minmax(170px,1fr) minmax(130px,.7fr) minmax(170px,1fr);gap:8px;align-items:center}
 .scouting-upload-row input{background:#211d22;color:#f5eee8;border:1px solid #51444d;border-radius:8px;padding:12px;font-size:12px;min-width:220px;flex:1}
 .scouting-scale{display:flex;flex-direction:column;gap:5px;padding:12px;border:1px solid #51444d;border-radius:9px;margin:12px 0;color:var(--champ);font-size:11px}
@@ -169,6 +193,107 @@ body.auth-locked #authGate{display:flex;visibility:visible!important;pointer-eve
 #sessionBadge{position:fixed;right:16px;bottom:14px;z-index:1000;display:none;align-items:center;gap:10px;padding:8px 10px 8px 13px;background:#211d22ee;border:1px solid #5a4a53;border-radius:999px;box-shadow:0 5px 20px #0005;font-size:11px;color:#e8dccb;backdrop-filter:blur(8px)}#sessionBadge button{border:1px solid #80606e;background:#5a1028;color:#fff;border-radius:999px;padding:6px 10px;font-size:10px;font-weight:800;cursor:pointer}
 @media(max-width:520px){.auth-panel{padding:23px}.auth-brand img{width:46px;height:54px}#sessionBadge{right:8px;bottom:8px}}
 
+
+.position-badge{display:inline-flex;align-items:center;justify-content:center;padding:2px 6px;border-radius:5px;font-weight:950;letter-spacing:.45px;color:#fff!important;background:#5c5960}
+.pos-gol{background:#e58a22!important;color:#21160b!important}
+.pos-def{background:#2878d0!important;color:#fff!important}
+.pos-mid{background:#269b63!important;color:#fff!important}
+.pos-att{background:#c83b45!important;color:#fff!important}
+.position-filter-active{border-color:#e8dccb!important;box-shadow:0 0 0 1px #e8dccb55}
+.position-filter-active.pos-gol{background:#e58a22!important;color:#21160b!important}
+.position-filter-active.pos-def{background:#2878d0!important;color:#fff!important}
+.position-filter-active.pos-mid{background:#269b63!important;color:#fff!important}
+.position-filter-active.pos-att{background:#c83b45!important;color:#fff!important}
+.roster-player{border-left:3px solid #55424b}
+.roster-player:has(.pos-gol){border-left-color:#e58a22}
+.roster-player:has(.pos-def){border-left-color:#2878d0}
+.roster-player:has(.pos-mid){border-left-color:#269b63}
+.roster-player:has(.pos-att){border-left-color:#c83b45}
+.pitch-slot.filled{border-radius:13px}
+.pitch-slot.filled .pitch-strengths{padding-left:7px}
+@media(max-width:900px){.pitch{aspect-ratio:1.35;min-height:620px}.pitch-slot.filled{width:clamp(150px,27vw,185px);min-height:90px}.pitch-player-core{width:50px;min-width:50px}.pitch-player-core .slot-name{max-width:50px}}
+
+/* v4.39 — cartões do campo: nome compacto à esquerda e atributos sempre legíveis */
+.pitch-slot.filled{
+  width:clamp(224px,18vw,246px)!important;
+  min-height:112px;
+  padding:8px 9px 8px 7px!important;
+  gap:5px!important;
+  justify-content:flex-start!important;
+}
+.pitch-slot.filled .pitch-player-core{
+  width:59px!important;
+  min-width:59px!important;
+  max-width:59px!important;
+  flex:0 0 59px!important;
+  padding:10px 0 0 3px!important;
+  align-items:flex-start!important;
+  text-align:left!important;
+  gap:4px!important;
+}
+.pitch-slot.filled .slot-ovr{
+  font-size:15px!important;
+  line-height:1.05;
+  text-align:left!important;
+}
+.pitch-slot.filled .pitch-player-core .slot-name{
+  width:56px!important;
+  max-width:56px!important;
+  font-size:9px!important;
+  line-height:1.08!important;
+  text-align:left!important;
+  overflow-wrap:anywhere;
+  word-break:normal;
+}
+.pitch-slot.filled .pitch-strengths{
+  flex:1 1 auto!important;
+  min-width:0!important;
+  width:auto!important;
+  padding:0 0 0 6px!important;
+  gap:3px!important;
+  align-items:stretch!important;
+  justify-content:center!important;
+  overflow:visible!important;
+}
+.pitch-slot.filled .pitch-strength{
+  display:flex!important;
+  align-items:baseline!important;
+  justify-content:space-between!important;
+  gap:4px!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  padding:2px 4px!important;
+  font-size:9px!important;
+  line-height:1.2!important;
+  white-space:nowrap!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+}
+.pitch-slot.filled .pitch-strength b{
+  flex:0 0 auto!important;
+  margin-left:2px!important;
+  font-size:9px!important;
+  white-space:nowrap!important;
+}
+@media(max-width:700px){
+ .pitch-slot.filled{width:clamp(190px,34vw,218px)!important;min-height:96px;padding:6px!important;gap:4px!important}
+ .pitch-slot.filled .pitch-player-core{width:51px!important;min-width:51px!important;max-width:51px!important;flex-basis:51px!important;padding-left:2px!important}
+ .pitch-slot.filled .pitch-player-core .slot-name{width:49px!important;max-width:49px!important;font-size:8px!important}
+ .pitch-slot.filled .pitch-strength{font-size:8px!important;padding:2px 3px!important}
+ .pitch-slot.filled .pitch-strength b{font-size:8px!important}
+}
+
+/* Identidade visual por camisa */
+.player-identity{display:flex;align-items:center;gap:13px;margin-top:13px;position:relative;z-index:1}
+.player-shirt-number{font-size:48px;line-height:.95;font-weight:1000;letter-spacing:-2px;color:var(--champ);min-width:54px;font-variant-numeric:tabular-nums}
+.player-identity-text{min-width:0}.player-identity-text .player-name{font-size:20px;margin:0;overflow-wrap:anywhere}
+.player-overall-small{display:inline-flex;margin-top:5px;padding:3px 7px;border-radius:6px;background:#ffffff18;color:#e8dccb;font-size:10px;font-weight:800;letter-spacing:.4px}
+.roster-identity{display:flex;align-items:center;gap:8px;min-width:0}.roster-shirt{font-size:25px;line-height:1;font-weight:1000;color:var(--champ);min-width:30px;font-variant-numeric:tabular-nums}.roster-identity .rp-name{font-weight:850}.roster-identity .rp-overall{font-size:10px;color:#bdb3bb;margin-top:3px}
+.pitch-player-core{position:relative}.pitch-player-core .slot-shirt{font-size:27px;line-height:.95;font-weight:1000;letter-spacing:-1px;color:var(--champ);font-variant-numeric:tabular-nums}.pitch-player-core .slot-name{font-size:10px!important;max-width:76px!important;font-weight:850!important}.pitch-player-core .slot-ovr{font-size:9px!important;color:#bfb5bd!important;font-weight:700!important}
+.shirt-admin-toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0}.shirt-admin-toolbar select,.shirt-admin-toolbar input{background:#211d22;color:#f5eee8;border:1px solid #51444d;border-radius:8px;padding:11px 13px;font-size:13px;min-width:180px}
+.shirt-table-wrap{overflow:auto;border:1px solid #51404a;border-radius:12px}.shirt-table{width:100%;border-collapse:collapse;min-width:520px}.shirt-table th,.shirt-table td{padding:11px 13px;border-bottom:1px solid #ffffff12;text-align:left}.shirt-table th{font-size:10px;letter-spacing:1.5px;color:var(--champ);background:#ffffff09}.shirt-table td{font-size:13px}.shirt-table input{width:78px;background:#171419;color:#fff;border:1px solid #65515d;border-radius:7px;padding:8px;text-align:center;font-weight:850;font-size:14px}.shirt-table input:focus{outline:2px solid #e8dccb66;border-color:var(--champ)}.shirt-save-note{font-size:11px;color:#68d4a8;min-height:18px}
+
 </style></head><body class="auth-locked">
 <div id="authGate" role="dialog" aria-modal="true" aria-labelledby="authTitle">
  <div class="auth-panel">
@@ -182,21 +307,21 @@ body.auth-locked #authGate{display:flex;visibility:visible!important;pointer-eve
 </div>
 <header><div class="brand"><img class="crest-img" src="data:image/webp;base64,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" alt="Escudo CHEER FC"><div><b>CHEER FC</b><small>PLAYER DATABASE</small></div></div><div class="header-tag">SCOUTING DE ELENCO · 2026</div></header>
 <main><div class="hero"><div><div class="eyebrow">FOOTBALL IDENTITY / CHEER FC</div><h1>Central de jogadores</h1><p>Explore os atributos do elenco, encontre especialistas e compare jogadores lado a lado.</p></div></div>
-<div class="toolbar mode-toolbar" id="globalModeToolbar"><label for="attributeMode">Visualizar atributos:</label><select id="attributeMode"><option value="base">Ficha base</option><option value="final">Ficha final</option></select><span class="sub" id="modeHint">Exibindo valores originais, sem planejador de itens.</span></div><div class="tabs"><button class="tab active" id="tabPlayer">Jogador</button><button class="tab" id="tabCompare">Comparar</button><button class="tab" id="tabRanking">Rankings</button><button class="tab" id="tabTactics">Escalação</button><button class="tab" id="tabImport">Atualizar fichas</button></div>
+<div class="toolbar mode-toolbar" id="globalModeToolbar"><label for="attributeMode">Visualizar atributos:</label><select id="attributeMode"><option value="base">Ficha base</option><option value="final">Ficha final</option></select><span class="sub" id="modeHint">Exibindo valores originais, sem planejador de itens.</span></div><div class="tabs"><button class="tab active" id="tabPlayer">Jogador</button><button class="tab" id="tabCompare">Comparar</button><button class="tab" id="tabRanking">Rankings</button><button class="tab" id="tabTactics">Escalação</button><button class="tab" id="tabImport">Atualizar fichas</button><button class="tab" id="tabShirts">Números das camisas</button></div>
 <section id="playerView"><div class="toolbar"><select id="playerTeamFilter"><option value="CHEER FC">CHEER FC</option></select><select id="playerSelect"></select><select id="positionFilter"><option value="">Todas as posições</option></select><input id="search" placeholder="Buscar jogador..."><span class="count" id="count"></span></div>
 <div class="layout"><div class="card" id="playerCard"></div><div class="card detail"><div class="detail-head"><div><h2>Relatório de atributos</h2><div class="sub" id="attributeReportSubtitle">Valores originais da ficha do Football Identity</div></div><div class="chips" id="metaChips"></div></div><div class="radar-panel"><div class="section-title">PERFIL DE ATRIBUTOS</div><div id="radarChart"></div></div><div class="categories" id="categories"></div></div></div></section>
 <section class="compare-wrap" id="compareView"><div class="toolbar view-mode-toolbar"><label>Visualizar:</label><select id="attributeModeCompare"><option value="base">Ficha base</option><option value="final">Ficha final</option></select><span class="sub">A comparação usa a versão selecionada para os dois jogadores.</span></div><div class="compare-controls team-compare-controls">
  <div class="compare-picker"><div class="compare-picker-title">JOGADOR 1</div><div class="compare-picker-fields">
   <label><span>Clube</span><select id="compareTeamA"><option value="CHEER FC">CHEER FC</option></select></label>
   <label><span>Posição</span><select id="comparePositionA"><option value="">Todas as posições</option></select></label>
-  <label><span>Jogador</span><input id="compareAInput" list="comparePlayerOptionsA" placeholder="Digite ou escolha"></label>
+  <label><span>Jogador</span><select id="compareAInput" class="compare-player-select"><option value="">Selecione um jogador</option></select></label>
  </div></div>
  <div class="compare-picker"><div class="compare-picker-title">JOGADOR 2</div><div class="compare-picker-fields">
   <label><span>Clube</span><select id="compareTeamB"><option value="CHEER FC">CHEER FC</option></select></label>
   <label><span>Posição</span><select id="comparePositionB"><option value="">Todas as posições</option></select></label>
-  <label><span>Jogador</span><input id="compareBInput" list="comparePlayerOptionsB" placeholder="Digite ou escolha"></label>
+  <label><span>Jogador</span><select id="compareBInput" class="compare-player-select"><option value="">Selecione um jogador</option></select></label>
  </div></div>
- <datalist id="comparePlayerOptionsA"></datalist><datalist id="comparePlayerOptionsB"></datalist><select id="compareA" class="hidden"></select><select id="compareB" class="hidden"></select>
+ <select id="compareA" class="hidden"></select><select id="compareB" class="hidden"></select>
 </div><div class="sub external-fiche-note">Jogadores de outros clubes possuem somente a ficha final; a comparação com eles usa sempre os valores finais.</div><div class="compare-grid" id="compareGrid"></div></section>
 <section id="importView" class="hidden">
  <div class="detail-head"><div><h2>Central de atualização de fichas</h2><div class="sub">Atualize o CHEER FC ou importe elencos externos para o banco de scouting</div></div><span class="chip">Prévia antes de salvar</span></div>
@@ -231,17 +356,23 @@ body.auth-locked #authGate{display:flex;visibility:visible!important;pointer-eve
  </div>
  <p class="import-note">Nota: nesta versão, as importações são salvas neste navegador. Para que as alterações apareçam para todos os integrantes, ainda precisamos conectar um banco de dados compartilhado.</p>
 </section>
+<section id="shirtsView" class="hidden">
+ <div class="detail-head"><div><h2>Números das camisas</h2><div class="sub">Cadastre ou altere a numeração dos atletas. As mudanças aparecem nos cartões do jogador, no campo e no banco.</div></div><span class="chip">Edição do elenco</span></div>
+ <div class="shirt-admin-toolbar"><select id="shirtTeamFilter"><option value="CHEER FC">CHEER FC</option></select><input id="shirtSearch" placeholder="Buscar atleta pelo nome..."><span class="count" id="shirtCount"></span></div>
+ <div class="shirt-table-wrap"><table class="shirt-table"><thead><tr><th>ATLETA</th><th>POSIÇÃO</th><th>OVERALL</th><th>Nº DA CAMISA</th></tr></thead><tbody id="shirtTableBody"></tbody></table></div>
+ <p class="sub">Deixe em branco quando o número ainda não estiver definido. Números repetidos são permitidos.</p><div class="shirt-save-note" id="shirtSaveNote" aria-live="polite"></div>
+</section>
 <section id="tacticsView" class="hidden">
  <div class="toolbar view-mode-toolbar"><label>Visualizar fichas:</label><select id="attributeModeTactics"><option value="base">Ficha base</option><option value="final">Ficha final</option></select><span class="sub">A ficha completa abaixo do campo acompanha esta seleção.</span></div><div class="detail-head"><div><h2>Campo tático</h2><div class="sub">Arraste os jogadores para o campo. Ao selecionar um atleta, veja seus pontos fortes e pontos de atenção</div></div><div class="chips"><span class="chip">CHEER FC</span><span class="chip" id="lineupCount">0/11 titulares</span></div></div>
  <div class="toolbar tactics-filters"><select id="tacticsTeamFilter" title="Clube do elenco"><option value="CHEER FC">CHEER FC</option></select><select id="formationSelect"><option value="433">4-3-3</option><option value="442">4-4-2</option><option value="4231">4-2-3-1</option><option value="352">3-5-2</option><option value="343">3-4-3</option><option value="4141">4-1-4-1</option><option value="4411">4-4-1-1</option><option value="4222">4-2-2-2</option><option value="4321">4-3-2-1</option><option value="41212">4-1-2-1-2 (losango)</option><option value="4312">4-3-1-2</option><option value="532">5-3-2</option><option value="541">5-4-1</option><option value="3421">3-4-2-1</option><option value="3412">3-4-1-2</option><option value="3241">3-2-4-1</option><option value="424">4-2-4</option></select><select id="rosterPositionFilter"><option value="">Todas as posições</option></select><input id="rosterSearch" placeholder="Buscar jogador para escalar..."><button class="tab" id="clearLineup">Limpar escalação</button></div>
  <div class="tactics-actions"><button class="primary" id="saveNamedLineup">Salvar escalação</button><select id="savedLineupSelect"><option value="">Escalações salvas...</option></select><button id="loadNamedLineup">Carregar</button><button id="deleteNamedLineup">Excluir salva</button><button id="exportLineupPdf">Exportar / imprimir PDF</button><button id="exportLineupImage">Exportar imagem PNG</button></div>
  <div class="tactics-layout">
-  <div class="pitch-card"><div class="pitch" id="pitchBoard"><div class="pitch-lines"><div class="pitch-mid"></div><div class="pitch-circle"></div><div class="pitch-box top-box"></div><div class="pitch-box bottom-box"></div><div class="pitch-goal top-goal"></div><div class="pitch-goal bottom-goal"></div></div><div id="pitchSlots"></div></div><div class="pitch-legend"><span>Arraste um atleta do elenco para uma posição</span><span>Toque no atleta escalado para ver sua ficha</span></div></div>
+  <div class="pitch-card"><div class="pitch" id="pitchBoard"><div class="pitch-lines"><div class="pitch-mid"></div><div class="pitch-circle"></div><div class="pitch-box top-box"></div><div class="pitch-box bottom-box"></div><div class="pitch-goal top-goal"></div><div class="pitch-goal bottom-goal"></div></div><div id="pitchSlots"></div><div id="pitchPlayerPicker" class="pitch-player-picker" hidden></div></div><div class="pitch-legend"><span>Arraste um atleta do elenco para uma posição</span><span>Toque no atleta escalado para ver sua ficha</span></div></div>
   <div class="roster-card"><div class="section-title">ELENCO DISPONÍVEL</div><div id="rosterList" class="roster-list"></div></div>
  </div>
  <div class="card detail tactics-player-detail" id="tacticsPlayerDetail"><div class="empty">Selecione um jogador no campo para consultar seus atributos.</div></div>
 </section>
-<section id="rankingView" class="hidden"><div class="toolbar"><select id="rankAttribute"></select><select id="rankPosition"><option value="">Todas as posições</option></select><span class="count" id="rankCount"></span></div><div class="card detail"><div class="detail-head"><div><h2 id="rankTitle">Ranking de atributos</h2><div class="sub">Classificação do elenco pelo fundamento selecionado</div></div><span class="chip">Maior valor primeiro</span></div><div id="rankingTable"></div></div><div class="card detail" style="margin-top:16px"><div class="detail-head"><div><h2>Especialistas por categoria</h2><div class="sub">Média dos atributos de cada grupo</div></div></div><div id="categoryLeaders"></div></div></section>
+<section id="rankingView" class="hidden"><div class="toolbar"><select id="rankTeam"><option value="">Todos os times</option></select><select id="rankAttribute"></select><select id="rankPosition"><option value="">Todas as posições</option></select><span class="count" id="rankCount"></span></div><div class="card detail"><div class="detail-head"><div><h2 id="rankTitle">Ranking de atributos</h2><div class="sub">Classificação do elenco pelo fundamento selecionado</div></div><span class="chip">Maior valor primeiro</span></div><div id="rankingTable"></div></div><div class="card detail" style="margin-top:16px"><div class="detail-head"><div><h2>Especialistas por categoria</h2><div class="sub">Média dos atributos de cada grupo</div></div></div><div id="categoryLeaders"></div></div></section>
 <div class="foot">CHEER FC · PLAYER HUB · Dados transcritos das fichas do elenco de 04/11/2026</div></main>
 <script>
 const players=[{"name": "Gabriel Silva", "alias": "GABRIEL", "pos": "GOL", "ovr": 48, "section": "Goleiros", "attrs": {"Reflexo": 82.17, "Posicionamento": 62.78, "Defesa Aérea": 34.85, "Pegada": 71.45, "Saída do Gol": 34.85, "Um Contra Um": 38.25, "Distribuição Curta": 34.85, "Distribuição Longa": 27.2, "Tempo de Reação": 80.2, "Comando de Área": 38.25, "Velocidade": 36.93, "Aceleração": 65.27, "Agilidade": 54.84, "Força": 10.0, "Equilíbrio": 11.9, "Resistência": 19.01, "Pulo": 26.45, "Condição Física": 10.0}}, {"name": "Shev Dijk", "alias": "DIJK", "pos": "ZAG", "ovr": 59, "section": "Defesa", "attrs": {"Velocidade": 71.48, "Aceleração": 64.56, "Agilidade": 65.01, "Força": 80.11, "Equilíbrio": 60.37, "Resistência": 60.15, "Pulo": 80.03, "Condição Física": 46.12, "Controle de Bola": 36.76, "Drible": 23.8, "Passe Baixo": 35.05, "Passe Alto": 35.19, "Um Toque": 38.84, "Curva": 31.45, "Visão de Jogo": 30.6, "Tomada de Decisão": 28.05, "Antecipação": 56.99, "Posic. Ofensivo": 24.65, "Posic. Defensivo": 60.2, "Trabalho em Equipe": 34.85, "Coragem": 50.0, "Precisão do Chute": 27.2, "Força do Chute": 29.75, "Cabeceio": 46.68, "Desarme": 60.03, "Marcação": 47.83}}, {"name": "Almir Ferreira", "alias": "ALMIR FERREIRA", "pos": "ZAG", "ovr": 57, "section": "Defesa", "attrs": {"Velocidade": 85.89, "Aceleração": 85.3, "Agilidade": 68.11, "Força": 80.77, "Equilíbrio": 45.77, "Resistência": 70.44, "Pulo": 40.76, "Condição Física": 40.03, "Controle de Bola": 33.83, "Drible": 25.5, "Passe Baixo": 27.7, "Passe Alto": 30.47, "Um Toque": 34.0, "Curva": 29.75, "Visão de Jogo": 26.35, "Tomada de Decisão": 29.75, "Antecipação": 32.81, "Posic. Ofensivo": 28.05, "Posic. Defensivo": 34.85, "Trabalho em Equipe": 31.45, "Coragem": 38.25, "Precisão do Chute": 28.05, "Força do Chute": 29.75, "Cabeceio": 30.6, "Desarme": 46.64, "Marcação": 51.89}}, {"name": "Cafu Dido", "alias": "DIDO", "pos": "LD", "ovr": 55, "section": "Defesa", "attrs": {"Velocidade": 81.53, "Aceleração": 78.0, "Agilidade": 57.51, "Força": 47.45, "Equilíbrio": 43.77, "Resistência": 61.96, "Pulo": 34.73, "Condição Física": 47.51, "Controle de Bola": 50.87, "Drible": 70.88, "Passe Baixo": 31.96, "Passe Alto": 60.04, "Um Toque": 29.75, "Curva": 28.9, "Visão de Jogo": 29.75, "Tomada de Decisão": 32.5, "Antecipação": 38.91, "Posic. Ofensivo": 27.2, "Posic. Defensivo": 35.11, "Trabalho em Equipe": 43.34, "Coragem": 37.52, "Precisão do Chute": 31.45, "Força do Chute": 27.2, "Cabeceio": 27.2, "Desarme": 82.91, "Marcação": 35.22}}, {"name": "Vinícius Krugner", "alias": "KRUGNER", "pos": "ZAG", "ovr": 54, "section": "Defesa", "attrs": {"Velocidade": 81.99, "Aceleração": 75.81, "Agilidade": 53.29, "Força": 84.32, "Equilíbrio": 50.98, "Resistência": 72.13, "Pulo": 61.12, "Condição Física": 40.73, "Controle de Bola": 40.05, "Drible": 28.9, "Passe Baixo": 34.0, "Passe Alto": 33.14, "Um Toque": 30.6, "Curva": 26.35, "Visão de Jogo": 28.9, "Tomada de Decisão": 32.0, "Antecipação": 35.11, "Posic. Ofensivo": 28.9, "Posic. Defensivo": 44.51, "Trabalho em Equipe": 29.75, "Coragem": 40.33, "Precisão do Chute": 32.3, "Força do Chute": 32.3, "Cabeceio": 27.3, "Desarme": 44.59, "Marcação": 49.03}}, {"name": "Thales Spider", "alias": "SPIDER", "pos": "LE", "ovr": 54, "section": "Defesa", "attrs": {"Velocidade": 85.02, "Aceleração": 83.58, "Agilidade": 83.35, "Força": 28.15, "Equilíbrio": 30.09, "Resistência": 70.71, "Pulo": 26.35, "Condição Física": 48.22, "Controle de Bola": 38.62, "Drible": 27.46, "Passe Baixo": 31.68, "Passe Alto": 34.11, "Um Toque": 32.45, "Curva": 30.7, "Visão de Jogo": 28.9, "Tomada de Decisão": 31.6, "Antecipação": 32.3, "Posic. Ofensivo": 24.65, "Posic. Defensivo": 41.36, "Trabalho em Equipe": 30.6, "Coragem": 28.05, "Precisão do Chute": 28.05, "Força do Chute": 27.2, "Cabeceio": 31.45, "Desarme": 64.76, "Marcação": 48.21}}, {"name": "Yūto Nagatomo", "alias": "NAGATOMO", "pos": "LE", "ovr": 53, "section": "Defesa", "attrs": {"Velocidade": 88.26, "Aceleração": 85.86, "Agilidade": 39.36, "Força": 66.2, "Equilíbrio": 32.3, "Resistência": 44.74, "Pulo": 25.5, "Condição Física": 32.66, "Controle de Bola": 31.13, "Drible": 25.5, "Passe Baixo": 28.9, "Passe Alto": 31.91, "Um Toque": 34.85, "Curva": 29.75, "Visão de Jogo": 30.6, "Tomada de Decisão": 32.3, "Antecipação": 37.4, "Posic. Ofensivo": 23.8, "Posic. Defensivo": 39.95, "Trabalho em Equipe": 32.3, "Coragem": 31.45, "Precisão do Chute": 29.75, "Força do Chute": 32.3, "Cabeceio": 22.95, "Desarme": 67.37, "Marcação": 70.21}}, {"name": "Roberta Carla", "alias": "CARLA", "pos": "LE", "ovr": 46, "section": "Defesa", "attrs": {"Velocidade": 70.52, "Aceleração": 63.05, "Agilidade": 43.32, "Força": 32.0, "Equilíbrio": 37.0, "Resistência": 36.28, "Pulo": 27.0, "Condição Física": 35.97, "Controle de Bola": 39.6, "Drible": 32.0, "Passe Baixo": 32.41, "Passe Alto": 33.48, "Um Toque": 36.0, "Curva": 34.0, "Visão de Jogo": 32.0, "Tomada de Decisão": 34.0, "Antecipação": 41.0, "Posic. Ofensivo": 31.0, "Posic. Defensivo": 46.0, "Trabalho em Equipe": 32.0, "Coragem": 36.0, "Precisão do Chute": 30.0, "Força do Chute": 34.0, "Cabeceio": 29.0, "Desarme": 60.26, "Marcação": 52.0}}, {"name": "Gustavo Owicki", "alias": "OWICKI", "pos": "ME", "ovr": 61, "section": "Meio-campo", "attrs": {"Velocidade": 89.49, "Aceleração": 75.06, "Agilidade": 65.79, "Força": 47.0, "Equilíbrio": 40.07, "Resistência": 67.33, "Pulo": 25.5, "Condição Física": 39.05, "Controle de Bola": 55.95, "Drible": 52.51, "Passe Baixo": 43.54, "Passe Alto": 62.31, "Um Toque": 33.78, "Curva": 35.88, "Visão de Jogo": 35.83, "Tomada de Decisão": 33.15, "Antecipação": 36.36, "Posic. Ofensivo": 29.75, "Posic. Defensivo": 27.2, "Trabalho em Equipe": 31.45, "Coragem": 27.86, "Precisão do Chute": 76.04, "Força do Chute": 69.06, "Cabeceio": 29.75, "Desarme": 34.97, "Marcação": 34.66}}, {"name": "Entony", "alias": "ENTONY", "pos": "MD", "ovr": 60, "section": "Meio-campo", "attrs": {"Velocidade": 84.49, "Aceleração": 82.54, "Agilidade": 79.1, "Força": 52.11, "Equilíbrio": 59.76, "Resistência": 43.99, "Pulo": 24.65, "Condição Física": 31.9, "Controle de Bola": 69.34, "Drible": 84.3, "Passe Baixo": 28.22, "Passe Alto": 54.8, "Um Toque": 27.2, "Curva": 28.05, "Visão de Jogo": 44.6, "Tomada de Decisão": 28.05, "Antecipação": 29.75, "Posic. Ofensivo": 28.05, "Posic. Defensivo": 23.8, "Trabalho em Equipe": 34.85, "Coragem": 28.9, "Precisão do Chute": 34.59, "Força do Chute": 29.75, "Cabeceio": 28.05, "Desarme": 27.2, "Marcação": 24.65}}, {"name": "Shevich Shevichenko", "alias": "SHEVICHENKO", "pos": "MC", "ovr": 58, "section": "Meio-campo", "attrs": {"Velocidade": 74.68, "Aceleração": 74.76, "Agilidade": 72.63, "Força": 43.57, "Equilíbrio": 43.71, "Resistência": 60.78, "Pulo": 42.69, "Condição Física": 48.89, "Controle de Bola": 49.07, "Drible": 48.44, "Passe Baixo": 75.13, "Passe Alto": 84.22, "Um Toque": 34.0, "Curva": 45.21, "Visão de Jogo": 48.12, "Tomada de Decisão": 35.15, "Antecipação": 42.92, "Posic. Ofensivo": 28.9, "Posic. Defensivo": 32.3, "Trabalho em Equipe": 42.99, "Coragem": 28.9, "Precisão do Chute": 52.36, "Força do Chute": 51.03, "Cabeceio": 27.2, "Desarme": 28.22, "Marcação": 30.6}}, {"name": "Raphael Veiga", "alias": "VEIGA", "pos": "MEI", "ovr": 54, "section": "Meio-campo", "attrs": {"Velocidade": 80.36, "Aceleração": 66.92, "Agilidade": 60.35, "Força": 40.04, "Equilíbrio": 60.34, "Resistência": 75.41, "Pulo": 28.05, "Condição Física": 40.96, "Controle de Bola": 50.25, "Drible": 31.45, "Passe Baixo": 56.53, "Passe Alto": 81.05, "Um Toque": 27.61, "Curva": 37.25, "Visão de Jogo": 45.73, "Tomada de Decisão": 27.43, "Antecipação": 29.75, "Posic. Ofensivo": 29.57, "Posic. Defensivo": 28.05, "Trabalho em Equipe": 34.85, "Coragem": 31.45, "Precisão do Chute": 32.3, "Força do Chute": 32.3, "Cabeceio": 27.2, "Desarme": 27.2, "Marcação": 23.8}}, {"name": "Aranha Humana", "alias": "SPIDER", "pos": "VOL", "ovr": 53, "section": "Meio-campo", "attrs": {"Velocidade": 80.12, "Aceleração": 80.45, "Agilidade": 68.23, "Força": 73.87, "Equilíbrio": 28.05, "Resistência": 56.45, "Pulo": 26.35, "Condição Física": 39.78, "Controle de Bola": 36.21, "Drible": 27.2, "Passe Baixo": 47.37, "Passe Alto": 57.79, "Um Toque": 28.9, "Curva": 30.6, "Visão de Jogo": 28.9, "Tomada de Decisão": 31.45, "Antecipação": 39.1, "Posic. Ofensivo": 24.65, "Posic. Defensivo": 27.46, "Trabalho em Equipe": 30.6, "Coragem": 33.15, "Precisão do Chute": 24.65, "Força do Chute": 27.2, "Cabeceio": 34.85, "Desarme": 52.37, "Marcação": 43.5}}, {"name": "Steven Gerrods", "alias": "GERRODS", "pos": "MC", "ovr": 51, "section": "Meio-campo", "attrs": {"Velocidade": 72.11, "Aceleração": 72.56, "Agilidade": 48.61, "Força": 75.8, "Equilíbrio": 61.15, "Resistência": 57.96, "Pulo": 61.33, "Condição Física": 50.28, "Controle de Bola": 43.95, "Drible": 52.98, "Passe Baixo": 43.15, "Passe Alto": 71.45, "Um Toque": 30.0, "Curva": 29.05, "Visão de Jogo": 34.78, "Tomada de Decisão": 34.66, "Antecipação": 36.35, "Posic. Ofensivo": 29.75, "Posic. Defensivo": 35.48, "Trabalho em Equipe": 41.34, "Coragem": 37.25, "Precisão do Chute": 31.45, "Força do Chute": 27.66, "Cabeceio": 37.6, "Desarme": 30.13, "Marcação": 45.99}}, {"name": "Rodheiser", "alias": "RODHEISER", "pos": "MC", "ovr": 51, "section": "Meio-campo", "attrs": {"Velocidade": 77.04, "Aceleração": 74.37, "Agilidade": 60.6, "Força": 38.83, "Equilíbrio": 44.91, "Resistência": 51.8, "Pulo": 30.16, "Condição Física": 44.84, "Controle de Bola": 67.54, "Drible": 77.07, "Passe Baixo": 42.41, "Passe Alto": 80.42, "Um Toque": 44.0, "Curva": 32.71, "Visão de Jogo": 50.33, "Tomada de Decisão": 44.46, "Antecipação": 31.13, "Posic. Ofensivo": 33.52, "Posic. Defensivo": 31.45, "Trabalho em Equipe": 44.09, "Coragem": 38.96, "Precisão do Chute": 35.7, "Força do Chute": 28.87, "Cabeceio": 28.9, "Desarme": 28.9, "Marcação": 28.9}}, {"name": "Renan Rodrigues", "alias": "R. RODRIGUES", "pos": "MC", "ovr": 51, "section": "Meio-campo", "attrs": {"Velocidade": 81.58, "Aceleração": 58.02, "Agilidade": 39.39, "Força": 44.92, "Equilíbrio": 35.7, "Resistência": 72.72, "Pulo": 28.9, "Condição Física": 35.54, "Controle de Bola": 45.58, "Drible": 27.2, "Passe Baixo": 65.08, "Passe Alto": 80.5, "Um Toque": 30.6, "Curva": 29.75, "Visão de Jogo": 39.1, "Tomada de Decisão": 29.75, "Antecipação": 34.0, "Posic. Ofensivo": 28.9, "Posic. Defensivo": 32.3, "Trabalho em Equipe": 32.3, "Coragem": 32.3, "Precisão do Chute": 22.1, "Força do Chute": 31.45, "Cabeceio": 29.75, "Desarme": 34.85, "Marcação": 51.91}}, {"name": "Islan Felipe", "alias": "ISLAN FELIPE", "pos": "VOL", "ovr": 51, "section": "Meio-campo", "attrs": {"Velocidade": 76.01, "Aceleração": 53.77, "Agilidade": 49.96, "Força": 86.41, "Equilíbrio": 34.0, "Resistência": 41.85, "Pulo": 28.05, "Condição Física": 38.29, "Controle de Bola": 35.96, "Drible": 28.05, "Passe Baixo": 48.17, "Passe Alto": 80.79, "Um Toque": 31.45, "Curva": 27.2, "Visão de Jogo": 34.85, "Tomada de Decisão": 28.05, "Antecipação": 35.11, "Posic. Ofensivo": 28.05, "Posic. Defensivo": 27.2, "Trabalho em Equipe": 28.9, "Coragem": 35.7, "Precisão do Chute": 22.2, "Força do Chute": 28.95, "Cabeceio": 25.5, "Desarme": 51.36, "Marcação": 41.3}}, {"name": "Luísa Sonza", "alias": "SONZA", "pos": "MD", "ovr": 50, "section": "Meio-campo", "attrs": {"Velocidade": 83.55, "Aceleração": 82.58, "Agilidade": 40.97, "Força": 27.71, "Equilíbrio": 30.6, "Resistência": 52.2, "Pulo": 28.05, "Condição Física": 42.5, "Controle de Bola": 50.91, "Drible": 78.67, "Passe Baixo": 38.13, "Passe Alto": 71.3, "Um Toque": 31.45, "Curva": 27.2, "Visão de Jogo": 39.95, "Tomada de Decisão": 28.05, "Antecipação": 29.75, "Posic. Ofensivo": 31.45, "Posic. Defensivo": 23.8, "Trabalho em Equipe": 34.0, "Coragem": 30.6, "Precisão do Chute": 28.05, "Força do Chute": 28.9, "Cabeceio": 22.1, "Desarme": 24.65, "Marcação": 26.35}}, {"name": "Bruno Bertolassi", "alias": "BERTOLA", "pos": "ATA", "ovr": 58, "section": "Ataque", "attrs": {"Velocidade": 80.38, "Aceleração": 85.37, "Agilidade": 75.37, "Força": 28.34, "Equilíbrio": 43.2, "Resistência": 62.76, "Pulo": 25.5, "Condição Física": 36.46, "Controle de Bola": 56.41, "Drible": 38.86, "Passe Baixo": 27.2, "Passe Alto": 28.0, "Um Toque": 69.59, "Curva": 54.35, "Visão de Jogo": 28.9, "Tomada de Decisão": 33.0, "Antecipação": 30.43, "Posic. Ofensivo": 45.25, "Posic. Defensivo": 27.2, "Trabalho em Equipe": 29.75, "Coragem": 28.9, "Precisão do Chute": 85.0, "Força do Chute": 84.11, "Cabeceio": 28.05, "Desarme": 30.6, "Marcação": 27.2}}, {"name": "Zlatan Ibrahishevich", "alias": "IBRAHISHEVICH", "pos": "ATA", "ovr": 57, "section": "Ataque", "attrs": {"Velocidade": 70.09, "Aceleração": 80.38, "Agilidade": 80.25, "Força": 45.43, "Equilíbrio": 50.49, "Resistência": 47.6, "Pulo": 42.64, "Condição Física": 41.12, "Controle de Bola": 39.66, "Drible": 34.2, "Passe Baixo": 30.16, "Passe Alto": 34.97, "Um Toque": 30.73, "Curva": 56.03, "Visão de Jogo": 30.86, "Tomada de Decisão": 28.05, "Antecipação": 43.1, "Posic. Ofensivo": 51.27, "Posic. Defensivo": 32.3, "Trabalho em Equipe": 30.6, "Coragem": 28.9, "Precisão do Chute": 76.76, "Força do Chute": 77.68, "Cabeceio": 60.3, "Desarme": 27.2, "Marcação": 30.6}}, {"name": "Reginho", "alias": "REGINHO", "pos": "PE", "ovr": 57, "section": "Ataque", "attrs": {"Velocidade": 85.12, "Aceleração": 71.3, "Agilidade": 71.81, "Força": 33.0, "Equilíbrio": 42.99, "Resistência": 56.94, "Pulo": 29.75, "Condição Física": 52.62, "Controle de Bola": 55.63, "Drible": 82.0, "Passe Baixo": 32.3, "Passe Alto": 28.2, "Um Toque": 31.45, "Curva": 35.33, "Visão de Jogo": 30.6, "Tomada de Decisão": 32.3, "Antecipação": 32.3, "Posic. Ofensivo": 33.12, "Posic. Defensivo": 28.05, "Trabalho em Equipe": 32.3, "Coragem": 31.45, "Precisão do Chute": 70.57, "Força do Chute": 70.16, "Cabeceio": 27.2, "Desarme": 30.6, "Marcação": 32.3}}, {"name": "Salah de Jantar", "alias": "JANTAR", "pos": "ATA", "ovr": 49, "section": "Ataque", "attrs": {"Velocidade": 80.74, "Aceleração": 78.47, "Agilidade": 49.13, "Força": 27.71, "Equilíbrio": 27.2, "Resistência": 52.22, "Pulo": 22.95, "Condição Física": 33.41, "Controle de Bola": 38.01, "Drible": 41.92, "Passe Baixo": 28.46, "Passe Alto": 30.13, "Um Toque": 28.05, "Curva": 28.9, "Visão de Jogo": 28.9, "Tomada de Decisão": 32.3, "Antecipação": 28.9, "Posic. Ofensivo": 41.65, "Posic. Defensivo": 23.8, "Trabalho em Equipe": 28.05, "Coragem": 27.2, "Precisão do Chute": 73.11, "Força do Chute": 71.97, "Cabeceio": 27.2, "Desarme": 25.5, "Marcação": 24.65}}, {"name": "Radamel Falcao", "alias": "UC RADAMEL", "pos": "ATA", "ovr": 45, "section": "Ataque", "attrs": {"Velocidade": 84.03, "Aceleração": 80.39, "Agilidade": 44.84, "Força": 40.36, "Equilíbrio": 31.05, "Resistência": 56.41, "Pulo": 43.35, "Condição Física": 36.8, "Controle de Bola": 39.32, "Drible": 34.77, "Passe Baixo": 30.6, "Passe Alto": 37.9, "Um Toque": 33.61, "Curva": 32.56, "Visão de Jogo": 29.75, "Tomada de Decisão": 30.6, "Antecipação": 37.4, "Posic. Ofensivo": 44.46, "Posic. Defensivo": 28.05, "Trabalho em Equipe": 28.05, "Coragem": 29.75, "Precisão do Chute": 70.81, "Força do Chute": 60.73, "Cabeceio": 36.55, "Desarme": 27.2, "Marcação": 23.8}}, {"name": "Almir LK", "alias": "LK ALMIR LK", "pos": "ZAG", "ovr": 56, "section": "Defesa", "attrs": {"Velocidade": 86.52, "Aceleração": 80.69, "Agilidade": 69.55, "Força": 46.16, "Equilíbrio": 40.95, "Resistência": 57.41, "Pulo": 26.35, "Condição Física": 40.15, "Controle de Bola": 34.59, "Drible": 24.91, "Passe Baixo": 27.2, "Passe Alto": 29.75, "Um Toque": 34.0, "Curva": 29.75, "Visão de Jogo": 29.75, "Tomada de Decisão": 29.75, "Antecipação": 32.3, "Posic. Ofensivo": 24.65, "Posic. Defensivo": 41.65, "Trabalho em Equipe": 31.45, "Coragem": 31.45, "Precisão do Chute": 28.9, "Força do Chute": 29.75, "Cabeceio": 26.35, "Desarme": 86.15, "Marcação": 58.53}}];
@@ -253,8 +384,8 @@ function removeTestPlayer(){for(let i=players.length-1;i>=0;i--){if(normalizeTex
 function fillSelect(el,first){const sorted=[...players].sort((a,b)=>a.name.localeCompare(b.name,"pt-BR",{sensitivity:"base"}));el.innerHTML=sorted.map(p=>`<option value="${p.name}">${p.name} · ${p.pos} · ${p.ovr}</option>`).join("");if(first)el.value=first}
 function color(n){return n>=75?"#52c69a":n>=55?"#e4bd68":"#e16b70"}
 function renderPlayer(p){selected=p;renderRadar(p);
-$("attributeReportSubtitle").textContent=p.external?"Valores estimados a partir das classificações qualitativas do PDF. A classificação original aparece ao lado.":"Valores originais da ficha do Football Identity";$("playerCard").innerHTML=`<div class="player-top"><div class="pos">${p.pos} · ${p.section.toUpperCase()}</div><div class="rating">${p.ovr}</div><div class="player-name">${p.name}</div><div class="alias">${p.alias}</div></div><div class="player-bottom"><div class="section-title">DESTAQUES DO JOGADOR</div><div class="attr-grid">${Object.entries(p.attrs).sort((a,b)=>b[1]-a[1]).slice(0,6).map(([k,v])=>`<div><div class="attr"><span>${k}</span><strong style="color:${color(v)}">${fmt(v)}${p.qualitative?.[k]?` · ${p.qualitative[k]}`:""}</strong></div><div class="bar"><i style="width:${v}%;background:${color(v)}"></i></div></div>`).join("")}</div></div>`;
-$("metaChips").innerHTML=`<span class="chip">${p.section}</span><span class="chip">${p.pos}</span><span class="chip">${Object.keys(p.attrs).length} atributos</span>`;
+$("attributeReportSubtitle").textContent=p.external?"Valores estimados a partir das classificações qualitativas do PDF. A classificação original aparece ao lado.":"Valores originais da ficha do Football Identity";$("playerCard").innerHTML=`<div class="player-top"><div class="pos"><span class="position-badge ${positionClass(p.pos)}">${p.pos}</span> · ${p.section.toUpperCase()}</div><div class="player-identity"><div class="player-shirt-number">${p.shirtNumber??"—"}</div><div class="player-identity-text"><div class="player-name">${p.name}</div><div class="player-overall-small">OVERALL ${p.ovr}</div></div></div><div class="alias">${p.alias}</div></div><div class="player-bottom"><div class="section-title">DESTAQUES DO JOGADOR</div><div class="attr-grid">${Object.entries(p.attrs).sort((a,b)=>b[1]-a[1]).slice(0,6).map(([k,v])=>`<div><div class="attr"><span>${k}</span><strong style="color:${color(v)}">${fmt(v)}${p.qualitative?.[k]?` · ${p.qualitative[k]}`:""}</strong></div><div class="bar"><i style="width:${v}%;background:${color(v)}"></i></div></div>`).join("")}</div></div>`;
+$("metaChips").innerHTML=`<span class="chip">${p.section}</span><span class="chip position-badge ${positionClass(p.pos)}">${p.pos}</span><span class="chip">${Object.keys(p.attrs).length} atributos</span>`;
 $("playerCard").insertAdjacentHTML("beforeend",`<div class="admin-actions"><button type="button" class="admin-delete-player" id="adminDeletePlayer">Excluir jogador</button><span>Área restrita ao treinador</span></div>`);
 $("adminDeletePlayer").onclick=()=>deleteSelectedPlayer(p.name);
 $("categories").innerHTML=Object.entries(groups).filter(([g,arr])=>arr.some(a=>p.attrs[a]!=null)).map(([g,arr])=>`<div class="cat"><h3>${g}</h3>${arr.filter(a=>p.attrs[a]!=null).map(a=>`<div><div class="attr"><span>${a}</span><strong style="color:${color(p.attrs[a])}">${fmt(p.attrs[a])}${p.qualitative?.[a]?` · ${p.qualitative[a]}`:""}</strong></div><div class="bar"><i style="width:${p.attrs[a]}%;background:${color(p.attrs[a])}"></i></div></div>`).join("")}</div>`).join("")}
@@ -278,8 +409,8 @@ function ranking(){
  $("rankTitle").textContent="Ranking · "+attr;
  $("rankCount").textContent=list.length+" jogadores";
  const top=list.slice(0,3);
- $("rankingTable").innerHTML=`<div class="rank-top">${top.map((p,i)=>`<div class="rank-top-card"><small>${["1º LUGAR","2º LUGAR","3º LUGAR"][i]}</small><b>${p.name}</b><strong>${fmt(p.attrs[attr])}</strong></div>`).join("")}</div><table class="ranking-table"><thead><tr><th>#</th><th>JOGADOR</th><th>POS.</th><th style="text-align:right">VALOR</th></tr></thead><tbody>${list.map((p,i)=>`<tr><td class="rank-num">${i+1}</td><td><div class="rank-player">${p.name}</div><div class="rank-bar"><i style="width:${p.attrs[attr]}%"></i></div></td><td class="rank-pos">${p.pos}</td><td class="rank-value">${fmt(p.attrs[attr])}</td></tr>`).join("")}</tbody></table>`;
- const categoryRows=Object.entries(groups).filter(([g])=>g!=="GOLEIRO").map(([g,keys])=>{let rows=players.map(p=>({p,vals:keys.filter(k=>p.attrs[k]!=null).map(k=>p.attrs[k])})).filter(x=>x.vals.length).map(x=>({...x,avg:x.vals.reduce((a,b)=>a+b,0)/x.vals.length})).sort((a,b)=>b.avg-a.avg);return {g,rows};});
+ $("rankingTable").innerHTML=`<div class="rank-top">${top.map((p,i)=>`<div class="rank-top-card"><small>${["1º LUGAR","2º LUGAR","3º LUGAR"][i]}</small><b>${p.name}</b><strong>${fmt(p.attrs[attr])}</strong></div>`).join("")}</div><table class="ranking-table"><thead><tr><th>#</th><th>JOGADOR</th><th>POS.</th><th style="text-align:right">VALOR</th></tr></thead><tbody>${list.map((p,i)=>`<tr><td class="rank-num">${i+1}</td><td><div class="rank-player">${p.name}</div><div class="rank-bar"><i style="width:${p.attrs[attr]}%"></i></div></td><td class="rank-pos"><span class="position-badge ${positionClass(p.pos)}">${p.pos}</span></td><td class="rank-value">${fmt(p.attrs[attr])}</td></tr>`).join("")}</tbody></table>`;
+ const categoryRows=Object.entries(groups).filter(([g])=>g!=="GOLEIRO").map(([g,keys])=>{let rows=players.filter(p=>!team||clubOf(p)===team).map(p=>({p,vals:keys.filter(k=>p.attrs[k]!=null).map(k=>p.attrs[k])})).filter(x=>x.vals.length).map(x=>({...x,avg:x.vals.reduce((a,b)=>a+b,0)/x.vals.length})).sort((a,b)=>b.avg-a.avg);return {g,rows};});
  $("categoryLeaders").innerHTML=categoryRows.map(({g,rows})=>`<div class="comparison-row"><div class="comparison-side left"><strong>${fmt(rows[0].avg)}</strong></div><div class="comparison-label">${g}</div><div class="comparison-side right"><strong>${rows[0].p.name}</strong></div></div>`).join("");
 }
 
@@ -362,6 +493,25 @@ body.auth-locked #authGate{display:flex;visibility:visible!important;pointer-eve
 #sessionBadge{position:fixed;right:16px;bottom:14px;z-index:1000;display:none;align-items:center;gap:10px;padding:8px 10px 8px 13px;background:#211d22ee;border:1px solid #5a4a53;border-radius:999px;box-shadow:0 5px 20px #0005;font-size:11px;color:#e8dccb;backdrop-filter:blur(8px)}#sessionBadge button{border:1px solid #80606e;background:#5a1028;color:#fff;border-radius:999px;padding:6px 10px;font-size:10px;font-weight:800;cursor:pointer}
 @media(max-width:520px){.auth-panel{padding:23px}.auth-brand img{width:46px;height:54px}#sessionBadge{right:8px;bottom:8px}}
 
+
+.position-badge{display:inline-flex;align-items:center;justify-content:center;padding:2px 6px;border-radius:5px;font-weight:950;letter-spacing:.45px;color:#fff!important;background:#5c5960}
+.pos-gol{background:#e58a22!important;color:#21160b!important}
+.pos-def{background:#2878d0!important;color:#fff!important}
+.pos-mid{background:#269b63!important;color:#fff!important}
+.pos-att{background:#c83b45!important;color:#fff!important}
+.position-filter-active{border-color:#e8dccb!important;box-shadow:0 0 0 1px #e8dccb55}
+.position-filter-active.pos-gol{background:#e58a22!important;color:#21160b!important}
+.position-filter-active.pos-def{background:#2878d0!important;color:#fff!important}
+.position-filter-active.pos-mid{background:#269b63!important;color:#fff!important}
+.position-filter-active.pos-att{background:#c83b45!important;color:#fff!important}
+.roster-player{border-left:3px solid #55424b}
+.roster-player:has(.pos-gol){border-left-color:#e58a22}
+.roster-player:has(.pos-def){border-left-color:#2878d0}
+.roster-player:has(.pos-mid){border-left-color:#269b63}
+.roster-player:has(.pos-att){border-left-color:#c83b45}
+.pitch-slot.filled{border-radius:13px}
+.pitch-slot.filled .pitch-strengths{padding-left:7px}
+@media(max-width:900px){.pitch{aspect-ratio:1.35;min-height:620px}.pitch-slot.filled{width:clamp(150px,27vw,185px);min-height:90px}.pitch-player-core{width:50px;min-width:50px}.pitch-player-core .slot-name{max-width:50px}}
 </style></head><body class="auth-locked">
 <div id="authGate" role="dialog" aria-modal="true" aria-labelledby="authTitle">
  <div class="auth-panel">
@@ -376,8 +526,8 @@ body.auth-locked #authGate{display:flex;visibility:visible!important;pointer-eve
 function renderRoster(){
  const q=($("rosterSearch")?.value||"").toLocaleLowerCase("pt-BR");
  const pos=$("rosterPositionFilter")?.value||"";
- const used=Object.values(lineup);const club=$("tacticsTeamFilter")?.value||"CHEER FC";
- $("rosterList").innerHTML=[...players].filter(p=>clubOf(p)===club).sort((a,b)=>a.name.localeCompare(b.name,"pt-BR",{sensitivity:"base"})).filter(p=>p.name.toLocaleLowerCase("pt-BR").includes(q)&&(!pos||p.pos===pos)).map(p=>{const top=Object.entries(p.attrs||{}).filter(([,v])=>Number.isFinite(Number(v))).sort((a,b)=>Number(b[1])-Number(a[1])).slice(0,5);return `<div class="roster-player ${selectedRoster===p.name?"selected":""}" draggable="true" data-player="${p.name}"><div class="roster-main"><div class="rp-ovr">${p.ovr}</div><div><div class="rp-name">${p.name}</div><div class="rp-pos">${p.pos}${used.includes(p.name)?" · ESCALADO":""}</div></div></div><div class="roster-strengths">${top.map(([k,v])=>`<span class="roster-strength">${k} <b>${fmt(v)}</b></span>`).join("")}</div></div>`}).join("");
+ const used=Object.values(lineup);const club=$("tacticsTeamFilter")?.value||"CHEER FC";fillPositionFilter("rosterPositionFilter",players.filter(p=>clubOf(p)===club));
+ $("rosterList").innerHTML=[...players].filter(p=>clubOf(p)===club).sort(comparePlayersByPosition).filter(p=>p.name.toLocaleLowerCase("pt-BR").includes(q)&&(!pos||p.pos===pos)).map(p=>{const top=Object.entries(p.attrs||{}).filter(([,v])=>Number.isFinite(Number(v))).sort((a,b)=>Number(b[1])-Number(a[1])).slice(0,5);return `<div class="roster-player ${selectedRoster===p.name?"selected":""}" draggable="true" data-player="${p.name}"><div class="roster-main"><div class="roster-shirt">${p.shirtNumber??"—"}</div><div class="roster-identity"><div><div class="rp-name">${p.name}</div><div class="rp-overall">OVERALL ${p.ovr} · <span class="position-badge ${positionClass(p.pos)}">${p.pos}</span>${used.includes(p.name)?" · ESCALADO":""}</div></div></div></div><div class="roster-strengths">${top.map(([k,v])=>`<span class="roster-strength">${k} <b>${fmt(v)}</b></span>`).join("")}</div></div>`}).join("");
  document.querySelectorAll(".roster-player").forEach(el=>{
   el.addEventListener("dragstart",e=>{e.dataTransfer.setData("text/player",el.dataset.player);selectedRoster=el.dataset.player});
   el.addEventListener("click",()=>{selectedRoster=el.dataset.player;showTacticsPlayer(selectedRoster);renderRoster()});
@@ -385,17 +535,65 @@ function renderRoster(){
 }
 function renderPitch(){
  const slots=formations[$("formationSelect").value]||formations["433"];
- $("pitchSlots").innerHTML=slots.map(([role,x,y],i)=>{const name=lineup[i],p=players.find(z=>z.name===name);const top=p?Object.entries(p.attrs||{}).filter(([,v])=>Number.isFinite(Number(v))).sort((a,b)=>Number(b[1])-Number(a[1])).slice(0,5):[];return `<button class="pitch-slot ${p?"filled":""} ${selectedSlot===i?"selected":""}" data-slot="${i}" style="left:${x}%;top:${y}%"><span class="slot-role">${role}</span>${p?`<span class="pitch-player-core"><span class="slot-ovr">${p.ovr}</span><span class="slot-name">${p.name}</span></span><span class="pitch-strengths">${top.map(([k,v])=>`<span class="pitch-strength">${k} <b>${fmt(v)}</b></span>`).join("")}</span><span class="remove-player" role="button" aria-label="Remover ${p.name}" data-remove-slot="${i}">×</span>`:`<span class="slot-name">+ Escalar</span>`}</button>`}).join("");
+ // Rotaciona as coordenadas da formação para o campo horizontal e afasta cartões que colidiriam.
+ const cardPositions=slots.map(([role,x,y],i)=>({i,left:100-y,top:x,filled:!!lineup[i]}));
+ for(let pass=0;pass<8;pass++){
+   for(let a=0;a<cardPositions.length;a++)for(let b=a+1;b<cardPositions.length;b++){
+     const A=cardPositions[a],B=cardPositions[b];if(!A.filled||!B.filled)continue;
+     const dx=Math.abs(A.left-B.left),dy=Math.abs(A.top-B.top);
+     if(dx<16.5&&dy<21){
+       const dir=A.top<=B.top?-1:1;
+       const push=Math.min(7,(21-dy)/2+1);
+       A.top=Math.max(12,Math.min(88,A.top+dir*push));
+       B.top=Math.max(12,Math.min(88,B.top-dir*push));
+     }
+   }
+ }
+ $("pitchSlots").innerHTML=slots.map(([role,x,y],i)=>{const name=lineup[i],p=players.find(z=>z.name===name),pos=cardPositions[i];const top=p?Object.entries(p.attrs||{}).filter(([,v])=>Number.isFinite(Number(v))).sort((a,b)=>Number(b[1])-Number(a[1])).slice(0,5):[];return `<button class="pitch-slot ${p?"filled":""} ${selectedSlot===i?"selected":""}" ${p?'draggable="true"':""} data-slot="${i}" style="left:${pos.left}%;top:${pos.top}%"><span class="slot-role ${["GOL"].includes(role)?"role-gol":["ZAG","LD","LE"].includes(role)?"role-def":["VOL","MC","MEI","ME","MD","ALA"].includes(role)?"role-mid":["ATA","PD","PE","SA"].includes(role)?"role-att":""}">${role}</span>${p?`<span class="pitch-player-core"><span class="slot-shirt">${p.shirtNumber??"—"}</span><span class="slot-name">${p.name}</span><span class="slot-ovr">OVR ${p.ovr}</span></span><span class="pitch-strengths">${top.map(([k,v])=>`<span class="pitch-strength">${k} <b>${fmt(v)}</b></span>`).join("")}</span><span class="remove-player" role="button" aria-label="Remover ${p.name}" data-remove-slot="${i}">×</span>`:`<span class="slot-name">+ Escalar</span>`}</button>`}).join("");
  document.querySelectorAll(".pitch-slot").forEach(el=>{
+  const target=Number(el.dataset.slot);
   const remove=el.querySelector(".remove-player");if(remove)remove.addEventListener("click",e=>{e.stopPropagation();const i=Number(remove.dataset.removeSlot);delete lineup[i];selectedSlot=null;saveLineup();renderPitch();renderRoster();$("tacticsPlayerDetail").innerHTML='<div class="empty">Atleta removido da escalação.</div>'});
-  el.addEventListener("dragover",e=>{e.preventDefault();el.classList.add("over")});
+  if(lineup[target]) el.addEventListener("dragstart",e=>{e.stopPropagation();e.dataTransfer.setData("text/player",lineup[target]);e.dataTransfer.setData("text/source-slot",String(target));e.dataTransfer.effectAllowed="move";selectedRoster=lineup[target]});
+  el.addEventListener("dragover",e=>{e.preventDefault();e.dataTransfer.dropEffect="move";el.classList.add("over")});
   el.addEventListener("dragleave",()=>el.classList.remove("over"));
-  el.addEventListener("drop",e=>{e.preventDefault();el.classList.remove("over");const n=e.dataTransfer.getData("text/player");if(n)assignPlayer(Number(el.dataset.slot),n)});
-  el.addEventListener("click",()=>{let i=Number(el.dataset.slot);selectedSlot=i;if(lineup[i]){showTacticsPlayer(lineup[i])}else if(selectedRoster){assignPlayer(i,selectedRoster)}else{renderPitch()}});
+  el.addEventListener("drop",e=>{e.preventDefault();el.classList.remove("over");const n=e.dataTransfer.getData("text/player"),source=e.dataTransfer.getData("text/source-slot");if(!n)return;
+    if(source!==""){const from=Number(source);if(from!==target){const displaced=lineup[target];lineup[target]=lineup[from];if(displaced)lineup[from]=displaced;else delete lineup[from];selectedSlot=target;selectedRoster=n;saveLineup();renderPitch();renderRoster();showTacticsPlayer(n)}}
+    else assignPlayer(target,n);
+  });
+  el.addEventListener("click",()=>{let i=target;selectedSlot=i;if(lineup[i]){showTacticsPlayer(lineup[i]);closePitchPicker()}else{openPitchPicker(i,slots[i][0])}});
  });
  $("lineupCount").textContent=Object.keys(lineup).filter(k=>lineup[k]).length+"/11 titulares";
 }
+
+function closePitchPicker(){const box=$("pitchPlayerPicker");if(box){box.hidden=true;box.innerHTML=""}}
+function openPitchPicker(slot,role){
+ const box=$("pitchPlayerPicker");if(!box)return;
+ const team=$("tacticsTeamFilter")?.value||"CHEER FC";
+ const alreadyUsed= new Set(Object.values(lineup).filter(Boolean));
+ const available=players.filter(p=>clubOf(p)===team&&!alreadyUsed.has(p.name))
+  .sort((a,b)=>{
+   const pa=POSITION_ORDER.indexOf(String(a.pos||"").toUpperCase());
+   const pb=POSITION_ORDER.indexOf(String(b.pos||"").toUpperCase());
+   return (pa<0?999:pa)-(pb<0?999:pb)||Number(b.ovr)-Number(a.ovr)||a.name.localeCompare(b.name,"pt-BR");
+  });
+ box.hidden=false;
+ box.innerHTML=`<div class="pitch-picker-head"><span>ESCALAR ${role}</span><button type="button" class="picker-close" aria-label="Fechar">×</button></div><input class="pitch-picker-search" id="pitchPickerSearch" placeholder="Buscar jogador de qualquer posição..." autocomplete="off"><div class="pitch-picker-list" id="pitchPickerResults"></div>`;
+ box.querySelector(".picker-close").addEventListener("click",closePitchPicker);
+ const input=box.querySelector("#pitchPickerSearch"),results=box.querySelector("#pitchPickerResults");
+ const draw=(term="")=>{
+  const q=term.trim().toLocaleLowerCase("pt-BR");
+  // Sem busca: respeita a posição da vaga. Com busca: procura no elenco inteiro,
+  // permitindo escalar atletas fora da posição original.
+  const list=available.filter(p=>q ? p.name.toLocaleLowerCase("pt-BR").includes(q) : String(p.pos||"").toUpperCase()===String(role).toUpperCase());
+  results.innerHTML=list.length?list.map(p=>`<button type="button" class="pitch-picker-player" data-pick-player="${p.name.replace(/&/g,"&amp;").replace(/"/g,"&quot;")}"><span><strong>${p.name}</strong><br><span class="pitch-picker-meta">${p.pos} · Overall ${p.ovr}</span></span><strong>${p.ovr}</strong></button>`).join(""):`<div class="pitch-picker-empty">${q?"Nenhum jogador encontrado no elenco.":`Nenhum jogador disponível para ${role}. Digite um nome para buscar em todas as posições.`}</div>`;
+  results.querySelectorAll("[data-pick-player]").forEach(btn=>btn.addEventListener("click",()=>assignPlayer(slot,btn.dataset.pickPlayer)));
+ };
+ input.addEventListener("input",()=>draw(input.value));
+ draw();
+ input.focus();
+}
 function assignPlayer(slot,name){
+ closePitchPicker();
  Object.keys(lineup).forEach(k=>{if(lineup[k]===name)delete lineup[k]});
  lineup[slot]=name;selectedSlot=slot;selectedRoster=name;saveLineup();renderPitch();renderRoster();showTacticsPlayer(name);
 }
@@ -432,46 +630,73 @@ function showTacticsPlayer(name){
   return `<div class="tactics-attr-section"><div class="section-title">${group}</div><div class="detail-grid">${attrs.map(([k,v])=>`<div class="detail-stat"><small>${k}</small><b style="color:${color(v)}">${fmt(v)}</b><div class="bar"><i style="width:${Math.max(0,Math.min(100,v))}%;background:${color(v)}"></i></div></div>`).join("")}</div></div>`;
  }).join("");
  const insightHtml=`<div class="tactical-insights"><div class="insight-card strengths"><div class="section-title">PONTOS FORTES</div><div class="insight-tags">${insights.strong.map(x=>`<span class="insight-tag"><b>${x.name}</b><strong>${fmt(x.value)}</strong></span>`).join("")}</div></div><div class="insight-card weaknesses"><div class="section-title">PONTOS DE ATENÇÃO</div><div class="insight-tags">${insights.weak.map(x=>`<span class="insight-tag"><b>${x.name}</b><strong>${fmt(x.value)}</strong></span>`).join("")}</div></div></div><div class="sub tactical-profile">Perfil estatístico: destaque em ${insights.profile||"atributos variados"}. A seleção considera fundamentos relevantes para a posição ${p.pos}.</div>`;
- $("tacticsPlayerDetail").innerHTML=`<div class="detail-head"><div><h2>${p.name}</h2><div class="sub">${p.pos} · ${p.section} · Overall ${p.ovr} · ${Object.keys(p.attrs).length} atributos</div></div><span class="chip">Análise tática + ficha completa</span></div>${insightHtml}${sections}`;
+ $("tacticsPlayerDetail").innerHTML=`<div class="detail-head"><div><h2>${p.name}</h2><div class="sub"><span class="position-badge ${positionClass(p.pos)}">${p.pos}</span> · ${p.section} · Overall ${p.ovr} · ${Object.keys(p.attrs).length} atributos</div></div><span class="chip">Análise tática + ficha completa</span></div>${insightHtml}${sections}`;
 }
 
+const POSITION_ORDER=["GOL","ZAG","LD","LE","VOL","MC","MEI","ME","MD","ALA","PE","PD","SA","ATA"];
+function positionClass(pos){pos=String(pos||"").toUpperCase();return pos==="GOL"?"pos-gol":["ZAG","LD","LE"].includes(pos)?"pos-def":["VOL","MC","MEI","ME","MD","ALA"].includes(pos)?"pos-mid":["PE","PD","SA","ATA"].includes(pos)?"pos-att":""}
+function positionIndex(pos){const i=POSITION_ORDER.indexOf(String(pos||"").toUpperCase());return i<0?999:i}
+function comparePlayersByPosition(a,b){return positionIndex(a.pos)-positionIndex(b.pos)||Number(b.ovr||0)-Number(a.ovr||0)||a.name.localeCompare(b.name,"pt-BR",{sensitivity:"base"})}
+function orderedPositions(list){return [...new Set(list.map(p=>p.pos).filter(Boolean))].sort((a,b)=>positionIndex(a)-positionIndex(b)||a.localeCompare(b,"pt-BR"))}
+function fillPositionFilter(id,list){const el=$(id),old=el.value,positions=orderedPositions(list);el.innerHTML='<option value="">Todas as posições</option>'+positions.map(pos=>`<option value="${pos}">${pos}</option>`).join("");el.value=positions.includes(old)?old:"";el.classList.toggle("position-filter-active",!!el.value);el.dataset.positionClass=positionClass(el.value)}
 function clubOf(p){return p.club||"CHEER FC"}
 function clubNames(){return [...new Set(players.map(clubOf))].sort((a,b)=>a.localeCompare(b,"pt-BR",{sensitivity:"base"}))}
+function persistPlayerData(){try{localStorage.setItem("cheerfc-imported-players-v1",JSON.stringify(players))}catch(e){console.warn("Não foi possível salvar os dados dos atletas",e)}}
+function populateShirtFilters(){const el=$("shirtTeamFilter");if(!el)return;const old=el.value||"CHEER FC";el.innerHTML=clubNames().map(c=>`<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join("");el.value=clubNames().includes(old)?old:(clubNames()[0]||"CHEER FC")}
+function renderShirtEditor(){
+ const club=$("shirtTeamFilter")?.value||"CHEER FC",q=($("shirtSearch")?.value||"").toLocaleLowerCase("pt-BR");
+ const arr=players.filter(p=>clubOf(p)===club&&p.name.toLocaleLowerCase("pt-BR").includes(q)).sort(comparePlayersByPosition);
+ $("shirtCount").textContent=arr.length+" atletas";
+ $("shirtTableBody").innerHTML=arr.map(p=>`<tr><td><strong>${escapeHtml(p.name)}</strong></td><td><span class="position-badge ${positionClass(p.pos)}">${escapeHtml(p.pos)}</span></td><td>${p.ovr}</td><td><input type="number" min="0" max="99" step="1" inputmode="numeric" aria-label="Número da camisa de ${escapeHtml(p.name)}" data-shirt-player="${escapeHtml(p.name)}" value="${p.shirtNumber??""}" placeholder="—"></td></tr>`).join("")||'<tr><td colspan="4">Nenhum atleta encontrado.</td></tr>';
+ document.querySelectorAll("[data-shirt-player]").forEach(input=>input.addEventListener("change",()=>{
+  const p=players.find(x=>x.name===input.dataset.shirtPlayer);if(!p)return;const raw=input.value.trim();
+  if(raw!==""&&(!/^\d{1,2}$/.test(raw)||Number(raw)<0||Number(raw)>99)){alert("Informe um número de camisa entre 0 e 99, ou deixe em branco.");input.value=p.shirtNumber??"";return}
+  p.shirtNumber=raw===""?null:Number(raw);persistPlayerData();
+  $("shirtSaveNote").textContent=`Número de ${p.name} salvo neste navegador.`;
+  if(selected?.name===p.name)renderPlayer(p);renderPitch();renderRoster();
+ }));
+}
+$("shirtTeamFilter")?.addEventListener("change",renderShirtEditor);
+$("shirtSearch")?.addEventListener("input",renderShirtEditor);
 function populateClubFilters(){
  const clubs=clubNames();
  ["playerTeamFilter","compareTeamA","compareTeamB","tacticsTeamFilter"].forEach(id=>{const el=$(id),old=el.value||"CHEER FC";el.innerHTML=clubs.map(c=>`<option value="${c}">${c}</option>`).join("");el.value=clubs.includes(old)?old:(clubs.includes("CHEER FC")?"CHEER FC":clubs[0]||"CHEER FC")});
+ const rankTeam=$("rankTeam"),oldRank=rankTeam?.value||"";
+ if(rankTeam){rankTeam.innerHTML='<option value="">Todos os times</option>'+clubs.map(c=>`<option value="${c}">${c}</option>`).join("");rankTeam.value=clubs.includes(oldRank)?oldRank:"";}
  refreshCompareOptions();
 }
 function refreshCompareOptions(){
  const clubsA=$("compareTeamA").value,clubsB=$("compareTeamB").value;
- const allA=players.filter(p=>clubOf(p)===clubsA).sort((a,b)=>a.name.localeCompare(b.name,"pt-BR",{sensitivity:"base"}));
- const allB=players.filter(p=>clubOf(p)===clubsB).sort((a,b)=>a.name.localeCompare(b.name,"pt-BR",{sensitivity:"base"}));
+ const allA=players.filter(p=>clubOf(p)===clubsA).sort(comparePlayersByPosition);
+ const allB=players.filter(p=>clubOf(p)===clubsB).sort(comparePlayersByPosition);
  const fillPositions=(id,list)=>{
-   const el=$(id),old=el.value,positions=[...new Set(list.map(p=>p.pos).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"pt-BR",{sensitivity:"base"}));
+   const el=$(id),old=el.value,positions=orderedPositions(list);
    el.innerHTML='<option value="">Todas as posições</option>'+positions.map(pos=>`<option value="${pos}">${pos}</option>`).join("");
    el.value=positions.includes(old)?old:"";
+   el.classList.toggle("position-filter-active",!!el.value);
+   el.dataset.positionClass=positionClass(el.value);
  };
  fillPositions("comparePositionA",allA);fillPositions("comparePositionB",allB);
  const listA=allA.filter(p=>!$("comparePositionA").value||p.pos===$("comparePositionA").value);
  const listB=allB.filter(p=>!$("comparePositionB").value||p.pos===$("comparePositionB").value);
- const dlA=$("comparePlayerOptionsA"),dlB=$("comparePlayerOptionsB");
- // Cada lado sugere somente atletas do clube e da posição selecionados.
- dlA.innerHTML=listA.map(p=>`<option value="${p.name}"></option>`).join("");
- dlB.innerHTML=listB.map(p=>`<option value="${p.name}"></option>`).join("");
- if(!listA.some(p=>p.name===$("compareAInput").value))$("compareAInput").value="";
- if(!listB.some(p=>p.name===$("compareBInput").value))$("compareBInput").value="";
+ const fillPlayers=(id,list)=>{
+   const el=$(id),old=el.value;
+   el.innerHTML='<option value="">Selecione um jogador</option>'+list.map(p=>`<option value="${p.name}">${p.name} · ${p.pos} · ${p.ovr}</option>`).join("");
+   el.value=list.some(p=>p.name===old)?old:(list[0]?.name||"");
+ };
+ fillPlayers("compareAInput",listA);fillPlayers("compareBInput",listB);
  compare();
 }
 function filtered(){let q=$("search").value.toLocaleLowerCase("pt-BR"),pos=$("positionFilter").value;return players.filter(p=>clubOf(p)===$("playerTeamFilter").value&&p.name.toLocaleLowerCase("pt-BR").includes(q)&&(!pos||p.pos===pos))}
-function updateList(){let arr=filtered().sort((a,b)=>a.name.localeCompare(b.name,"pt-BR",{sensitivity:"base"}));$("count").textContent=arr.length+" jogadores";let prev=$("playerSelect").value;$("playerSelect").innerHTML=arr.map(p=>`<option value="${p.name}">${p.name} · ${p.pos} · ${p.ovr}</option>`).join("");if(arr.length){let p=arr.find(x=>x.name===prev)||arr[0];$("playerSelect").value=p.name;renderPlayer(p)}else{$("playerCard").innerHTML='<div class="empty">Nenhum jogador encontrado.</div>';$("categories").innerHTML=""}}
+function updateList(){let arr=filtered().sort(comparePlayersByPosition);$("count").textContent=arr.length+" jogadores";let prev=$("playerSelect").value;$("playerSelect").innerHTML=arr.map(p=>`<option value="${p.name}">${p.name} · ${p.pos} · ${p.ovr}</option>`).join("");if(arr.length){let p=arr.find(x=>x.name===prev)||arr[0];$("playerSelect").value=p.name;renderPlayer(p)}else{$("playerCard").innerHTML='<div class="empty">Nenhum jogador encontrado.</div>';$("categories").innerHTML=""}}
 function compare(){
  let a=players.find(p=>p.name===($("compareAInput").value||$("compareA").value)&&clubOf(p)===$("compareTeamA").value&&(!$("comparePositionA").value||p.pos===$("comparePositionA").value)),b=players.find(p=>p.name===($("compareBInput").value||$("compareB").value)&&clubOf(p)===$("compareTeamB").value&&(!$("comparePositionB").value||p.pos===$("comparePositionB").value));
  if(!a||!b){$("compareGrid").innerHTML="";return;}
  const sections=Object.entries(groups).filter(([g,arr])=>arr.some(k=>a.attrs[k]!=null||b.attrs[k]!=null));
  const header=`<div class="comparison-head">
-   <div><div class="overall">${a.ovr}</div><div class="who">${a.name}<small>${a.pos} · ${a.section}</small></div></div>
+   <div><div class="overall">${a.shirtNumber??"—"}</div><div class="who">${a.name}<small>OVERALL ${a.ovr}</small><small><span class="position-badge ${positionClass(a.pos)}">${a.pos}</span> · ${a.section}</small></div></div>
    <div class="who">COMPARAÇÃO<small>${a.external||b.external?"Valores externos estimados quando indicado":""}</small></div>
-   <div><div class="overall">${b.ovr}</div><div class="who">${b.name}<small>${b.pos} · ${b.section}</small></div></div>
+   <div><div class="overall">${b.shirtNumber??"—"}</div><div class="who">${b.name}<small>OVERALL ${b.ovr}</small><small><span class="position-badge ${positionClass(b.pos)}">${b.pos}</span> · ${b.section}</small></div></div>
  </div>`;
  const rows=sections.map(([group,keys])=>`<div class="comparison-section">${group}</div>`+keys.filter(k=>a.attrs[k]!=null||b.attrs[k]!=null).map(k=>{
    const av=a.attrs[k],bv=b.attrs[k],aHas=av!=null,bHas=bv!=null;
@@ -490,17 +715,17 @@ $("search").addEventListener("input",updateList);$("positionFilter").addEventLis
 
 function showTab(which){
  $("globalModeToolbar").style.display=["player","ranking"].includes(which)?"flex":"none";
- ["playerView","compareView","rankingView","tacticsView","importView"].forEach(id=>$(id).classList.add("hidden"));
+ ["playerView","compareView","rankingView","tacticsView","importView","shirtsView"].forEach(id=>$(id).classList.add("hidden"));
  $("compareView").style.display=which==="compare"?"block":"none";
- $(which==="player"?"playerView":which==="compare"?"compareView":which==="ranking"?"rankingView":which==="tactics"?"tacticsView":"importView").classList.remove("hidden");
- ["tabPlayer","tabCompare","tabRanking","tabTactics","tabImport"].forEach(id=>$(id).classList.remove("active"));
- $("tab"+(which==="player"?"Player":which==="compare"?"Compare":which==="ranking"?"Ranking":which==="tactics"?"Tactics":"Import")).classList.add("active");
+ $(which==="player"?"playerView":which==="compare"?"compareView":which==="ranking"?"rankingView":which==="tactics"?"tacticsView":which==="shirts"?"shirtsView":"importView").classList.remove("hidden");
+ ["tabPlayer","tabCompare","tabRanking","tabTactics","tabImport","tabShirts"].forEach(id=>$(id).classList.remove("active"));
+ $("tab"+(which==="player"?"Player":which==="compare"?"Compare":which==="ranking"?"Ranking":which==="tactics"?"Tactics":which==="shirts"?"Shirts":"Import")).classList.add("active");
  if(which==="compare")compare();if(which==="ranking")ranking();if(which==="tactics"){renderPitch();renderRoster()}
 }
 $("tabPlayer").onclick=()=>showTab("player");
 $("tabCompare").onclick=()=>showTab("compare");
 $("tabRanking").onclick=()=>showTab("ranking");
-$("tabTactics").onclick=()=>showTab("tactics");$("tabImport").onclick=()=>showTab("import");
+$("tabTactics").onclick=()=>showTab("tactics");$("tabImport").onclick=()=>showTab("import");$("tabShirts").onclick=()=>{populateShirtFilters();renderShirtEditor();showTab("shirts")};
 $("formationSelect").onchange=()=>{lineup={};selectedSlot=null;saveLineup();renderPitch();renderRoster()};
 $("rosterSearch").oninput=renderRoster;
 $("rosterPositionFilter").onchange=renderRoster;
@@ -511,17 +736,19 @@ $("saveNamedLineup").onclick=()=>{const name=prompt("Nome para salvar esta escal
 $("loadNamedLineup").onclick=()=>{const name=$("savedLineupSelect").value,item=savedLineups()[name];if(!item)return;$("tacticsTeamFilter").value=item.club||"CHEER FC";$("formationSelect").value=item.formation||"433";lineup={...(item.lineup||{})};selectedSlot=null;selectedRoster=null;saveLineup();renderPitch();renderRoster();$("tacticsPlayerDetail").innerHTML='<div class="empty">Escalação carregada: '+escapeHtml(name)+'.</div>'};
 $("deleteNamedLineup").onclick=()=>{const name=$("savedLineupSelect").value;if(!name)return;if(!confirm('Excluir a escalação salva "'+name+'"?'))return;const items=savedLineups();delete items[name];localStorage.setItem("cheerfc-saved-lineups-v1",JSON.stringify(items));refreshSavedLineups()};
 $("exportLineupImage").onclick=exportLineupImage;$("exportLineupPdf").onclick=exportLineupPdf;refreshSavedLineups();
-$("rankAttribute").onchange=ranking;$("rankPosition").onchange=ranking;
+$("rankAttribute").onchange=ranking;$("rankPosition").onchange=ranking;$("rankTeam").onchange=ranking;
 $("compareA").onchange=compare;$("compareB").onchange=compare;
 $("compareAInput").addEventListener("input",compare);$("compareBInput").addEventListener("input",compare);$("comparePositionA").addEventListener("change",refreshCompareOptions);$("comparePositionB").addEventListener("change",refreshCompareOptions);
 $("playerTeamFilter").addEventListener("change",updateList);
+["positionFilter","rosterPositionFilter","rankPosition","comparePositionA","comparePositionB"].forEach(id=>$(id)?.addEventListener("change",e=>{const el=e.currentTarget;el.dataset.positionClass=positionClass(el.value);el.classList.toggle("position-filter-active",!!el.value);["pos-gol","pos-def","pos-mid","pos-att"].forEach(c=>el.classList.remove(c));if(el.value)el.classList.add(positionClass(el.value))}));
 $("compareTeamA").addEventListener("change",refreshCompareOptions);
 $("compareTeamB").addEventListener("change",refreshCompareOptions);
 fillSelect($("playerSelect"));fillSelect($("compareA"),players[0].name);fillSelect($("compareB"),players[1].name);
-[...new Set(players.map(p=>p.pos))].sort().forEach(pos=>$("positionFilter").insertAdjacentHTML("beforeend",`<option value="${pos}">${pos}</option>`));
+orderedPositions(players).forEach(pos=>$("positionFilter").insertAdjacentHTML("beforeend",`<option value="${pos}">${pos}</option>`));
+fillPositionFilter("rosterPositionFilter",players);fillPositionFilter("positionFilter",players);fillPositionFilter("rankPosition",players);
 const allAttributes=[...new Set(players.flatMap(p=>Object.keys(p.attrs)))].sort((a,b)=>a.localeCompare(b,"pt-BR"));
 $("rankAttribute").innerHTML=allAttributes.map(a=>`<option value="${a}">${a}</option>`).join("");
-[...new Set(players.map(p=>p.pos))].sort().forEach(pos=>$("rankPosition").insertAdjacentHTML("beforeend",`<option value="${pos}">${pos}</option>`));
+
 
 // Importação de fichas: parser por nomes de atributos do Football Identity.
 let pendingImport=null;
@@ -936,6 +1163,7 @@ $("compareBInput").value=players.filter(p=>clubOf(p)==="CHEER FC")[1]?.name||$("
 $("modeHint").textContent="Exibindo os valores originais da ficha, sem os efeitos do planejador de itens.";
 populateClubFilters();
 $("playerTeamFilter").addEventListener("change",updateList);
+["positionFilter","rosterPositionFilter","rankPosition","comparePositionA","comparePositionB"].forEach(id=>$(id)?.addEventListener("change",e=>{const el=e.currentTarget;el.dataset.positionClass=positionClass(el.value);el.classList.toggle("position-filter-active",!!el.value);["pos-gol","pos-def","pos-mid","pos-att"].forEach(c=>el.classList.remove(c));if(el.value)el.classList.add(positionClass(el.value))}));
 $("compareTeamA").addEventListener("change",refreshCompareOptions);
 $("compareTeamB").addEventListener("change",refreshCompareOptions);
 $("playerTeamFilter").value=clubNames().includes("CHEER FC")?"CHEER FC":clubNames()[0]||"CHEER FC";
