@@ -1674,14 +1674,20 @@ function updateList(){let arr=filtered().sort(comparePlayersByPosition);$("count
 function compare(){
  let a=players.find(p=>p.name===($("compareAInput").value||$("compareA").value)&&clubOf(p)===$("compareTeamA").value&&(!$("comparePositionA").value||p.pos===$("comparePositionA").value)),b=players.find(p=>p.name===($("compareBInput").value||$("compareB").value)&&clubOf(p)===$("compareTeamB").value&&(!$("comparePositionB").value||p.pos===$("comparePositionB").value));
  if(!a||!b){$("compareGrid").innerHTML="";return;}
- const sections=Object.entries(groups).filter(([g,arr])=>arr.some(k=>a.attrs[k]!=null||b.attrs[k]!=null));
+ // Atributos de goleiro só fazem sentido quando pelo menos um dos lados é GOL.
+ // Em comparações entre jogadores de linha, remove a categoria inteira; em
+ // comparações mistas, não exibe atributos de goleiro no lado do jogador de linha.
+ const sections=Object.entries(groups).filter(([g,arr])=>{
+   if(g==="GOLEIRO"&&a.pos!=="GOL"&&b.pos!=="GOL")return false;
+   return arr.some(k=>(g!=="GOLEIRO"||a.pos==="GOL")&&a.attrs[k]!=null || (g!=="GOLEIRO"||b.pos==="GOL")&&b.attrs[k]!=null);
+ });
  const header=`<div class="comparison-head">
    <div><div class="overall">${a.shirtNumber??"—"}</div><div class="who">${a.name}<small>OVERALL ${a.ovr}</small><small><span class="position-badge ${positionClass(a.pos)}">${a.pos}</span> · ${a.section}</small></div></div>
    <div class="who">COMPARAÇÃO<small>${a.external||b.external?"Valores externos estimados quando indicado":""}</small></div>
    <div><div class="overall">${b.shirtNumber??"—"}</div><div class="who">${b.name}<small>OVERALL ${b.ovr}</small><small><span class="position-badge ${positionClass(b.pos)}">${b.pos}</span> · ${b.section}</small></div></div>
  </div>`;
  const rows=sections.map(([group,keys])=>`<div class="comparison-section">${group}</div>`+keys.filter(k=>a.attrs[k]!=null||b.attrs[k]!=null).map(k=>{
-   const av=a.attrs[k],bv=b.attrs[k],aHas=av!=null,bHas=bv!=null;
+   const av=group==="GOLEIRO"&&a.pos!=="GOL"?null:a.attrs[k],bv=group==="GOLEIRO"&&b.pos!=="GOL"?null:b.attrs[k],aHas=av!=null,bHas=bv!=null;
    const aClass=!aHas?"":!bHas?"win":av>bv?"win":av<bv?"lose":"tie";
    const bClass=!bHas?"":!aHas?"win":bv>av?"win":bv<av?"lose":"tie";
    return `<div class="comparison-row">
