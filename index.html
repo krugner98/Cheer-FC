@@ -47,6 +47,10 @@ main{max-width:1450px;margin:auto;padding:30px clamp(14px,3vw,42px) 60px}.eyebro
 .comparison-track i.lose{background:#e0525d!important}
 .comparison-track i.tie{background:#e4bd35!important}
 @media(max-width:560px){.comparison-head,.comparison-row{grid-template-columns:1fr minmax(92px,1.1fr) 1fr;gap:5px;padding-left:8px;padding-right:8px}.comparison-head .who{font-size:11px}.comparison-value{font-size:12px}.comparison-label{font-size:9px}}
+.compare-export-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:8px 0 12px;padding:10px 12px;border:1px solid #55424b;border-radius:10px;background:#ffffff05}
+.compare-export-actions .tab{white-space:nowrap}
+.compare-export-actions .tab:disabled{opacity:.45;cursor:not-allowed;filter:saturate(.5)}
+@media(max-width:560px){.compare-export-actions{align-items:stretch;flex-direction:column}.compare-export-actions .tab{width:100%}}
 
 
 .radar-panel{background:#ffffff04;border:1px solid #3b333b;border-radius:12px;padding:14px;margin-bottom:14px}
@@ -1147,7 +1151,7 @@ body.auth-locked #authGate{display:flex;visibility:visible!important;pointer-eve
   <label><span>Jogador</span><select id="compareBInput" class="compare-player-select"><option value="">Selecione um jogador</option></select></label>
  </div></div>
  <select id="compareA" class="hidden"></select><select id="compareB" class="hidden"></select>
-</div><div class="sub external-fiche-note">Jogadores de outros clubes possuem somente a ficha final; a comparação com eles usa sempre os valores finais.</div><div class="compare-grid" id="compareGrid"></div></section>
+ </div><div class="sub external-fiche-note">Jogadores de outros clubes possuem somente a ficha final; a comparação com eles usa sempre os valores finais.</div><div class="compare-export-actions"><span class="sub">Salve a comparação completa em imagem, com escudos e atributos.</span><button type="button" class="tab active" id="exportComparisonImage" disabled>Exportar comparação PNG</button></div><div class="compare-grid" id="compareGrid"></div></section>
 <section id="importView" class="hidden">
  <div class="detail-head"><div><h2>Central de atualização de fichas</h2><div class="sub">Atualize o CHEER FC ou importe elencos externos para o banco de scouting</div></div><span class="chip">Prévia antes de salvar</span></div>
  <div class="import-mode-grid">
@@ -1673,7 +1677,8 @@ function filtered(){let q=$("search").value.toLocaleLowerCase("pt-BR"),pos=$("po
 function updateList(){let arr=filtered().sort(comparePlayersByPosition);$("count").textContent=arr.length+" jogadores";let prev=$("playerSelect").value;$("playerSelect").innerHTML=arr.map(p=>`<option value="${p.name}">${p.name} · ${p.pos} · ${p.ovr}</option>`).join("");if(arr.length){let p=arr.find(x=>x.name===prev)||arr[0];$("playerSelect").value=p.name;renderPlayer(p)}else{$("playerCard").innerHTML='<div class="empty">Nenhum jogador encontrado.</div>';$("categories").innerHTML=""}}
 function compare(){
  let a=players.find(p=>p.name===($("compareAInput").value||$("compareA").value)&&clubOf(p)===$("compareTeamA").value&&(!$("comparePositionA").value||p.pos===$("comparePositionA").value)),b=players.find(p=>p.name===($("compareBInput").value||$("compareB").value)&&clubOf(p)===$("compareTeamB").value&&(!$("comparePositionB").value||p.pos===$("comparePositionB").value));
- if(!a||!b){$("compareGrid").innerHTML="";return;}
+ if(!a||!b){$("compareGrid").innerHTML="";const exportBtn=$("exportComparisonImage");if(exportBtn)exportBtn.disabled=true;return;}
+ const exportBtn=$("exportComparisonImage");if(exportBtn)exportBtn.disabled=false;
  // Atributos de goleiro só fazem sentido quando pelo menos um dos lados é GOL.
  // Em comparações entre jogadores de linha, remove a categoria inteira; em
  // comparações mistas, não exibe atributos de goleiro no lado do jogador de linha.
@@ -1698,6 +1703,98 @@ function compare(){
  }).join("")).join("");
  $("compareGrid").innerHTML=`<div class="comparison-table">${header}${rows}</div>`;
 }
+
+async function exportComparisonImage(){
+ const a=players.find(p=>p.name===($("compareAInput").value||$("compareA").value)&&clubOf(p)===$("compareTeamA").value&&(!$("comparePositionA").value||p.pos===$("comparePositionA").value));
+ const b=players.find(p=>p.name===($("compareBInput").value||$("compareB").value)&&clubOf(p)===$("compareTeamB").value&&(!$("comparePositionB").value||p.pos===$("comparePositionB").value));
+ if(!a||!b){alert("Selecione os dois jogadores antes de exportar.");return;}
+ const btn=$("exportComparisonImage"),oldLabel=btn?.textContent;
+ if(btn){btn.disabled=true;btn.textContent="Gerando PNG...";}
+ try{
+  const brandA=window.cheerTeamBranding?.brandFor?.(clubOf(a))||{label:clubOf(a),logo:"",primary:"#5A1028",accent:"#E8DCCB",dark:"#21191f",text:"#FFF7EB"};
+  const brandB=window.cheerTeamBranding?.brandFor?.(clubOf(b))||{label:clubOf(b),logo:"",primary:"#5A1028",accent:"#E8DCCB",dark:"#21191f",text:"#FFF7EB"};
+  const mode=$("attributeModeCompare")?.value||"final";
+  const modeLabel=(a.external||b.external)?"FICHA FINAL · SCOUTING EXTERNO":mode==="base"?"FICHA BASE":mode==="finalBonus5"?"FICHA FINAL + BÔNUS 5%":"FICHA FINAL";
+  const sections=Object.entries(groups).map(([group,keys])=>({group,keys:keys.filter(k=>group==="GOLEIRO"?((a.pos==="GOL"&&a.attrs[k]!=null)||(b.pos==="GOL"&&b.attrs[k]!=null)):(a.attrs[k]!=null||b.attrs[k]!=null))})).filter(x=>x.keys.length);
+  const allRows=sections.reduce((n,x)=>n+x.keys.length,0);
+  const W=2200,margin=88,inner=W-margin*2,headerH=330,sectionH=64,rowH=82,footerH=110;
+  const H=margin+headerH+sections.reduce((n,x)=>n+sectionH+x.keys.length*rowH,0)+footerH;
+  const canvas=document.createElement("canvas");canvas.width=W;canvas.height=H;
+  const ctx=canvas.getContext("2d");if(!ctx)throw new Error("Canvas indisponível neste navegador.");
+  const round=(x,y,w,h,r,fill,stroke)=>{ctx.beginPath();ctx.roundRect(x,y,w,h,r);if(fill){ctx.fillStyle=fill;ctx.fill();}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=2;ctx.stroke();}};
+  const text=(value,x,y,size,color,weight="600",align="left",maxWidth)=>{ctx.fillStyle=color;ctx.font=`${weight} ${size}px Arial, sans-serif`;ctx.textAlign=align;ctx.textBaseline="middle";ctx.fillText(String(value??""),x,y,maxWidth);};
+  const imgLoad=src=>new Promise(resolve=>{if(!src){resolve(null);return;}const im=new Image();im.onload=()=>resolve(im);im.onerror=()=>resolve(null);im.src=src;});
+  const [logoA,logoB]=await Promise.all([imgLoad(brandA.logo),imgLoad(brandB.logo)]);
+  const drawLogo=(im,x,y,size)=>{if(!im)return;const scale=Math.min(size/im.naturalWidth,size/im.naturalHeight),w=im.naturalWidth*scale,h=im.naturalHeight*scale;ctx.drawImage(im,x+(size-w)/2,y+(size-h)/2,w,h);};
+  const luminance=hex=>{const h=String(hex||"#000000").replace("#","");if(!/^[0-9a-f]{6}$/i.test(h))return 0;const c=[0,2,4].map(i=>parseInt(h.slice(i,i+2),16)/255).map(v=>v<=.04045?v/12.92:Math.pow((v+.055)/1.055,2.4));return .2126*c[0]+.7152*c[1]+.0722*c[2];};
+  const contrast=(x,y)=>{const p=luminance(x),q=luminance(y);return (Math.max(p,q)+.05)/(Math.min(p,q)+.05);};
+  const secondary=brand=>contrast(brand.primary,brand.accent)>=3?brand.accent:(brand.text||"#FFFFFF");
+  const valueColor=(v,other,has,otherHas)=>!has?"#aaa1a9":!otherHas?"#52c69a":v>other?"#52c69a":v<other?"#e16b70":"#e4bd35";
+  const barColor=(v,other,has,otherHas)=>!has?"#777078":!otherHas?"#35bd83":v>other?"#35bd83":v<other?"#e0525d":"#e4bd35";
+  const fmtValue=v=>Number.isFinite(Number(v))?Number(v).toFixed(2):"—";
+  const bg=ctx.createLinearGradient(0,0,W,H);bg.addColorStop(0,"#18141a");bg.addColorStop(.55,"#241a22");bg.addColorStop(1,"#171419");ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+  round(margin,margin,inner,headerH,26,"#211d23","#55424b");
+  const split=inner/2;
+  const ga=ctx.createLinearGradient(margin,margin,margin+split,margin+headerH);ga.addColorStop(0,brandA.dark||brandA.primary);ga.addColorStop(1,brandA.primary);
+  const gb=ctx.createLinearGradient(margin+split,margin,margin+inner,margin+headerH);gb.addColorStop(0,brandB.primary);gb.addColorStop(1,brandB.dark||brandB.primary);
+  round(margin,margin,split,headerH,24,ga,null);round(margin+split,margin,split,headerH,24,gb,null);
+  ctx.fillStyle="#211d23";ctx.fillRect(W/2-150,margin,300,headerH);
+  drawLogo(logoA,margin+32,margin+44,150);drawLogo(logoB,margin+inner-182,margin+44,150);
+  const leftX=margin+212,rightX=margin+inner-212;
+  text(a.name,leftX,margin+83,37,"#fff7eb","900","left",Math.max(250,split-280));
+  text(brandA.label||clubOf(a),leftX,margin+130,23,secondary(brandA),"700","left",Math.max(250,split-280));
+  text(`OVERALL ${a.ovr}  ·  ${a.pos}`,leftX,margin+183,24,"#f5eee8","800");
+  text(a.alias||"",leftX,margin+222,18,"#e5d8df","600");
+  text(b.name,rightX,margin+83,37,"#fff7eb","900","right",Math.max(250,split-280));
+  text(brandB.label||clubOf(b),rightX,margin+130,23,secondary(brandB),"700","right",Math.max(250,split-280));
+  text(`OVERALL ${b.ovr}  ·  ${b.pos}`,rightX,margin+183,24,"#f5eee8","800","right");
+  text(b.alias||"",rightX,margin+222,18,"#e5d8df","600","right");
+  text("COMPARAÇÃO",W/2,margin+107,26,"#e8dccb","900","center");
+  text("DE ATRIBUTOS",W/2,margin+144,17,"#c8bbc3","700","center");
+  text(modeLabel,W/2,margin+191,15,"#c8bbc3","700","center");
+  text("FOOTBALL IDENTITY",W/2,margin+256,14,"#9c9099","700","center");
+  let y=margin+headerH;
+  const xLeft=margin+40,xCenter=W/2,xRight=margin+inner-40;
+  const leftTrackW=inner*.34,rightTrackW=inner*.34,trackH=9;
+  sections.forEach((section,si)=>{
+   round(margin,y,inner,sectionH,0,"#342a33",null);
+   text(section.group.toUpperCase(),margin+25,y+sectionH/2,20,"#e8dccb","900");
+   text(`${section.keys.length} ${section.keys.length===1?"atributo":"atributos"}`,margin+inner-24,y+sectionH/2,15,"#bcb0b8","600","right");
+   y+=sectionH;
+   section.keys.forEach((key,ri)=>{
+    const av=section.group==="GOLEIRO"&&a.pos!=="GOL"?null:a.attrs[key],bv=section.group==="GOLEIRO"&&b.pos!=="GOL"?null:b.attrs[key];
+    const aHas=av!=null&&Number.isFinite(Number(av)),bHas=bv!=null&&Number.isFinite(Number(bv));
+    const an=Number(av),bn=Number(bv),cy=y+rowH/2;
+    ctx.fillStyle=(ri%2===0)?"#211d23":"#262128";ctx.fillRect(margin,y,inner,rowH);
+    ctx.strokeStyle="#ffffff12";ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(margin,y+rowH);ctx.lineTo(margin+inner,y+rowH);ctx.stroke();
+    const leftVal=aHas?fmtValue(av):"—",rightVal=bHas?fmtValue(bv):"—";
+    const lColor=valueColor(an,bn,aHas,bHas),rColor=valueColor(bn,an,bHas,aHas);
+    text(leftVal,xCenter-430,cy-8,24,lColor,"900","right");
+    text(a.qualitative?.[key]||"",xCenter-430,cy+20,14,"#a99fa7","500","right");
+    text(key,xCenter,cy,19,"#e7dfe5","700","center",300);
+    text(rightVal,xCenter+430,cy-8,24,rColor,"900","left");
+    text(b.qualitative?.[key]||"",xCenter+430,cy+20,14,"#a99fa7","500","left");
+    const ltx=xLeft,ltw=leftTrackW,rtw=rightTrackW,rtx=xRight-rtw;
+    round(ltx,cy+27,ltw,trackH,5,"#ffffff18",null);round(rtx,cy+27,rtw,trackH,5,"#ffffff18",null);
+    if(aHas){const w=ltw*Math.max(0,Math.min(100,an))/100;round(ltx+ltw-w,cy+27,w,trackH,5,barColor(an,bn,aHas,bHas),null);}
+    if(bHas){const w=rtw*Math.max(0,Math.min(100,bn))/100;round(rtx,cy+27,w,trackH,5,barColor(bn,an,bHas,aHas),null);}
+    y+=rowH;
+   });
+  });
+  const fy=H-footerH+18;ctx.fillStyle="#e8dccb18";ctx.fillRect(margin,fy,inner,1);
+  text(`${a.name}  ×  ${b.name}`,margin+4,fy+38,17,"#d8cbd3","700");
+  text("CHEER FC PLAYER HUB  ·  COMPARAÇÃO DE ATRIBUTOS",W-margin-4,fy+38,14,"#a99ea7","700","right");
+  const exported=await new Promise(resolve=>canvas.toBlob(blob=>{
+   if(!blob){resolve(false);return;}
+   const url=URL.createObjectURL(blob),link=document.createElement("a");
+   const slug=value=>String(value||"jogador").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/gi,"-").replace(/^-|-$/g,"").toLowerCase();
+   link.href=url;link.download=`comparacao-${slug(a.name)}-vs-${slug(b.name)}.png`;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1800);resolve(true);
+  },"image/png"));
+  if(!exported)throw new Error("O navegador não conseguiu gerar o PNG.");
+ }catch(err){console.error("Falha ao exportar comparação",err);alert("Não foi possível exportar a comparação. "+(err.message||"Tente novamente."));}
+ finally{if(btn){btn.disabled=false;btn.textContent=oldLabel||"Exportar comparação PNG";}}
+}
+$("exportComparisonImage")?.addEventListener("click",exportComparisonImage);
 $("playerSelect").addEventListener("change",e=>renderPlayer(players.find(p=>p.name===e.target.value)));
 $("search").addEventListener("input",updateList);$("positionFilter").addEventListener("change",updateList);
 
