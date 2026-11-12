@@ -2207,6 +2207,38 @@ select option[data-position-class="pos-att"]{background:#c83b45;color:#fff}
 @media(max-width:700px){.simulator-pickers{padding:10px!important}.sim-team-picker select{padding:10px 8px;font-size:10px}.sim-team-picker>span{font-size:8px;letter-spacing:1px}#cheerTacticalSimulator{height:1200px}.simulator-heading{align-items:flex-start}}
 </style>
 
+
+<style id="cheer-youtube-contained-player-v615">
+.video-player-shell{width:100%;display:flex;flex-direction:column;gap:0;border:1px solid #59434e;border-radius:13px;overflow:hidden;background:#080709}
+.video-player-shell .video-player-frame{border:0;border-radius:0;min-height:0;flex:none}
+.video-player-shell .video-embed-host{position:absolute;inset:0;width:100%;height:100%}
+.video-player-shell .video-embed-host iframe{width:100%!important;height:100%!important;min-height:0!important;aspect-ratio:auto!important}
+.youtube-click-shield{position:absolute;inset:0;z-index:3;background:transparent;cursor:default}
+.youtube-click-shield[hidden]{display:none}
+.yt-end-overlay{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:20px;text-align:center;background:linear-gradient(140deg,#130e13eF,#281522eF);color:#fff4e9}
+.yt-end-overlay[hidden]{display:none}
+.yt-end-overlay strong{font-size:clamp(16px,2vw,22px);letter-spacing:.2px}
+.yt-end-overlay small{font-size:11px;color:#d3c2ca}
+.yt-end-overlay button{border:1px solid #e8dccb;background:#e8dccb;color:#5a1028;border-radius:999px;padding:10px 18px;font-weight:900;cursor:pointer}
+.video-custom-controls{display:grid;grid-template-columns:auto minmax(120px,1fr) auto auto;align-items:center;gap:10px;padding:10px 12px;background:linear-gradient(110deg,#2d2029,#1c191f);border-top:1px solid #5b414d}
+.video-custom-controls button{min-height:34px;border:1px solid #69505d;border-radius:8px;background:#38232f;color:#f5eee8;padding:7px 11px;font-size:11px;font-weight:850;white-space:nowrap;cursor:pointer}
+.video-custom-controls button:hover:not(:disabled){background:#5a1028;border-color:#e8dccb}
+.video-custom-controls button:disabled{opacity:.45;cursor:not-allowed}
+.yt-seek-group{min-width:0;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px}
+.yt-seek-group input[type=range]{width:100%;min-width:0;accent-color:#a7355e;cursor:pointer}
+.yt-time-readout{min-width:86px;text-align:right;font-size:10px;font-variant-numeric:tabular-nums;color:#d7c9d0;white-space:nowrap}
+.video-player-shell:fullscreen{width:100vw;height:100vh;max-width:none;border:0;border-radius:0;background:#080709}
+.video-player-shell:fullscreen .video-player-frame{flex:1;min-height:0;aspect-ratio:auto}
+.video-player-shell:fullscreen .video-embed-host iframe{min-height:0!important}
+.video-player-shell:fullscreen .video-custom-controls{flex:none;padding:14px 18px}
+@media(max-width:560px){
+ .video-custom-controls{grid-template-columns:auto minmax(0,1fr) auto;gap:7px;padding:9px}
+ .yt-seek-group{grid-column:1/-1;grid-row:1}
+ .yt-time-readout{min-width:78px}
+ .video-custom-controls button{font-size:10px;padding:7px 9px}
+}
+</style>
+
 </head><body class="auth-locked">
 <div aria-labelledby="authTitle" aria-modal="true" id="authGate" role="dialog">
 <div class="auth-panel">
@@ -4122,9 +4154,13 @@ function updateTrackerSample(tracker,current,duration){
  if(!tracker||activeVideoTracker!==tracker||!Number.isFinite(current)||current<0)return;
  const now=Date.now();if(Number.isFinite(duration)&&duration>0)tracker.duration=Math.floor(duration);
  if(tracker.lastTime!==null){
-  const elapsed=Math.max(.15,(now-tracker.lastWall)/1000),advance=current-tracker.lastTime;
-  // Só pontua intervalos contínuos compatíveis com tempo de reprodução; saltos não contam.
-  if(advance>0&&advance<=Math.min(10,elapsed*1.8+1.25)){
+  const elapsed=Math.max(.08,(now-tracker.lastWall)/1000),advance=current-tracker.lastTime;
+  // Usa a velocidade real informada pelo player. Isso aceita 2x/3x sem confundir avanço acelerado com seek.
+  const reportedRate=Number(typeof tracker.getPlaybackRate==='function'?tracker.getPlaybackRate():tracker.playbackRate);
+  const playbackRate=Number.isFinite(reportedRate)&&reportedRate>0?Math.min(4,Math.max(.5,reportedRate)):1;
+  const maxContinuousAdvance=Math.min(8,elapsed*(playbackRate+.65)+.35);
+  // Saltos grandes continuam sem pontuar; só registra os segundos atravessados em reprodução contínua.
+  if(advance>0&&advance<=maxContinuousAdvance){
    const first=Math.floor(tracker.lastTime)+1,last=Math.floor(current);
    for(let sec=first;sec<=last;sec++)if(sec>=0&&sec<tracker.duration)tracker.seconds.add(sec);
   }
@@ -4146,39 +4182,86 @@ async function flushVideoTracker(tracker){
  }catch(err){console.warn("Não foi possível sincronizar o progresso do vídeo:",err)}
  finally{tracker.sending=false}
 }
-function startTrackerClock(tracker,getTime,getDuration){
+function startTrackerClock(tracker,getTime,getDuration,getPlaybackRate){
  if(!tracker||activeVideoTracker!==tracker)return;
- tracker.getTime=getTime;tracker.getDuration=getDuration;
+ tracker.getTime=getTime;tracker.getDuration=getDuration;tracker.getPlaybackRate=getPlaybackRate||(()=>tracker.playbackRate||1);
  if(!tracker.started){tracker.started=true;if(window.cheerCloudStartTrainingVideo)window.cheerCloudStartTrainingVideo(tracker.videoId).catch(err=>console.warn("Não foi possível iniciar o registro do vídeo:",err));}
+ // Amostra duas vezes por segundo para capturar todos os segundos também em reprodução 3x.
  if(!tracker.timer)tracker.timer=setInterval(()=>{
   if(activeVideoTracker!==tracker)return;
-  try{updateTrackerSample(tracker,tracker.getTime(),tracker.getDuration())}catch(e){}
- },1500);
+  try{updateTrackerSample(tracker,tracker.getTime(),tracker.getDuration());syncYoutubeCustomControls(tracker)}catch(e){}
+ },500);
 }
-function pauseTracker(tracker){if(!tracker||activeVideoTracker!==tracker)return;try{if(tracker.getTime)updateTrackerSample(tracker,tracker.getTime(),tracker.getDuration())}catch(e){}stopTrackerTimer(tracker);flushVideoTracker(tracker)}
+function pauseTracker(tracker){if(!tracker||activeVideoTracker!==tracker)return;try{if(tracker.getTime)updateTrackerSample(tracker,tracker.getTime(),tracker.getDuration())}catch(e){}stopTrackerTimer(tracker);flushVideoTracker(tracker);syncYoutubeCustomControls(tracker)}
 function stopActiveVideoTracker(){const t=activeVideoTracker;if(!t)return;pauseTracker(t);activeVideoTracker=null;try{t.player?.destroy?.()}catch(e){};}
+
+function formatVideoClock(seconds){
+ const n=Math.max(0,Math.floor(Number(seconds)||0));
+ const h=Math.floor(n/3600),m=Math.floor((n%3600)/60),sec=n%60;
+ return h?`${h}:${String(m).padStart(2,"0")}:${String(sec).padStart(2,"0")}`:`${m}:${String(sec).padStart(2,"0")}`;
+}
+function syncYoutubeCustomControls(tracker){
+ if(!tracker||activeVideoTracker!==tracker||tracker.provider!=="youtube"||!tracker.player)return;
+ const seek=$("ytCustomSeek"),time=$("ytCustomTime"),play=$("ytCustomPlay"),mute=$("ytCustomMute"),shield=$("ytClickShield");
+ let current=0,duration=0,state=-1;
+ try{current=Number(tracker.player.getCurrentTime())||0;duration=Number(tracker.player.getDuration())||tracker.duration||0;state=tracker.player.getPlayerState()}catch(e){return}
+ if(duration>0){tracker.duration=Math.floor(duration);if(seek&&document.activeElement!==seek)seek.value=String(Math.round(current/duration*1000));}
+ if(time)time.textContent=`${formatVideoClock(current)} / ${formatVideoClock(duration)}`;
+ if(play){play.textContent=state===1?"Ⅱ Pausar":"▶ Reproduzir";play.setAttribute("aria-label",state===1?"Pausar vídeo":"Reproduzir vídeo");}
+ if(mute){let muted=false;try{muted=tracker.player.isMuted()}catch(e){};mute.textContent=muted?"Ativar som":"Som";mute.setAttribute("aria-pressed",String(muted));}
+ if(shield)shield.hidden=false;
+}
+function bindYoutubeCustomControls(tracker){
+ const play=$("ytCustomPlay"),seek=$("ytCustomSeek"),mute=$("ytCustomMute"),full=$("ytCustomFullscreen"),replay=$("ytReplayButton");
+ [play,seek,mute,full].forEach(el=>{if(el)el.disabled=false});
+ if(play)play.addEventListener("click",()=>{
+  if(activeVideoTracker!==tracker||!tracker.player)return;
+  try{if(tracker.player.getPlayerState()===1)tracker.player.pauseVideo();else{ $("ytEndOverlay")?.setAttribute("hidden","");tracker.player.playVideo();}}catch(e){}
+ });
+ if(seek){
+  seek.addEventListener("input",()=>{const duration=Number(tracker.player?.getDuration())||tracker.duration||0;if($("ytCustomTime"))$("ytCustomTime").textContent=`${formatVideoClock(duration*Number(seek.value)/1000)} / ${formatVideoClock(duration)}`;});
+  seek.addEventListener("change",()=>{
+   if(activeVideoTracker!==tracker||!tracker.player)return;
+   const duration=Number(tracker.player.getDuration())||tracker.duration||0,target=Math.max(0,Math.min(duration,duration*Number(seek.value)/1000));
+   try{tracker.player.seekTo(target,true);tracker.lastTime=target;tracker.lastWall=Date.now();}catch(e){}
+   syncYoutubeCustomControls(tracker);
+  });
+ }
+ if(mute)mute.addEventListener("click",()=>{if(activeVideoTracker!==tracker||!tracker.player)return;try{if(tracker.player.isMuted())tracker.player.unMute();else tracker.player.mute();}catch(e){}syncYoutubeCustomControls(tracker)});
+ if(full)full.addEventListener("click",async()=>{
+  const shell=$("youtubePlayerShell");if(!shell)return;
+  try{if(document.fullscreenElement)await document.exitFullscreen();else if(shell.requestFullscreen)await shell.requestFullscreen();}catch(e){console.warn("Tela cheia indisponível neste navegador:",e)}
+ });
+ if(replay)replay.addEventListener("click",()=>{
+  if(activeVideoTracker!==tracker||!tracker.player)return;
+  $("ytEndOverlay")?.setAttribute("hidden","");
+  try{tracker.player.seekTo(0,true);tracker.lastTime=0;tracker.lastWall=Date.now();tracker.player.playVideo()}catch(e){}
+ });
+ syncYoutubeCustomControls(tracker);
+}
+
 function attachVideoProgressTracker(row,parsed){
  stopActiveVideoTracker();
- const tracker={videoId:row.id,provider:parsed.provider,seconds:new Set(),duration:0,lastTime:null,lastWall:Date.now(),lastSentCount:0,lastFlushAt:Date.now(),started:false,sending:false,timer:null,player:null,getTime:null,getDuration:null};
+ const tracker={videoId:row.id,provider:parsed.provider,seconds:new Set(),duration:0,lastTime:null,lastWall:Date.now(),lastSentCount:0,lastFlushAt:Date.now(),started:false,sending:false,timer:null,player:null,getTime:null,getDuration:null,getPlaybackRate:null,playbackRate:1};
  activeVideoTracker=tracker;
  if(parsed.provider==="youtube"){
   ensureYouTubeIframeApi().then(YT=>{
    if(activeVideoTracker!==tracker)return;
    const origin=/^https?:$/.test(window.location.protocol)?window.location.origin:undefined;
-   tracker.player=new YT.Player("ytPlayerHost",{videoId:parsed.id,width:"100%",height:"100%",playerVars:{playsinline:1,rel:0,enablejsapi:1,...(origin?{origin}: {})},events:{
-    onReady:()=>{if(activeVideoTracker===tracker){tracker.getTime=()=>tracker.player.getCurrentTime();tracker.getDuration=()=>tracker.player.getDuration();}},
-    onStateChange:event=>{if(activeVideoTracker!==tracker)return;if(event.data===YT.PlayerState.PLAYING){startTrackerClock(tracker,()=>tracker.player.getCurrentTime(),()=>tracker.player.getDuration())}else if(event.data===YT.PlayerState.PAUSED||event.data===YT.PlayerState.ENDED){pauseTracker(tracker)}}
+   tracker.player=new YT.Player("ytPlayerHost",{videoId:parsed.id,width:"100%",height:"100%",playerVars:{playsinline:1,rel:0,controls:0,fs:0,disablekb:1,enablejsapi:1,...(origin?{origin}: {})},events:{
+    onReady:()=>{if(activeVideoTracker===tracker){tracker.getTime=()=>tracker.player.getCurrentTime();tracker.getDuration=()=>tracker.player.getDuration();bindYoutubeCustomControls(tracker);}},
+    onStateChange:event=>{if(activeVideoTracker!==tracker)return;if(event.data===YT.PlayerState.PLAYING){$("ytEndOverlay")?.setAttribute("hidden","");startTrackerClock(tracker,()=>tracker.player.getCurrentTime(),()=>tracker.player.getDuration(),()=>tracker.player.getPlaybackRate())}else if(event.data===YT.PlayerState.PAUSED){pauseTracker(tracker)}else if(event.data===YT.PlayerState.ENDED){pauseTracker(tracker);$("ytEndOverlay")?.removeAttribute("hidden");syncYoutubeCustomControls(tracker)}}
    }});
   }).catch(err=>{const host=$("ytPlayerHost");if(host&&activeVideoTracker===tracker)host.innerHTML=`<div class="video-player-placeholder"><h3>Player indisponível</h3><p>${escapeHtml(err.message||"Falha ao carregar o YouTube.")}</p></div>`});
  }else if(parsed.provider==="file"){
   const media=$("nativeVideoPlayer");if(!media)return;
   tracker.getTime=()=>media.currentTime;tracker.getDuration=()=>media.duration;
-  media.addEventListener("play",()=>startTrackerClock(tracker,()=>media.currentTime,()=>media.duration));
+  media.addEventListener("play",()=>startTrackerClock(tracker,()=>media.currentTime,()=>media.duration,()=>media.playbackRate));
   media.addEventListener("timeupdate",()=>{if(!media.paused)updateTrackerSample(tracker,media.currentTime,media.duration)});
   media.addEventListener("pause",()=>pauseTracker(tracker));media.addEventListener("ended",()=>pauseTracker(tracker));
  }else if(parsed.provider==="vimeo"){
   const frame=$("vimeoPlayerFrame");if(!frame)return;
-  const attach=()=>{if(activeVideoTracker!==tracker||!window.Vimeo?.Player)return;tracker.player=new window.Vimeo.Player(frame);tracker.player.on("play",()=>startTrackerClock(tracker,()=>tracker.lastTime??0,()=>tracker.duration));tracker.player.on("timeupdate",data=>{if(activeVideoTracker===tracker){tracker.duration=Math.floor(data.duration||0);updateTrackerSample(tracker,Number(data.seconds)||0,tracker.duration)}});tracker.player.on("pause",()=>pauseTracker(tracker));tracker.player.on("ended",()=>pauseTracker(tracker));};
+  const attach=()=>{if(activeVideoTracker!==tracker||!window.Vimeo?.Player)return;tracker.player=new window.Vimeo.Player(frame);tracker.player.on("play",()=>{tracker.player.getPlaybackRate().then(rate=>{tracker.playbackRate=Number(rate)||1}).catch(()=>{});startTrackerClock(tracker,()=>tracker.lastTime??0,()=>tracker.duration,()=>tracker.playbackRate)});tracker.player.on("timeupdate",data=>{if(activeVideoTracker===tracker){tracker.duration=Math.floor(data.duration||0);updateTrackerSample(tracker,Number(data.seconds)||0,tracker.duration)}});tracker.player.on("pause",()=>pauseTracker(tracker));tracker.player.on("ended",()=>pauseTracker(tracker));};
   if(window.Vimeo?.Player)attach();else{const script=document.createElement("script");script.src="https://player.vimeo.com/api/player.js";script.async=true;script.onload=attach;document.head.appendChild(script)}
  }
 }
@@ -4192,13 +4275,15 @@ function openTrainingVideo(row,scroll=true){
  }else if(parsed.provider==="youtube"&&!( ["https:","http:"].includes(window.location.protocol))){
   player=`<div class="video-local-fallback"><div class="fallback-brand">YOUTUBE · PLAYER HUB</div><h3>Reprodução indisponível neste modo</h3><p>Para acompanhar automaticamente o progresso, abra o Player Hub pelo endereço publicado em HTTPS. O vídeo não será aberto externamente.</p></div>`;
  }else if(parsed.provider==="youtube"){
-  player='<div class="video-embed-host" id="ytPlayerHost"></div>';
+  player='<div class="video-embed-host" id="ytPlayerHost"></div><div class="youtube-click-shield" id="ytClickShield" aria-hidden="true"></div><div class="yt-end-overlay" id="ytEndOverlay" hidden><strong>Vídeo concluído</strong><small>Você chegou ao final deste vídeo.</small><button type="button" id="ytReplayButton">↻ Assistir novamente</button></div>';
  }else{
   const u=new URL(parsed.embedUrl);u.searchParams.set("title","0");u.searchParams.set("byline","0");u.searchParams.set("portrait","0");
   player=`<iframe id="vimeoPlayerFrame" src="${escapeHtml(u.toString())}" title="${escapeHtml(row.title)}" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
  }
  const viewed=videoProgressById.has(row.id);
- panel.innerHTML=`<div class="video-player-frame">${player}</div><div class="video-player-caption"><div><h3>${escapeHtml(row.title)}</h3><span>${escapeHtml(row.category)}</span></div>${viewed?'<span class="video-player-status seen">✓ Visto</span>':'<span class="video-player-status">○ Não visto</span>'}</div>`;
+ const youtubeControls=parsed.provider==="youtube"?'<div class="video-custom-controls" id="youtubeCustomControls" aria-label="Controles de vídeo"><button type="button" id="ytCustomPlay" disabled>▶ Reproduzir</button><div class="yt-seek-group"><input id="ytCustomSeek" type="range" min="0" max="1000" value="0" step="1" aria-label="Progresso do vídeo" disabled><span class="yt-time-readout" id="ytCustomTime">0:00 / 0:00</span></div><button type="button" id="ytCustomMute" disabled>Som</button><button type="button" id="ytCustomFullscreen" disabled>Tela cheia</button></div>':'';
+ const playerShell=parsed.provider==="youtube"?`<div class="video-player-shell" id="youtubePlayerShell"><div class="video-player-frame">${player}</div>${youtubeControls}</div>`:`<div class="video-player-frame">${player}</div>`;
+ panel.innerHTML=`${playerShell}<div class="video-player-caption"><div><h3>${escapeHtml(row.title)}</h3><span>${escapeHtml(row.category)}</span></div>${viewed?'<span class="video-player-status seen">✓ Visto</span>':'<span class="video-player-status">○ Não visto</span>'}</div>`;
  document.querySelectorAll(".video-card").forEach(el=>el.classList.toggle("active",el.dataset.videoId===row.id));
  if(parsed.provider==="youtube"&&panel.querySelector("#ytPlayerHost"))attachVideoProgressTracker(row,parsed);
  else if(parsed.provider==="file"||parsed.provider==="vimeo")attachVideoProgressTracker(row,parsed);
