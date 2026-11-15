@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Cheer FC · Player Hub V6.35</title>
+<title>Cheer FC · Player Hub V6.38</title>
 <!-- V6.12: ficha única de atributos sob demanda e identificação visual refinada -->
 <style>
 :root{--wine:#5A1028;--wine2:#7b1e3d;--champ:#E8DCCB;--ink:#17151a;--muted:#8e8990;--panel:#211d22;--line:#39323a;--green:#52c69a;--gold:#e4bd68}
@@ -1936,6 +1936,7 @@ body.auth-locked #authGate{display:flex;visibility:visible!important;pointer-eve
 .video-category-content .video-shelf-track{display:flex!important;flex-wrap:nowrap!important;grid-template-columns:none!important;grid-auto-flow:unset!important;grid-auto-columns:unset!important;gap:12px;overflow-x:auto!important;overflow-y:hidden!important;padding:12px 2px 16px;scroll-snap-type:x mandatory;scroll-padding:4px;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:#806174 #211d22;-webkit-overflow-scrolling:touch}
 .video-category-content .video-card{flex:0 0 238px;width:238px;min-width:238px;max-width:238px;scroll-snap-align:start}
 .video-added-date{font-size:10px!important;color:#dfc9b9!important;letter-spacing:.1px!important;text-transform:none!important;font-weight:750}
+.video-card-share{position:absolute;z-index:5;left:8px;top:8px;width:34px;height:34px;display:grid;place-items:center;border:1px solid #f1d8d866;border-radius:50%;background:#21151edb;color:#ffe8d5;box-shadow:0 3px 12px #0008;cursor:pointer;transition:background .18s,transform .18s,border-color .18s}.video-card-share:hover{background:#5a1028;border-color:#ffe5d2;transform:scale(1.06)}.video-card-share svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .video-card-admin-actions{position:absolute;z-index:5;top:8px;right:8px;display:flex;gap:6px}
 .video-card-admin-actions button{position:static!important;width:34px;height:34px;flex:0 0 34px;display:grid;place-items:center;border:1px solid #f1d8d866;border-radius:50%;background:#21151edb;color:#ffe8e5;box-shadow:0 3px 12px #0008;cursor:pointer;transition:background .18s,transform .18s,border-color .18s}
 .video-card-admin-actions button:hover{background:#5a1028;border-color:#ffe5d2;transform:scale(1.06)}
@@ -2647,7 +2648,7 @@ select option[data-position-class="pos-att"]{background:#c83b45;color:#fff}
 </div>
 </section>
 <section class="hidden" id="rankingView"><div class="toolbar"><select id="rankTeam"><option value="">Todos os times</option></select><select id="rankAttribute"></select><select id="rankPosition"><option value="">Todas as posições</option></select><select id="rankTraitFilter" aria-label="Filtrar ranking por Trait"><option value="">Todas as Traits</option></select><span class="count" id="rankCount"></span></div><div class="card detail"><div class="detail-head"><div><h2 id="rankTitle">Ranking de atributos</h2><div class="sub">Classificação do elenco pelo fundamento selecionado</div></div><span class="chip">Maior valor primeiro</span></div><div id="rankingTable"></div></div><div class="card detail" style="margin-top:16px"><div class="detail-head"><div><h2>Especialistas por categoria</h2><div class="sub">Média dos atributos de cada grupo</div></div></div><div id="categoryLeaders"></div></div></section>
-<div class="foot">Cheer FC · PLAYER HUB · V6.35 · Dados sincronizados com Supabase</div></main>
+<div class="foot">Cheer FC · PLAYER HUB · V6.38 · Dados sincronizados com Supabase</div></main>
 <script>
 const players=[{"name": "Gabriel Silva", "alias": "GABRIEL", "pos": "GOL", "ovr": 48, "section": "Goleiros", "attrs": {"Reflexo": 82.17, "Posicionamento": 62.78, "Defesa Aérea": 34.85, "Pegada": 71.45, "Saída do Gol": 34.85, "Um Contra Um": 38.25, "Distribuição Curta": 34.85, "Distribuição Longa": 27.2, "Tempo de Reação": 80.2, "Comando de Área": 38.25, "Velocidade": 36.93, "Aceleração": 65.27, "Agilidade": 54.84, "Força": 10.0, "Equilíbrio": 11.9, "Resistência": 19.01, "Pulo": 26.45, "Condição Física": 10.0}}, {"name": "Shev Dijk", "alias": "DIJK", "pos": "ZAG", "ovr": 59, "section": "Defesa", "attrs": {"Velocidade": 71.48, "Aceleração": 64.56, "Agilidade": 65.01, "Força": 80.11, "Equilíbrio": 60.37, "Resistência": 60.15, "Pulo": 80.03, "Condição Física": 46.12, "Controle de Bola": 36.76, "Drible": 23.8, "Passe Baixo": 35.05, "Passe Alto": 35.19, "Um Toque": 38.84, "Curva": 31.45, "Visão de Jogo": 30.6, "Tomada de Decisão": 28.05, "Antecipação": 56.99, "Posic. Ofensivo": 24.65, "Posic. Defensivo": 60.2, "Trabalho em Equipe": 34.85, "Coragem": 50.0, "Precisão do Chute": 27.2, "Força do Chute": 29.75, "Cabeceio": 46.68, "Desarme": 60.03, "Marcação": 47.83}}, {"name": "Almir Ferreira", "alias": "ALMIR FERREIRA", "pos": "ZAG", "ovr": 57, "section": "Defesa", "attrs": {"Velocidade": 85.89, "Aceleração": 85.3, "Agilidade": 68.11, "Força": 80.77, "Equilíbrio": 45.77, "Resistência": 70.44, "Pulo": 40.76, "Condição Física": 40.03, "Controle de Bola": 33.83, "Drible": 25.5, "Passe Baixo": 27.7, "Passe Alto": 30.47, "Um Toque": 34.0, "Curva": 29.75, "Visão de Jogo": 26.35, "Tomada de Decisão": 29.75, "Antecipação": 32.81, "Posic. Ofensivo": 28.05, "Posic. Defensivo": 34.85, "Trabalho em Equipe": 31.45, "Coragem": 38.25, "Precisão do Chute": 28.05, "Força do Chute": 29.75, "Cabeceio": 30.6, "Desarme": 46.64, "Marcação": 51.89}}, {"name": "Cafu Dido", "alias": "DIDO", "pos": "LD", "ovr": 55, "section": "Defesa", "attrs": {"Velocidade": 81.53, "Aceleração": 78.0, "Agilidade": 57.51, "Força": 47.45, "Equilíbrio": 43.77, "Resistência": 61.96, "Pulo": 34.73, "Condição Física": 47.51, "Controle de Bola": 50.87, "Drible": 70.88, "Passe Baixo": 31.96, "Passe Alto": 60.04, "Um Toque": 29.75, "Curva": 28.9, "Visão de Jogo": 29.75, "Tomada de Decisão": 32.5, "Antecipação": 38.91, "Posic. Ofensivo": 27.2, "Posic. Defensivo": 35.11, "Trabalho em Equipe": 43.34, "Coragem": 37.52, "Precisão do Chute": 31.45, "Força do Chute": 27.2, "Cabeceio": 27.2, "Desarme": 82.91, "Marcação": 35.22}}, {"name": "Vinícius Krugner", "alias": "KRUGNER", "pos": "ZAG", "ovr": 54, "section": "Defesa", "attrs": {"Velocidade": 81.99, "Aceleração": 75.81, "Agilidade": 53.29, "Força": 84.32, "Equilíbrio": 50.98, "Resistência": 72.13, "Pulo": 61.12, "Condição Física": 40.73, "Controle de Bola": 40.05, "Drible": 28.9, "Passe Baixo": 34.0, "Passe Alto": 33.14, "Um Toque": 30.6, "Curva": 26.35, "Visão de Jogo": 28.9, "Tomada de Decisão": 32.0, "Antecipação": 35.11, "Posic. Ofensivo": 28.9, "Posic. Defensivo": 44.51, "Trabalho em Equipe": 29.75, "Coragem": 40.33, "Precisão do Chute": 32.3, "Força do Chute": 32.3, "Cabeceio": 27.3, "Desarme": 44.59, "Marcação": 49.03}}, {"name": "Thales Spider", "alias": "SPIDER", "pos": "LE", "ovr": 54, "section": "Defesa", "attrs": {"Velocidade": 85.02, "Aceleração": 83.58, "Agilidade": 83.35, "Força": 28.15, "Equilíbrio": 30.09, "Resistência": 70.71, "Pulo": 26.35, "Condição Física": 48.22, "Controle de Bola": 38.62, "Drible": 27.46, "Passe Baixo": 31.68, "Passe Alto": 34.11, "Um Toque": 32.45, "Curva": 30.7, "Visão de Jogo": 28.9, "Tomada de Decisão": 31.6, "Antecipação": 32.3, "Posic. Ofensivo": 24.65, "Posic. Defensivo": 41.36, "Trabalho em Equipe": 30.6, "Coragem": 28.05, "Precisão do Chute": 28.05, "Força do Chute": 27.2, "Cabeceio": 31.45, "Desarme": 64.76, "Marcação": 48.21}}, {"name": "Yūto Nagatomo", "alias": "NAGATOMO", "pos": "LE", "ovr": 53, "section": "Defesa", "attrs": {"Velocidade": 88.26, "Aceleração": 85.86, "Agilidade": 39.36, "Força": 66.2, "Equilíbrio": 32.3, "Resistência": 44.74, "Pulo": 25.5, "Condição Física": 32.66, "Controle de Bola": 31.13, "Drible": 25.5, "Passe Baixo": 28.9, "Passe Alto": 31.91, "Um Toque": 34.85, "Curva": 29.75, "Visão de Jogo": 30.6, "Tomada de Decisão": 32.3, "Antecipação": 37.4, "Posic. Ofensivo": 23.8, "Posic. Defensivo": 39.95, "Trabalho em Equipe": 32.3, "Coragem": 31.45, "Precisão do Chute": 29.75, "Força do Chute": 32.3, "Cabeceio": 22.95, "Desarme": 67.37, "Marcação": 70.21}}, {"name": "Roberta Carla", "alias": "CARLA", "pos": "LE", "ovr": 46, "section": "Defesa", "attrs": {"Velocidade": 70.52, "Aceleração": 63.05, "Agilidade": 43.32, "Força": 32.0, "Equilíbrio": 37.0, "Resistência": 36.28, "Pulo": 27.0, "Condição Física": 35.97, "Controle de Bola": 39.6, "Drible": 32.0, "Passe Baixo": 32.41, "Passe Alto": 33.48, "Um Toque": 36.0, "Curva": 34.0, "Visão de Jogo": 32.0, "Tomada de Decisão": 34.0, "Antecipação": 41.0, "Posic. Ofensivo": 31.0, "Posic. Defensivo": 46.0, "Trabalho em Equipe": 32.0, "Coragem": 36.0, "Precisão do Chute": 30.0, "Força do Chute": 34.0, "Cabeceio": 29.0, "Desarme": 60.26, "Marcação": 52.0}}, {"name": "Gustavo Owicki", "alias": "OWICKI", "pos": "ME", "ovr": 61, "section": "Meio-campo", "attrs": {"Velocidade": 89.49, "Aceleração": 75.06, "Agilidade": 65.79, "Força": 47.0, "Equilíbrio": 40.07, "Resistência": 67.33, "Pulo": 25.5, "Condição Física": 39.05, "Controle de Bola": 55.95, "Drible": 52.51, "Passe Baixo": 43.54, "Passe Alto": 62.31, "Um Toque": 33.78, "Curva": 35.88, "Visão de Jogo": 35.83, "Tomada de Decisão": 33.15, "Antecipação": 36.36, "Posic. Ofensivo": 29.75, "Posic. Defensivo": 27.2, "Trabalho em Equipe": 31.45, "Coragem": 27.86, "Precisão do Chute": 76.04, "Força do Chute": 69.06, "Cabeceio": 29.75, "Desarme": 34.97, "Marcação": 34.66}}, {"name": "Entony", "alias": "ENTONY", "pos": "MD", "ovr": 60, "section": "Meio-campo", "attrs": {"Velocidade": 84.49, "Aceleração": 82.54, "Agilidade": 79.1, "Força": 52.11, "Equilíbrio": 59.76, "Resistência": 43.99, "Pulo": 24.65, "Condição Física": 31.9, "Controle de Bola": 69.34, "Drible": 84.3, "Passe Baixo": 28.22, "Passe Alto": 54.8, "Um Toque": 27.2, "Curva": 28.05, "Visão de Jogo": 44.6, "Tomada de Decisão": 28.05, "Antecipação": 29.75, "Posic. Ofensivo": 28.05, "Posic. Defensivo": 23.8, "Trabalho em Equipe": 34.85, "Coragem": 28.9, "Precisão do Chute": 34.59, "Força do Chute": 29.75, "Cabeceio": 28.05, "Desarme": 27.2, "Marcação": 24.65}}, {"name": "Shevich Shevichenko", "alias": "SHEVICHENKO", "pos": "MC", "ovr": 58, "section": "Meio-campo", "attrs": {"Velocidade": 74.68, "Aceleração": 74.76, "Agilidade": 72.63, "Força": 43.57, "Equilíbrio": 43.71, "Resistência": 60.78, "Pulo": 42.69, "Condição Física": 48.89, "Controle de Bola": 49.07, "Drible": 48.44, "Passe Baixo": 75.13, "Passe Alto": 84.22, "Um Toque": 34.0, "Curva": 45.21, "Visão de Jogo": 48.12, "Tomada de Decisão": 35.15, "Antecipação": 42.92, "Posic. Ofensivo": 28.9, "Posic. Defensivo": 32.3, "Trabalho em Equipe": 42.99, "Coragem": 28.9, "Precisão do Chute": 52.36, "Força do Chute": 51.03, "Cabeceio": 27.2, "Desarme": 28.22, "Marcação": 30.6}}, {"name": "Raphael Veiga", "alias": "VEIGA", "pos": "MEI", "ovr": 54, "section": "Meio-campo", "attrs": {"Velocidade": 80.36, "Aceleração": 66.92, "Agilidade": 60.35, "Força": 40.04, "Equilíbrio": 60.34, "Resistência": 75.41, "Pulo": 28.05, "Condição Física": 40.96, "Controle de Bola": 50.25, "Drible": 31.45, "Passe Baixo": 56.53, "Passe Alto": 81.05, "Um Toque": 27.61, "Curva": 37.25, "Visão de Jogo": 45.73, "Tomada de Decisão": 27.43, "Antecipação": 29.75, "Posic. Ofensivo": 29.57, "Posic. Defensivo": 28.05, "Trabalho em Equipe": 34.85, "Coragem": 31.45, "Precisão do Chute": 32.3, "Força do Chute": 32.3, "Cabeceio": 27.2, "Desarme": 27.2, "Marcação": 23.8}}, {"name": "Aranha Humana", "alias": "SPIDER", "pos": "VOL", "ovr": 53, "section": "Meio-campo", "attrs": {"Velocidade": 80.12, "Aceleração": 80.45, "Agilidade": 68.23, "Força": 73.87, "Equilíbrio": 28.05, "Resistência": 56.45, "Pulo": 26.35, "Condição Física": 39.78, "Controle de Bola": 36.21, "Drible": 27.2, "Passe Baixo": 47.37, "Passe Alto": 57.79, "Um Toque": 28.9, "Curva": 30.6, "Visão de Jogo": 28.9, "Tomada de Decisão": 31.45, "Antecipação": 39.1, "Posic. Ofensivo": 24.65, "Posic. Defensivo": 27.46, "Trabalho em Equipe": 30.6, "Coragem": 33.15, "Precisão do Chute": 24.65, "Força do Chute": 27.2, "Cabeceio": 34.85, "Desarme": 52.37, "Marcação": 43.5}}, {"name": "Steven Gerrods", "alias": "GERRODS", "pos": "MC", "ovr": 51, "section": "Meio-campo", "attrs": {"Velocidade": 72.11, "Aceleração": 72.56, "Agilidade": 48.61, "Força": 75.8, "Equilíbrio": 61.15, "Resistência": 57.96, "Pulo": 61.33, "Condição Física": 50.28, "Controle de Bola": 43.95, "Drible": 52.98, "Passe Baixo": 43.15, "Passe Alto": 71.45, "Um Toque": 30.0, "Curva": 29.05, "Visão de Jogo": 34.78, "Tomada de Decisão": 34.66, "Antecipação": 36.35, "Posic. Ofensivo": 29.75, "Posic. Defensivo": 35.48, "Trabalho em Equipe": 41.34, "Coragem": 37.25, "Precisão do Chute": 31.45, "Força do Chute": 27.66, "Cabeceio": 37.6, "Desarme": 30.13, "Marcação": 45.99}}, {"name": "Rodheiser", "alias": "RODHEISER", "pos": "MC", "ovr": 51, "section": "Meio-campo", "attrs": {"Velocidade": 77.04, "Aceleração": 74.37, "Agilidade": 60.6, "Força": 38.83, "Equilíbrio": 44.91, "Resistência": 51.8, "Pulo": 30.16, "Condição Física": 44.84, "Controle de Bola": 67.54, "Drible": 77.07, "Passe Baixo": 42.41, "Passe Alto": 80.42, "Um Toque": 44.0, "Curva": 32.71, "Visão de Jogo": 50.33, "Tomada de Decisão": 44.46, "Antecipação": 31.13, "Posic. Ofensivo": 33.52, "Posic. Defensivo": 31.45, "Trabalho em Equipe": 44.09, "Coragem": 38.96, "Precisão do Chute": 35.7, "Força do Chute": 28.87, "Cabeceio": 28.9, "Desarme": 28.9, "Marcação": 28.9}}, {"name": "Renan Rodrigues", "alias": "R. RODRIGUES", "pos": "MC", "ovr": 51, "section": "Meio-campo", "attrs": {"Velocidade": 81.58, "Aceleração": 58.02, "Agilidade": 39.39, "Força": 44.92, "Equilíbrio": 35.7, "Resistência": 72.72, "Pulo": 28.9, "Condição Física": 35.54, "Controle de Bola": 45.58, "Drible": 27.2, "Passe Baixo": 65.08, "Passe Alto": 80.5, "Um Toque": 30.6, "Curva": 29.75, "Visão de Jogo": 39.1, "Tomada de Decisão": 29.75, "Antecipação": 34.0, "Posic. Ofensivo": 28.9, "Posic. Defensivo": 32.3, "Trabalho em Equipe": 32.3, "Coragem": 32.3, "Precisão do Chute": 22.1, "Força do Chute": 31.45, "Cabeceio": 29.75, "Desarme": 34.85, "Marcação": 51.91}}, {"name": "Islan Felipe", "alias": "ISLAN FELIPE", "pos": "VOL", "ovr": 51, "section": "Meio-campo", "attrs": {"Velocidade": 76.01, "Aceleração": 53.77, "Agilidade": 49.96, "Força": 86.41, "Equilíbrio": 34.0, "Resistência": 41.85, "Pulo": 28.05, "Condição Física": 38.29, "Controle de Bola": 35.96, "Drible": 28.05, "Passe Baixo": 48.17, "Passe Alto": 80.79, "Um Toque": 31.45, "Curva": 27.2, "Visão de Jogo": 34.85, "Tomada de Decisão": 28.05, "Antecipação": 35.11, "Posic. Ofensivo": 28.05, "Posic. Defensivo": 27.2, "Trabalho em Equipe": 28.9, "Coragem": 35.7, "Precisão do Chute": 22.2, "Força do Chute": 28.95, "Cabeceio": 25.5, "Desarme": 51.36, "Marcação": 41.3}}, {"name": "Luísa Sonza", "alias": "SONZA", "pos": "MD", "ovr": 50, "section": "Meio-campo", "attrs": {"Velocidade": 83.55, "Aceleração": 82.58, "Agilidade": 40.97, "Força": 27.71, "Equilíbrio": 30.6, "Resistência": 52.2, "Pulo": 28.05, "Condição Física": 42.5, "Controle de Bola": 50.91, "Drible": 78.67, "Passe Baixo": 38.13, "Passe Alto": 71.3, "Um Toque": 31.45, "Curva": 27.2, "Visão de Jogo": 39.95, "Tomada de Decisão": 28.05, "Antecipação": 29.75, "Posic. Ofensivo": 31.45, "Posic. Defensivo": 23.8, "Trabalho em Equipe": 34.0, "Coragem": 30.6, "Precisão do Chute": 28.05, "Força do Chute": 28.9, "Cabeceio": 22.1, "Desarme": 24.65, "Marcação": 26.35}}, {"name": "Bruno Bertolassi", "alias": "BERTOLA", "pos": "ATA", "ovr": 58, "section": "Ataque", "attrs": {"Velocidade": 80.38, "Aceleração": 85.37, "Agilidade": 75.37, "Força": 28.34, "Equilíbrio": 43.2, "Resistência": 62.76, "Pulo": 25.5, "Condição Física": 36.46, "Controle de Bola": 56.41, "Drible": 38.86, "Passe Baixo": 27.2, "Passe Alto": 28.0, "Um Toque": 69.59, "Curva": 54.35, "Visão de Jogo": 28.9, "Tomada de Decisão": 33.0, "Antecipação": 30.43, "Posic. Ofensivo": 45.25, "Posic. Defensivo": 27.2, "Trabalho em Equipe": 29.75, "Coragem": 28.9, "Precisão do Chute": 85.0, "Força do Chute": 84.11, "Cabeceio": 28.05, "Desarme": 30.6, "Marcação": 27.2}}, {"name": "Zlatan Ibrahishevich", "alias": "IBRAHISHEVICH", "pos": "ATA", "ovr": 57, "section": "Ataque", "attrs": {"Velocidade": 70.09, "Aceleração": 80.38, "Agilidade": 80.25, "Força": 45.43, "Equilíbrio": 50.49, "Resistência": 47.6, "Pulo": 42.64, "Condição Física": 41.12, "Controle de Bola": 39.66, "Drible": 34.2, "Passe Baixo": 30.16, "Passe Alto": 34.97, "Um Toque": 30.73, "Curva": 56.03, "Visão de Jogo": 30.86, "Tomada de Decisão": 28.05, "Antecipação": 43.1, "Posic. Ofensivo": 51.27, "Posic. Defensivo": 32.3, "Trabalho em Equipe": 30.6, "Coragem": 28.9, "Precisão do Chute": 76.76, "Força do Chute": 77.68, "Cabeceio": 60.3, "Desarme": 27.2, "Marcação": 30.6}}, {"name": "Reginho", "alias": "REGINHO", "pos": "PE", "ovr": 57, "section": "Ataque", "attrs": {"Velocidade": 85.12, "Aceleração": 71.3, "Agilidade": 71.81, "Força": 33.0, "Equilíbrio": 42.99, "Resistência": 56.94, "Pulo": 29.75, "Condição Física": 52.62, "Controle de Bola": 55.63, "Drible": 82.0, "Passe Baixo": 32.3, "Passe Alto": 28.2, "Um Toque": 31.45, "Curva": 35.33, "Visão de Jogo": 30.6, "Tomada de Decisão": 32.3, "Antecipação": 32.3, "Posic. Ofensivo": 33.12, "Posic. Defensivo": 28.05, "Trabalho em Equipe": 32.3, "Coragem": 31.45, "Precisão do Chute": 70.57, "Força do Chute": 70.16, "Cabeceio": 27.2, "Desarme": 30.6, "Marcação": 32.3}}, {"name": "Salah de Jantar", "alias": "JANTAR", "pos": "ATA", "ovr": 49, "section": "Ataque", "attrs": {"Velocidade": 80.74, "Aceleração": 78.47, "Agilidade": 49.13, "Força": 27.71, "Equilíbrio": 27.2, "Resistência": 52.22, "Pulo": 22.95, "Condição Física": 33.41, "Controle de Bola": 38.01, "Drible": 41.92, "Passe Baixo": 28.46, "Passe Alto": 30.13, "Um Toque": 28.05, "Curva": 28.9, "Visão de Jogo": 28.9, "Tomada de Decisão": 32.3, "Antecipação": 28.9, "Posic. Ofensivo": 41.65, "Posic. Defensivo": 23.8, "Trabalho em Equipe": 28.05, "Coragem": 27.2, "Precisão do Chute": 73.11, "Força do Chute": 71.97, "Cabeceio": 27.2, "Desarme": 25.5, "Marcação": 24.65}}, {"name": "Radamel Falcao", "alias": "UC RADAMEL", "pos": "ATA", "ovr": 45, "section": "Ataque", "attrs": {"Velocidade": 84.03, "Aceleração": 80.39, "Agilidade": 44.84, "Força": 40.36, "Equilíbrio": 31.05, "Resistência": 56.41, "Pulo": 43.35, "Condição Física": 36.8, "Controle de Bola": 39.32, "Drible": 34.77, "Passe Baixo": 30.6, "Passe Alto": 37.9, "Um Toque": 33.61, "Curva": 32.56, "Visão de Jogo": 29.75, "Tomada de Decisão": 30.6, "Antecipação": 37.4, "Posic. Ofensivo": 44.46, "Posic. Defensivo": 28.05, "Trabalho em Equipe": 28.05, "Coragem": 29.75, "Precisão do Chute": 70.81, "Força do Chute": 60.73, "Cabeceio": 36.55, "Desarme": 27.2, "Marcação": 23.8}}, {"name": "Almir LK", "alias": "LK ALMIR LK", "pos": "ZAG", "ovr": 56, "section": "Defesa", "attrs": {"Velocidade": 86.52, "Aceleração": 80.69, "Agilidade": 69.55, "Força": 46.16, "Equilíbrio": 40.95, "Resistência": 57.41, "Pulo": 26.35, "Condição Física": 40.15, "Controle de Bola": 34.59, "Drible": 24.91, "Passe Baixo": 27.2, "Passe Alto": 29.75, "Um Toque": 34.0, "Curva": 29.75, "Visão de Jogo": 29.75, "Tomada de Decisão": 29.75, "Antecipação": 32.3, "Posic. Ofensivo": 24.65, "Posic. Defensivo": 41.65, "Trabalho em Equipe": 31.45, "Coragem": 31.45, "Precisão do Chute": 28.9, "Força do Chute": 29.75, "Cabeceio": 26.35, "Desarme": 86.15, "Marcação": 58.53}}];
 const groups={"GOLEIRO":["Reflexo","Posicionamento","Defesa Aérea","Pegada","Saída do Gol","Um Contra Um","Distribuição Curta","Distribuição Longa","Tempo de Reação","Comando de Área"],"FÍSICO":["Velocidade","Aceleração","Agilidade","Força","Equilíbrio","Resistência","Pulo","Condição Física"],"TÉCNICO":["Controle de Bola","Drible","Passe Baixo","Passe Alto","Um Toque","Curva"],"MENTAL":["Visão de Jogo","Tomada de Decisão","Antecipação","Posic. Ofensivo","Posic. Defensivo","Trabalho em Equipe","Coragem"],"FINALIZAÇÃO":["Precisão do Chute","Força do Chute","Cabeceio"],"DEFESA":["Desarme","Marcação"]};
@@ -2724,6 +2725,32 @@ async function playerPngLoadTraitIcons(names){
  const unique=[...new Set((names||[]).map(x=>String(x||"")).filter(Boolean))];
  const pairs=await Promise.all(unique.map(async name=>[name,await playerPngLoadImage(playerPngTraitIconSrc(name))]));
  return new Map(pairs);
+}
+function playerPngDrawTraitChips(ctx,names,iconMap,left,top,width,fontSize,color,columns=1,options={}){
+ const list=(names||[]).map(v=>String(v||"")).filter(Boolean);if(!list.length)return 0;
+ const gap=options.gap??9,chipH=options.chipH??68,rowGap=options.rowGap??8,iconSize=options.iconSize??38;
+ const chipW=width;
+ list.forEach((name,i)=>{
+  const x=left,y=top+i*(chipH+rowGap);
+  ctx.save();ctx.beginPath();ctx.roundRect(x,y,chipW,chipH,11);ctx.fillStyle="#ffffff18";ctx.fill();ctx.lineWidth=1.7;ctx.strokeStyle=color+"bb";ctx.stroke();
+  const img=iconMap?.get(name),ix=x+13,iy=y+(chipH-iconSize)/2;
+  if(img)ctx.drawImage(img,ix,iy,iconSize,iconSize);
+  else{ctx.fillStyle=color;ctx.font="900 29px Arial";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText("✦",ix+iconSize/2,y+chipH/2);}
+  const tx=ix+iconSize+13,available=chipW-(tx-x)-13,fs=options.fontSize??22,lineHeight=25;
+  ctx.font=`800 ${fs}px Arial`;ctx.fillStyle=color;ctx.textAlign="left";ctx.textBaseline="middle";
+  const words=name.split(/\s+/),lines=[];let line="";
+  words.forEach(word=>{
+   const candidate=line?line+" "+word:word;
+   if(ctx.measureText(candidate).width>available&&line){lines.push(line);line=word;}
+   else line=candidate;
+  });
+  if(line)lines.push(line);
+  const shown=lines.slice(0,2);
+  const firstY=y+chipH/2-(shown.length-1)*lineHeight/2;
+  shown.forEach((part,j)=>ctx.fillText(part,tx,firstY+j*lineHeight));
+  ctx.restore();
+ });
+ return list.length*chipH+(list.length-1)*rowGap;
 }
 function playerPngDrawTraitLine(ctx,names,iconMap,x,y,fontSize,color,align="left",maxWidth=900,weight="800"){
  const list=(names||[]).map(v=>String(v||"")).filter(Boolean);if(!list.length)return;
@@ -3007,16 +3034,19 @@ async function exportLineupImage(){
  ctx.restore();
  const roleColor=role=>{const r=String(role||"").toUpperCase();return r==="GOL"?"#E58A22":(["LE","ZAG","LD","LAT","ZAD","ZAE"].includes(r)?"#2878D0":(["VOL","MC","ME","MD","MCD","MCE","MEI","ALA","ALA-E","ALA-D"].includes(r)?"#269B63":"#C83B45"))};
 
- const cardW=370,cardH=270,gap=20;
+ const cardW=370,gap=20;
  const placed=slots.map(([role,x,y],i)=>({i,role,p:findPlayerByRef(lineup[i]),left:mobileExport?Number(x):100-Number(y),top:mobileExport?Number(y):Number(x)})).filter(o=>o.p);
  const lineupTraitIcons=await playerPngLoadTraitIcons(placed.flatMap(o=>playerTraits(o.p)));
+ const maxLineupTraitRows=Math.max(1,...placed.map(o=>playerTraits(o.p).length));
+ const cardH=350+Math.max(0,maxLineupTraitRows-1)*78;
  placed.forEach(o=>{o.ox=fx+o.left/100*fw;o.oy=fy+o.top/100*fh;o.px=o.ox;o.py=o.oy;});
  if(mobileExport){
    const rowPositions=mobileFormationCoordinates(slots);
    const innerLeft=fx+inset,innerTop=fy+inset,innerW=fw-2*inset,innerH=fh-2*inset;
    // PNG vertical: each player receives a compact, self-contained card.
    // Name above shirt number; role/OVR below; six strongest attributes at the bottom.
-   const mobileCardW=310,mobileCardH=330,ballR=43;
+   const maxTraitRows=Math.max(1,...placed.map(o=>Math.max(1,playerTraits(o.p).length)));
+   const mobileCardW=310,mobileCardH=420+Math.max(0,maxTraitRows-1)*82,ballR=43;
    placed.forEach(o=>{
      const pos=rowPositions.get(o.i)||{left:o.left,top:o.top};
      const cx=innerLeft+pos.left/100*innerW,cy=innerTop+pos.top/100*innerH;
@@ -3051,12 +3081,27 @@ async function exportLineupImage(){
      ctx.textAlign="center";ctx.fillStyle="#FFFFFF";ctx.font="900 20px Arial";ctx.fillText(roleText,metaLeft+roleW/2,metaY+20);
      ctx.fillStyle=brand.key==="olympic"?"#FFFFFF":dark;ctx.font="900 19px Arial";ctx.fillText(ovrText,metaLeft+roleW+gapX+ovrW/2,metaY+20);
 
-     // Trait discreta entre o cabeçalho e os atributos, sem sacrificar a leitura.
-     const traits=playerTraits(o.p);
-     if(traits.length)playerPngDrawTraitLine(ctx,traits,lineupTraitIcons,cx,top+183,12,accent,"center",mobileCardW-24,"800");
-     // Seis atributos mais fortes: chips neutros e valores verdes.
+     // Faixa de Traits em largura total: ícone grande, nome completo e quebra em linhas sem abreviação.
+     // Cada Trait ocupa sua própria linha; a área é uniforme em todos os cartões da escalação.
+     const traits=playerTraits(o.p),traitTop=top+166,traitRowH=72,traitRowGap=8,traitIcon=42;
+     traits.forEach((name,i)=>{
+       const tx=left+12,ty=traitTop+i*(traitRowH+traitRowGap),tw=mobileCardW-24;
+       ctx.save();ctx.beginPath();ctx.roundRect(tx,ty,tw,traitRowH,11);ctx.fillStyle="#ffffff18";ctx.fill();ctx.lineWidth=1.7;ctx.strokeStyle=accent+"bb";ctx.stroke();
+       const img=lineupTraitIcons?.get(name),ix=tx+12,iy=ty+(traitRowH-traitIcon)/2;
+       if(img)ctx.drawImage(img,ix,iy,traitIcon,traitIcon);else{ctx.fillStyle=accent;ctx.font="900 30px Arial";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText("✦",ix+traitIcon/2,ty+traitRowH/2);}
+       const text=name,available=tw-traitIcon-38,textX=ix+traitIcon+12,fontSize=24,lineHeight=27;
+       ctx.font=`800 ${fontSize}px Arial`;ctx.fillStyle=accent;ctx.textAlign="left";ctx.textBaseline="middle";
+       const words=String(text).split(/\s+/),lines=[];let line="";
+       words.forEach(word=>{const candidate=line?line+" "+word:word;if(ctx.measureText(candidate).width>available&&line){lines.push(line);line=word;}else line=candidate;});
+       if(line)lines.push(line);
+       const shown=lines; // nome completo: quebra em linhas, sem abreviar nem comprimir.
+       const firstY=ty+traitRowH/2-(shown.length-1)*lineHeight/2;
+       shown.forEach((part,j)=>ctx.fillText(part,textX,firstY+j*lineHeight));
+       ctx.restore();
+     });
+     // Os atributos permanecem alinhados em todos os cartões; a Trait ganha espaço real e legível.
      const attrs=Object.entries(o.p.attrs||{}).filter(([,v])=>Number.isFinite(Number(v))).sort((a,b)=>Number(b[1])-Number(a[1])).slice(0,6);
-     const pad=12,attrGap=8,attrW=(mobileCardW-pad*2-attrGap)/2,attrH=35,rowGap=5,startX=left+pad,startY=top+202;
+     const pad=12,attrGap=8,attrW=(mobileCardW-pad*2-attrGap)/2,attrH=35,rowGap=5,startX=left+pad,startY=top+166+maxTraitRows*(traitRowH+traitRowGap)-traitRowGap+8;
      attrs.forEach(([k,v],j)=>{
        const col=j%2,row=Math.floor(j/2),ax=startX+col*(attrW+attrGap),ay=startY+row*(attrH+rowGap);
        round(ax,ay,attrW,attrH,7,"#302A33",hexRGBA(accent,.22),1.2);
@@ -3126,12 +3171,12 @@ async function exportLineupImage(){
   ctx.fillStyle=brand.key==="olympic"?"#FFFFFF":(brand.dark||"#260B16");ctx.font=`900 ${pillFont}px Arial`;ctx.textAlign="center";ctx.fillText(`OVR ${p.ovr??"—"}`,infoX+pillW/2,metaY+(mobileExport?27:18));
   const roleW=Math.max(mobileExport?66:43,ctx.measureText(String(role)).width+(mobileExport?25:16));round(infoX+pillW+metaGap,metaY,roleW,pillH,mobileExport?9:6,roleColor(role),null);
   ctx.fillStyle="#FFFFFF";ctx.font=`900 ${mobileExport?24:16}px Arial`;ctx.fillText(String(role),infoX+pillW+metaGap+roleW/2,metaY+(mobileExport?27:18));
-  // Traits ficam em uma linha discreta, preservando os seis melhores atributos.
+  // Traits exibidas como chips individuais, com ícone oficial e nome legível.
   const traits=playerTraits(p);
-  if(traits.length&&!mobileExport)playerPngDrawTraitLine(ctx,traits,lineupTraitIcons,left+13,top+105,14,accent,"left",cardW-26,"800");
+  const traitBlockH=traits.length&&!mobileExport?playerPngDrawTraitChips(ctx,traits,lineupTraitIcons,left+13,top+98,cardW-26,22,accent,1,{chipH:68,rowGap:8,iconSize:38,fontSize:22}):0;
   // Os atributos usam a leitura aprovada no campo: chips neutros e valores verdes.
   const attrs=Object.entries(p.attrs||{}).filter(([,v])=>Number.isFinite(Number(v))).sort((a,b)=>Number(b[1])-Number(a[1])).slice(0,6);
-  const pad=mobileExport?22:13,attrGap=mobileExport?12:7,attrW=(cardW-pad*2-attrGap)/2,attrH=mobileExport?74:39,startX=left+pad,startY=top+(mobileExport?151:119),rowGap=mobileExport?9:5;
+  const pad=mobileExport?22:13,attrGap=mobileExport?12:7,attrW=(cardW-pad*2-attrGap)/2,attrH=mobileExport?74:39,startX=left+pad,startY=top+(mobileExport?151:98+maxLineupTraitRows*76+12),rowGap=mobileExport?9:5;
   attrs.forEach(([k,v],j)=>{
     const col=j%2,row=Math.floor(j/2),ax=startX+col*(attrW+attrGap),ay=startY+row*(attrH+rowGap);
     round(ax,ay,attrW,attrH,mobileExport?10:6,"#302A33",hexRGBA(accent,.18),mobileExport?2:1);
@@ -3839,7 +3884,7 @@ $("exportComparisonImage")?.addEventListener("click",exportComparisonImage);
 $("playerSelect").addEventListener("change",e=>renderPlayer(findPlayerByRef(e.target.value)));
 $("search").addEventListener("input",updateList);$("positionFilter").addEventListener("change",updateList);
 
-function showTab(which){
+function showTab(which,refreshVideos=true){
  $("globalModeToolbar").style.display=["player","ranking"].includes(which)?"flex":"none";
  ["playerView","compareView","rankingView","tacticsView","simulatorView","videosView","importView","shirtsView","traitsGuideView"].forEach(id=>$(id).classList.add("hidden"));
  $("compareView").style.display=which==="compare"?"block":"none";
@@ -3848,7 +3893,7 @@ function showTab(which){
  ["tabPlayer","tabCompare","tabRanking","tabTactics","tabSimulator","tabVideos","tabImport","tabShirts","tabTraitsGuide"].forEach(id=>$(id).classList.remove("active"));
  const tabName=which==="player"?"Player":which==="compare"?"Compare":which==="ranking"?"Ranking":which==="tactics"?"Tactics":which==="simulator"?"Simulator":which==="videos"?"Videos":which==="shirts"?"Shirts":which==="traitsGuide"?"TraitsGuide":"Import";
  $("tab"+tabName).classList.add("active");
- if(which==="compare")compare();if(which==="ranking")ranking();if(which==="tactics"){renderPitch();renderRoster()}if(which==="simulator"){refreshSimulatorLineupOptions();ensureSimulatorReady()}if(which==="videos")window.refreshVideoLibrary?.();if(which==="traitsGuide")renderTraitsGuide();
+ if(which==="compare")compare();if(which==="ranking")ranking();if(which==="tactics"){renderPitch();renderRoster()}if(which==="simulator"){refreshSimulatorLineupOptions();ensureSimulatorReady()}if(which==="videos"&&refreshVideos)window.refreshVideoLibrary?.();if(which==="traitsGuide")renderTraitsGuide();
 }
 $("tabPlayer").onclick=()=>showTab("player");
 $("tabCompare").onclick=()=>showTab("compare");
@@ -4588,6 +4633,13 @@ let openedVideoCategories=new Set(["Preparação de Jogos","Análise de Jogos"])
 let openedVideoSeasons=new Set();
 const videoCategoryFilters={"Preparação de Jogos":{season:"",opponent:""},"Análise de Jogos":{season:"",opponent:""}};
 let activeVideoId=null;
+let pendingSharedVideoId=new URLSearchParams(window.location.search).get("video");
+function cheerVideoPermalink(videoId){const u=new URL(window.location.href);u.searchParams.set("video",String(videoId));u.hash="";return u.toString();}
+async function copyTrainingVideoLink(videoId,button){
+ const url=cheerVideoPermalink(videoId),old=button?.innerHTML;
+ try{if(navigator.clipboard?.writeText)await navigator.clipboard.writeText(url);else throw new Error("clipboard indisponível");if(button){button.innerHTML="✓";button.title="Link copiado";setTimeout(()=>{button.innerHTML=old;button.title="Copiar link direto"},1500)}}
+ catch(e){window.prompt("Copie o link direto deste vídeo:",url)}
+}
 function setVideoAdminVisibility(role=window.CHEERFC_AUTH?.role){
  const panel=$("videoAdminPanel");if(panel)panel.hidden=!(role==="admin"||role==="assistant");
 }
@@ -4621,9 +4673,10 @@ function trainingVideoCard(row){
  let parsed;try{parsed=parseTrainingVideoLink(row.video_url)}catch(e){parsed={provider:"link",thumbnail:null}}
  const viewed=videoProgressById.has(row.id);
  const art=parsed.thumbnail?`<img src="${escapeHtml(parsed.thumbnail)}" alt="Prévia de ${escapeHtml(row.title)}" loading="lazy" onerror="this.remove()">`:"";
+ const shareAction=`<button type="button" class="video-card-share" data-video-share-id="${escapeHtml(row.id)}" aria-label="Copiar link direto de ${escapeHtml(row.title)}" title="Copiar link direto"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l2-2A5 5 0 0 0 12 3.93l-1.15 1.15"/><path d="M14 11a5 5 0 0 0-7.07 0l-2 2A5 5 0 0 0 12 20.07l1.15-1.15"/></svg></button>`;
  const staffActions=canManageVideos()?`<span class="video-card-admin-actions"><button type="button" class="video-card-audience" data-video-audience-id="${escapeHtml(row.id)}" aria-label="Ver quem assistiu ${escapeHtml(row.title)}" title="Ver quem assistiu">${VIDEO_EYE_ICON}</button><button type="button" class="video-card-edit" data-video-edit-id="${escapeHtml(row.id)}" aria-label="Editar todas as informações de ${escapeHtml(row.title)}" title="Editar vídeo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg></button><button type="button" class="video-card-delete" data-video-delete-id="${escapeHtml(row.id)}" aria-label="Excluir vídeo ${escapeHtml(row.title)}" title="Excluir vídeo">${VIDEO_TRASH_ICON}</button></span>`:"";
  const context=[row.season?`<span>${escapeHtml(row.season)}</span>`:"",row.opponent_team?`<span>Adversário: ${escapeHtml(row.opponent_team)}</span>`:""].filter(Boolean).join("");
- return `<article class="video-card ${activeVideoId===row.id?"active":""}" data-video-id="${escapeHtml(row.id)}" role="button" tabindex="0" aria-label="Assistir ${escapeHtml(row.title)}"><span class="video-card-art">${art}<span class="video-card-play">▶</span>${staffActions}</span><span class="video-card-meta"><strong>${escapeHtml(row.title)}</strong>${context?`<span class="video-card-context">${context}</span>`:""}<small class="video-added-date">Adicionado em ${escapeHtml(formatVideoAddedDate(row.created_at))}</small><small>${parsed.provider==="file"?"Vídeo hospedado":"Reprodução incorporada"}</small><span class="video-card-status ${viewed?"seen":"unseen"}">${viewed?"✓ Visto":"○ Não visto"}</span></span></article>`;
+ return `<article class="video-card ${activeVideoId===row.id?"active":""}" data-video-id="${escapeHtml(row.id)}" role="button" tabindex="0" aria-label="Assistir ${escapeHtml(row.title)}"><span class="video-card-art">${art}<span class="video-card-play">▶</span>${shareAction}${staffActions}</span><span class="video-card-meta"><strong>${escapeHtml(row.title)}</strong>${context?`<span class="video-card-context">${context}</span>`:""}<small class="video-added-date">Adicionado em ${escapeHtml(formatVideoAddedDate(row.created_at))}</small><small>${parsed.provider==="file"?"Vídeo hospedado":"Reprodução incorporada"}</small><span class="video-card-status ${viewed?"seen":"unseen"}">${viewed?"✓ Visto":"○ Não visto"}</span></span></article>`;
 }
 let activeVideoTracker=null;
 let youtubeApiPromise=null;
@@ -4778,6 +4831,7 @@ function openTrainingVideo(row,scroll=true){
  const panel=$("videoPlayerPanel");if(!panel||!row)return;
  let parsed;try{parsed=parseTrainingVideoLink(row.video_url)}catch(e){panel.innerHTML=`<div class="video-player-placeholder"><h3>Link indisponível</h3><p>${escapeHtml(e.message)}</p></div>`;return;}
  stopActiveVideoTracker();activeVideoId=row.id;
+ try{const u=new URL(window.location.href);u.searchParams.set("video",String(row.id));window.history.replaceState({},"",u.toString())}catch(e){}
  let player="";
  if(parsed.provider==="file"){
   player=`<video id="nativeVideoPlayer" controls playsinline preload="metadata" src="${escapeHtml(parsed.embedUrl)}">Seu navegador não oferece suporte a este formato de vídeo.</video>`;
@@ -5057,6 +5111,7 @@ function renderVideoCatalog(refreshPlayer=true){
   e.preventDefault();e.stopPropagation();const track=btn.closest(".video-season-content")?.querySelector(".video-shelf-track")||btn.closest(".video-category-content")?.querySelector(".video-shelf-track");
   if(track)track.scrollBy({left:(btn.dataset.videoScroll==="right"?1:-1)*Math.max(230,track.clientWidth*.78),behavior:"smooth"});
  }));
+ catalog.querySelectorAll("[data-video-share-id]").forEach(btn=>btn.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();copyTrainingVideoLink(btn.dataset.videoShareId,btn)}));
  catalog.querySelectorAll("[data-video-audience-id]").forEach(btn=>btn.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();openVideoAudienceModal(btn.dataset.videoAudienceId)}));
  catalog.querySelectorAll("[data-video-edit-id]").forEach(btn=>btn.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();openTrainingVideoEditModal(btn.dataset.videoEditId)}));
  catalog.querySelectorAll("[data-video-id]").forEach(card=>{
@@ -5091,6 +5146,11 @@ window.refreshVideoLibrary=async function(){
      catch(progressError){console.warn("Não foi possível carregar o progresso individual:",progressError)}
    }
    renderVideoCatalog();
+   if(pendingSharedVideoId){
+    const sharedRow=videoLibraryRows.find(v=>String(v.id)===String(pendingSharedVideoId));
+    if(sharedRow){pendingSharedVideoId=null;showTab("videos",false);openTrainingVideo(sharedRow,true);}
+    else{const missingId=pendingSharedVideoId;pendingSharedVideoId=null;const panel=$("videoPlayerPanel");if(panel)panel.innerHTML='<div class="video-player-placeholder"><h3>Vídeo não encontrado</h3><p>Este conteúdo pode ter sido removido ou o link está incorreto.</p></div>';showTab("videos",false);console.warn("Vídeo compartilhado não encontrado:",missingId);}
+   }
  }catch(e){console.error("Falha ao carregar vídeos:",e);if(catalog)catalog.innerHTML=`<div class="empty">Não foi possível carregar os vídeos: ${escapeHtml(e.message||"erro desconhecido")}</div>`;}
 };
 const videoCategoryInput=$("videoCategoryInput");if(videoCategoryInput){videoCategoryInput.innerHTML=VIDEO_CATEGORIES.map(c=>`<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join("");}
