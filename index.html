@@ -3049,9 +3049,9 @@ async function exportLineupImage(){
  const mobileExport=window.matchMedia("(max-width:700px)").matches;
  const exportClub=$("tacticsTeamFilter")?.value||"CHEER FC";
  const brand=window.cheerTeamBranding?.brandFor?.(exportClub)||{primary:"#5A1028",accent:"#E8DCCB",dark:"#260B16",text:"#FFF7EB"};
- const W=mobileExport?1800:2800,H=mobileExport?2700:1750;
- const canvas=document.createElement("canvas");canvas.width=W;canvas.height=H;
- const ctx=canvas.getContext("2d");
+ const W=mobileExport?1800:2800,H=mobileExport?2700:1750,pixelRatio=mobileExport?2:1;
+ const canvas=document.createElement("canvas");canvas.width=W*pixelRatio;canvas.height=H*pixelRatio;
+ const ctx=canvas.getContext("2d");ctx.setTransform(pixelRatio,0,0,pixelRatio,0,0);
  const round=(x,y,w,h,r,fill,stroke,lineWidth=3)=>{ctx.beginPath();ctx.roundRect(x,y,w,h,r);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.lineWidth=lineWidth;ctx.strokeStyle=stroke;ctx.stroke()}};
  const hexRGBA=(hex,a)=>{const h=String(hex||"#000000").replace("#","");if(!/^[0-9a-f]{6}$/i.test(h))return `rgba(255,255,255,${a})`;return `rgba(${parseInt(h.slice(0,2),16)},${parseInt(h.slice(2,4),16)},${parseInt(h.slice(4,6),16)},${a})`};
  const bg=ctx.createLinearGradient(0,0,W,H);bg.addColorStop(0,"#24131d");bg.addColorStop(1,"#111519");ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
@@ -3089,28 +3089,37 @@ async function exportLineupImage(){
      ctx.shadowColor="transparent";ctx.shadowBlur=0;ctx.shadowOffsetX=0;ctx.shadowOffsetY=0;
      ctx.fillStyle=accent;ctx.fillRect(left,top,7,mobileCardH);
 
-     // Nome do atleta centralizado na parte superior, com redução tipográfica segura.
-     let playerName=String(o.p.name||"Jogador"),nameFont=25;
+     // Nome do atleta ocupa toda a largura no topo, sem abreviação.
+     const playerName=String(o.p.name||"Jogador");
      ctx.textAlign="center";ctx.fillStyle=textColor;
-     while(nameFont>17){ctx.font=`900 ${nameFont}px Arial`;if(ctx.measureText(playerName).width<=mobileCardW-28)break;nameFont-=1}
+     let nameFont=25;
      ctx.font=`900 ${nameFont}px Arial`;
-     if(ctx.measureText(playerName).width>mobileCardW-28){while(playerName.length>4&&ctx.measureText(playerName+"…").width>mobileCardW-28)playerName=playerName.slice(0,-1);playerName+="…"}
-     ctx.fillText(playerName,cx,top+30,mobileCardW-24);
+     while(nameFont>18&&ctx.measureText(playerName).width>mobileCardW-28){nameFont-=1;ctx.font=`900 ${nameFont}px Arial`;}
+     const nameWords=playerName.split(/\\s+/),nameLines=[];let nameLine="";
+     nameWords.forEach(word=>{const candidate=nameLine?nameLine+" "+word:word;if(ctx.measureText(candidate).width>mobileCardW-28&&nameLine){nameLines.push(nameLine);nameLine=word;}else nameLine=candidate;});
+     if(nameLine)nameLines.push(nameLine);
+     const visibleNameLines=nameLines.slice(0,2),nameLineH=nameFont+3;
+     visibleNameLines.forEach((line,i)=>ctx.fillText(line,cx,top+27+i*nameLineH));
 
-     // Número da camisa em destaque.
-     const ballX=cx,ballY=top+91;
+     // Cabeçalho horizontal: número à esquerda; posição e OVR empilhados à direita.
+     const headerCenterY=top+112,ballX=left+66,ballY=headerCenterY;
      ctx.beginPath();ctx.arc(ballX,ballY,ballR,0,Math.PI*2);ctx.fillStyle=primary;ctx.fill();ctx.lineWidth=6;ctx.strokeStyle=accent;ctx.stroke();
-     ctx.fillStyle=accent;ctx.font="900 49px Arial";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(String(o.p.shirtNumber??"—"),ballX,ballY+1);ctx.textBaseline="alphabetic";
+     ctx.fillStyle=accent;ctx.font="900 49px Arial";ctx.textAlign="center";ctx.textBaseline="middle";
+     ctx.fillText(String(o.p.shirtNumber??"—"),ballX,ballY+1);ctx.textBaseline="alphabetic";
 
-     // Posição e OVR ficam juntos logo abaixo da camisa.
-     const roleText=String(o.role||""),ovrText=`OVR ${o.p.ovr??"—"}`,metaY=top+145,metaH=29,gapX=9;
-     ctx.font="900 21px Arial";const roleW=Math.max(58,ctx.measureText(roleText).width+22);
-     ctx.font="900 20px Arial";const ovrW=Math.max(98,ctx.measureText(ovrText).width+20);
-     const totalW=roleW+ovrW+gapX,metaLeft=cx-totalW/2;
-     round(metaLeft,metaY,roleW,metaH,8,roleColor(o.role),null);
-     round(metaLeft+roleW+gapX,metaY,ovrW,metaH,14,accent,null);
-     ctx.textAlign="center";ctx.fillStyle="#FFFFFF";ctx.font="900 20px Arial";ctx.fillText(roleText,metaLeft+roleW/2,metaY+20);
-     ctx.fillStyle=brand.key==="olympic"?"#FFFFFF":dark;ctx.font="900 19px Arial";ctx.fillText(ovrText,metaLeft+roleW+gapX+ovrW/2,metaY+20);
+     const infoX=left+124,infoW=mobileCardW-138,roleText=String(o.role||""),ovrText=`OVR ${o.p.ovr??"—"}`;
+     const roleFont=21,roleH=31,ovrH=31;
+     ctx.font=`900 ${roleFont}px Arial`;
+     const roleW=Math.min(infoW,Math.max(78,ctx.measureText(roleText).width+24));
+     const roleX=infoX+(infoW-roleW)/2,roleY=top+78;
+     round(roleX,roleY,roleW,roleH,8,roleColor(o.role),null);
+     ctx.fillStyle="#FFFFFF";ctx.font="900 20px Arial";ctx.textAlign="center";
+     ctx.fillText(roleText,roleX+roleW/2,roleY+22);
+     const ovrW=Math.min(infoW,Math.max(108,ctx.measureText(ovrText).width+26));
+     const ovrX=infoX+(infoW-ovrW)/2,ovrY=top+119;
+     round(ovrX,ovrY,ovrW,ovrH,15,accent,null);
+     ctx.fillStyle=brand.key==="olympic"?"#FFFFFF":dark;ctx.font="900 20px Arial";
+     ctx.fillText(ovrText,ovrX+ovrW/2,ovrY+22);
 
      // Faixa de Traits em largura total: ícone grande, nome completo e quebra em linhas sem abreviação.
      // Cada Trait ocupa sua própria linha; a área é uniforme em todos os cartões da escalação.
@@ -3130,14 +3139,22 @@ async function exportLineupImage(){
        shown.forEach((part,j)=>ctx.fillText(part,textX,firstY+j*lineHeight));
        ctx.restore();
      });
-     // Os atributos permanecem alinhados em todos os cartões; a Trait ganha espaço real e legível.
+     // Os seis atributos ocupam toda a área livre até a base do cartão.
+     // A altura é calculada a partir do espaço restante, mantendo três linhas alinhadas em todos os jogadores.
      const attrs=Object.entries(o.p.attrs||{}).filter(([,v])=>Number.isFinite(Number(v))).sort((a,b)=>Number(b[1])-Number(a[1])).slice(0,6);
-     const pad=12,attrGap=8,attrW=(mobileCardW-pad*2-attrGap)/2,attrH=35,rowGap=5,startX=left+pad,startY=top+166+maxTraitRows*(traitRowH+traitRowGap)-traitRowGap+8;
+     const pad=12,attrGap=8,startX=left+pad,attrW=(mobileCardW-pad*2-attrGap)/2;
+     const startY=top+166+maxTraitRows*(traitRowH+traitRowGap)-traitRowGap+8;
+     const bottomPad=12,rowGap=7,attrRows=Math.max(1,Math.ceil(attrs.length/2));
+     const attrAreaH=Math.max(0,top+mobileCardH-bottomPad-startY);
+     const attrH=Math.max(35,(attrAreaH-rowGap*(attrRows-1))/attrRows);
+     const labelFont=Math.min(21,Math.max(18,Math.floor(attrH*.40)));
+     const valueFont=Math.min(23,Math.max(19,Math.floor(attrH*.43)));
      attrs.forEach(([k,v],j)=>{
        const col=j%2,row=Math.floor(j/2),ax=startX+col*(attrW+attrGap),ay=startY+row*(attrH+rowGap);
-       round(ax,ay,attrW,attrH,7,"#302A33",hexRGBA(accent,.22),1.2);
-       ctx.textAlign="left";ctx.fillStyle="#F4EEE8";ctx.font="700 15px Arial";ctx.fillText(shortAttrLabel(k),ax+8,ay+23);
-       ctx.textAlign="right";ctx.fillStyle="#68D4A8";ctx.font="900 16px Arial";ctx.fillText(fmt(v),ax+attrW-8,ay+23);
+       round(ax,ay,attrW,attrH,8,"#302A33",hexRGBA(accent,.28),1.4);
+       const baseline=ay+attrH/2+Math.max(6,labelFont*.34);
+       ctx.textAlign="left";ctx.textBaseline="alphabetic";ctx.fillStyle="#F4EEE8";ctx.font=`800 ${labelFont}px Arial`;ctx.fillText(shortAttrLabel(k),ax+10,baseline);
+       ctx.textAlign="right";ctx.fillStyle="#68D4A8";ctx.font=`900 ${valueFont}px Arial`;ctx.fillText(fmt(v),ax+attrW-10,baseline);
      });
      ctx.restore();
    });
