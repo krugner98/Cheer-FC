@@ -304,6 +304,31 @@ body.auth-locked #authGate{display:flex;visibility:visible!important;pointer-eve
 .shirt-admin-toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0}.shirt-admin-toolbar select,.shirt-admin-toolbar input{background:#211d22;color:#f5eee8;border:1px solid #51444d;border-radius:8px;padding:11px 13px;font-size:13px;min-width:180px}
 .shirt-table-wrap{overflow:auto;border:1px solid #51404a;border-radius:12px}.shirt-table{width:100%;border-collapse:collapse;min-width:720px}.shirt-table th,.shirt-table td{padding:11px 13px;border-bottom:1px solid #ffffff12;text-align:left}.shirt-table th{font-size:10px;letter-spacing:1.5px;color:var(--champ);background:#ffffff09}.shirt-table td{font-size:13px}.shirt-table input{width:78px;background:#171419;color:#fff;border:1px solid #65515d;border-radius:7px;padding:8px;text-align:center;font-weight:850;font-size:14px}.shirt-table input:focus{outline:2px solid #e8dccb66;border-color:var(--champ)}.shirt-table .shirt-number-display{display:inline-flex;align-items:center;justify-content:center;width:78px;min-height:34px;box-sizing:border-box;background:#ffffff09;color:var(--champ);border:1px solid #51404a;border-radius:7px;padding:8px;text-align:center;font-weight:850;font-size:14px;font-variant-numeric:tabular-nums}.shirt-save-note{font-size:11px;color:#68d4a8;min-height:18px}
 
+
+.goal-player-group{padding:14px 15px;border-bottom:1px solid rgba(232,220,203,.12)}.goal-player-group:last-child{border-bottom:0}
+.goal-player-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:2px 2px 12px;margin-bottom:10px;border-bottom:1px solid rgba(232,220,203,.13)}
+.goal-player-heading strong{font-size:15px;color:#f5eee8}.goal-player-heading span{font-size:11px;color:#bcaeb7}
+
+.goal-edit-backdrop{position:fixed;inset:0;z-index:100000;background:rgba(8,6,10,.78);display:flex;align-items:center;justify-content:center;padding:18px}
+.goal-edit-modal{width:min(100%,430px);padding:20px;border:1px solid rgba(232,220,203,.25);border-radius:16px;background:#211a20;box-shadow:0 18px 60px rgba(0,0,0,.55);display:grid;gap:13px;color:#f5eee8}
+.goal-edit-modal h3{margin:0 0 3px;font-size:17px}
+.goal-edit-modal label{display:grid;gap:7px;font-size:12px;font-weight:800}
+.goal-edit-modal select,.goal-edit-modal input{width:100%;min-height:43px;padding:9px 11px;border:1px solid rgba(232,220,203,.3);border-radius:8px;background:#f8f5f1;color:#211a20;font-size:15px}
+.goal-edit-current{font-size:11px;color:#c9b9c2}.goal-edit-error{min-height:15px;color:#f0a9b7;font-size:11px}
+.goal-edit-actions{display:flex;justify-content:flex-end;gap:8px}
+.goal-history{margin-top:16px;border:1px solid rgba(232,220,203,.18);border-radius:14px;padding:12px;background:rgba(232,220,203,.025)}
+.goal-history>summary{cursor:pointer;font-weight:800;color:#b8e5d3;padding:5px 2px;list-style:none}
+.goal-history>summary::-webkit-details-marker{display:none}
+.goal-history>summary:before{content:"＋";display:inline-block;margin-right:9px;color:#b8e5d3}
+.goal-history[open]>summary:before{content:"−"}
+.goal-completed-item{opacity:.88;border-color:rgba(91,194,151,.28)!important}
+.goal-completed-item .goal-priority-number{background:rgba(45,155,112,.2)!important;color:#8be0bd!important}
+.goals-status.completed{background:rgba(45,155,112,.14);color:#83dbb5;border:1px solid rgba(91,194,151,.35)}
+.goal-priority-list{display:grid;gap:9px}.goal-priority-item{display:flex;align-items:stretch;gap:10px;padding:10px;border:1px solid rgba(232,220,203,.12);border-radius:11px;background:rgba(232,220,203,.035)}
+.goal-priority-number{display:flex;align-items:center;justify-content:center;flex:0 0 38px;min-height:38px;border-radius:9px;background:rgba(90,16,40,.48);color:#eadcc9;font-size:12px;font-weight:900}
+.goal-priority-main{flex:1;min-width:0}.goal-priority-main .goal-values{margin:9px 0 7px}.goal-priority-main .goal-current{font-size:20px}.goal-priority-main .goal-actions{margin-top:9px}
+.goal-priority-main .goal-card-foot{margin-top:7px}
+@media(max-width:460px){.goal-player-group{padding:12px 9px}.goal-player-heading strong{font-size:13px}.goal-priority-item{padding:8px;gap:7px}.goal-priority-number{flex-basis:32px}.goal-remaining{font-size:10px}}
 </style><style>/* V5.4 — navegação lateral funcional e escalação mobile reorganizada */
 @media(min-width:701px){main{padding-left:238px!important;box-sizing:border-box}#cheerSidebar{position:fixed;left:0;top:120px;bottom:0;width:220px;z-index:3000;overflow-y:auto;background:linear-gradient(180deg,#211a21,#171419);border-right:1px solid #59434e;padding:18px 12px}#cheerSidebar .sidebar-heading{font-size:10px;letter-spacing:2px;color:#bbaab3;font-weight:900;margin:0 0 12px;padding:0 8px}#cheerSidebar .tabs{display:flex;flex-direction:column;gap:6px}#cheerSidebar .tab{display:block;width:100%;text-align:left;padding:13px 12px;border-radius:9px;font-size:13px}#cheerNavToggle,#cheerNavBackdrop{display:none!important}}
 #cheerSidebar .tab.active{background:#5a1028!important;border-color:#e8dccb!important;color:#fff!important}#cheerNavToggle{display:none;position:fixed;z-index:5002;left:12px;top:82px;border:1px solid #e8dccb;background:#5a1028;color:#fff;border-radius:10px;padding:10px 13px;font-weight:900;box-shadow:0 5px 18px #0008}#cheerNavBackdrop{display:none;position:fixed;inset:0;background:#0009;z-index:5000}
@@ -2490,6 +2515,53 @@ select option[data-position-class="pos-att"]{background:#c83b45;color:#fff}
 #videoPregameAdminPanel .video-clip-fields{grid-column:1/3}
 @media(max-width:760px){#videoPregameAdminPanel .video-add-form{grid-template-columns:repeat(2,minmax(0,1fr))}#videoPregameAdminPanel .video-clip-fields{grid-column:1/-1}}
 @media(max-width:440px){#videoPregameAdminPanel .video-add-form{grid-template-columns:1fr}}
+</style><style id="team-update-table-style">
+.team-update-panel{margin-top:26px;padding:22px!important;background:linear-gradient(145deg,rgba(90,16,40,.16),rgba(24,19,25,.96))!important;border:1px solid rgba(232,220,203,.22)!important}
+.team-update-panel .detail-head{align-items:center;margin-bottom:18px}
+.team-update-panel .detail-head h3{font-size:19px;letter-spacing:-.02em}
+.team-update-panel .detail-head .sub{margin-top:5px;max-width:560px}
+.team-update-table-wrap{width:100%;overflow-x:auto;border:1px solid rgba(232,220,203,.17);border-radius:15px;background:rgba(12,10,14,.42)}
+.team-update-table{width:100%;border-collapse:separate;border-spacing:0;min-width:560px}
+.team-update-table th,.team-update-table td{padding:14px 17px;text-align:left;border-bottom:1px solid rgba(232,220,203,.10)}
+.team-update-table th{font-size:10px;letter-spacing:.11em;color:#cdbec5;font-weight:800;background:rgba(90,16,40,.25);white-space:nowrap}
+.team-update-table th:first-child{padding-left:20px}
+.team-update-table tbody tr{transition:background .16s ease}
+.team-update-table tbody tr:hover{background:rgba(232,220,203,.045)}
+.team-update-table tbody tr:last-child td{border-bottom:0}
+.team-update-table td{font-size:13px;color:#f4eee8;vertical-align:middle}
+.team-update-club-cell{display:flex;align-items:center;gap:12px;min-width:220px}
+.team-update-crest{width:39px;height:39px;flex:0 0 39px;object-fit:contain;padding:5px;border-radius:11px;background:rgba(255,255,255,.94);border:1px solid rgba(232,220,203,.25);box-shadow:0 3px 9px rgba(0,0,0,.22)}
+.team-update-crest-fallback{display:grid;place-items:center;width:39px;height:39px;flex:0 0 39px;border-radius:11px;background:var(--team-primary,#5A1028);border:1px solid var(--team-accent,#E8DCCB);color:var(--team-accent,#E8DCCB);font-size:18px;font-weight:900}
+.team-update-club-name{font-weight:800;font-size:13px;letter-spacing:.01em}
+.team-update-player-count{display:inline-flex;align-items:center;justify-content:center;min-width:34px;padding:5px 10px;border-radius:999px;background:rgba(232,220,203,.09);border:1px solid rgba(232,220,203,.15);font-weight:800;font-variant-numeric:tabular-nums}
+.team-update-date{display:inline-flex;align-items:center;gap:8px;font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:700}
+.team-update-date-dot{width:7px;height:7px;border-radius:50%;background:#55d6a7;box-shadow:0 0 0 3px rgba(85,214,167,.12)}
+.team-update-no-date{color:#bcaeb7;font-weight:500}
+.team-update-footnote{display:flex;align-items:center;gap:7px;margin-top:12px;font-size:11px}
+.team-update-footnote:before{content:"";width:6px;height:6px;border-radius:50%;background:#55d6a7}
+.team-update-empty{text-align:center!important;color:var(--muted,#b8aeb5)!important;padding:24px!important}
+@media(max-width:640px){.team-update-panel{padding:15px!important}.team-update-panel .detail-head{align-items:flex-start;gap:10px}.team-update-panel .detail-head h3{font-size:17px}.team-update-table th,.team-update-table td{padding:12px}.team-update-crest,.team-update-crest-fallback{width:34px;height:34px;flex-basis:34px}}
+</style><style id="goals-page-style">
+.goals-hero{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:24px 26px;margin-bottom:18px;border:1px solid rgba(232,220,203,.2);border-radius:18px;background:radial-gradient(circle at 85% 35%,rgba(120,35,67,.35),transparent 34%),linear-gradient(135deg,rgba(90,16,40,.38),rgba(27,22,29,.96))}
+.goals-kicker{font-size:10px;font-weight:900;letter-spacing:.15em;color:#d8b7c4}.goals-hero h2{margin:7px 0 5px;font-size:25px}.goals-hero p{margin:0;color:#c6b9c1;font-size:13px;max-width:680px;line-height:1.5}.goals-hero-mark{display:grid;place-items:center;width:58px;height:58px;flex:0 0 58px;border-radius:18px;background:rgba(232,220,203,.09);border:1px solid rgba(232,220,203,.22);font-size:34px;color:#E8DCCB}
+.goals-player-panel,.goals-staff-panel{padding:20px!important}.goals-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin:14px 0 20px}
+.goal-card{padding:15px 16px;border:1px solid rgba(232,220,203,.17);border-radius:14px;background:linear-gradient(145deg,rgba(90,16,40,.2),rgba(20,17,22,.72));min-width:0}
+.goal-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.goal-attribute{font-weight:900;font-size:15px;color:#f5eee8}.goal-player-name{font-size:11px;color:#bcaeb7;margin-top:4px}
+.goal-values{display:flex;align-items:baseline;gap:6px;margin:13px 0 8px}.goal-current{font-size:25px;font-weight:900;color:#62d6aa;font-variant-numeric:tabular-nums}.goal-target{font-size:13px;color:#d8c9cf}.goal-remaining{margin-left:auto;font-size:11px;color:#d8c9cf;text-align:right}.goal-progress{height:8px;border-radius:99px;background:rgba(232,220,203,.12);overflow:hidden}.goal-progress>i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#8c3155,#62d6aa);max-width:100%}.goal-card-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px;font-size:11px;color:#c4b7bf}
+.goals-status{display:inline-flex;align-items:center;justify-content:center;padding:5px 9px;border-radius:99px;font-size:10px;font-weight:800;white-space:nowrap;border:1px solid transparent}
+.goals-status.active{color:#75e0b6;background:rgba(44,155,112,.14);border-color:rgba(85,214,167,.25)}.goals-status.pending{color:#f0cc7c;background:rgba(191,145,47,.14);border-color:rgba(240,204,124,.25)}.goals-status.rejected,.goals-status.cancelled{color:#d7b8c4;background:rgba(160,75,100,.13);border-color:rgba(215,184,196,.2)}.goals-status.reached{color:#fff0c8;background:rgba(191,145,47,.2);border-color:rgba(240,204,124,.3)}
+.goals-proposal,.goals-staff-create{margin-top:18px;padding:17px!important;background:rgba(90,16,40,.12)!important;border:1px solid rgba(232,220,203,.17)!important}.goals-form{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:end}.goals-form label,.goals-staff-toolbar label{display:flex;flex-direction:column;gap:7px;font-size:11px;font-weight:800;color:#e8dcd3;min-width:0}.goals-form input,.goals-form select,.goals-staff-toolbar select{width:100%;min-width:0}.goals-note-field{grid-column:span 1}.goals-form-actions{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:12px}.goals-form-actions .sub{font-size:11px}.goals-staff-create h3{margin:0 0 14px;font-size:15px}
+.goals-tab-icon{width:17px;height:17px;flex:0 0 17px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+#tabGoals{display:inline-flex;align-items:center;justify-content:center;gap:9px}
+.goals-staff-toolbar{display:flex;align-items:end;gap:12px;flex-wrap:wrap;padding:13px 14px;margin:16px 0 20px;border:1px solid rgba(232,220,203,.14);border-radius:14px;background:linear-gradient(135deg,rgba(90,16,40,.22),rgba(232,220,203,.035))}
+.goals-staff-toolbar label{min-width:220px;max-width:320px;gap:8px;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:#d9c8ce}
+.goals-staff-toolbar select{appearance:none;min-height:43px;padding:10px 38px 10px 13px;border:1px solid rgba(232,220,203,.23);border-radius:10px;background-color:#211a20;color:#f6eee8;font-size:13px;font-weight:650;box-shadow:0 3px 12px rgba(0,0,0,.14)}
+.goals-staff-toolbar select:focus,.goals-form input:focus,.goals-form select:focus{outline:2px solid rgba(232,220,203,.5);outline-offset:2px}
+
+@media(max-width:650px){.goals-staff-toolbar{padding:11px;gap:9px}.goals-staff-toolbar label{min-width:100%;max-width:none}.goals-staff-toolbar select{min-height:45px}}
+.goals-staff-toolbar{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0}.goals-staff-toolbar label{min-width:190px}.goals-table-wrap{width:100%;overflow-x:auto;border:1px solid rgba(232,220,203,.15);border-radius:13px}.goals-table{width:100%;min-width:880px;border-collapse:collapse}.goals-table th,.goals-table td{padding:12px 13px;text-align:left;border-bottom:1px solid rgba(232,220,203,.1);font-size:12px;vertical-align:middle}.goals-table th{font-size:10px;letter-spacing:.08em;color:#c9b9c2;background:rgba(90,16,40,.2);white-space:nowrap}.goals-table tr:last-child td{border-bottom:0}.goals-table .goal-progress-cell{min-width:130px}.goals-table .goal-progress{height:6px;margin-top:5px}.goal-actions{display:flex;gap:5px;flex-wrap:wrap}.goal-action{border:1px solid rgba(232,220,203,.2);background:rgba(232,220,203,.07);color:#f3e9e2;border-radius:8px;padding:6px 8px;font-size:10px;font-weight:800;cursor:pointer}.goal-action.approve{color:#7ce0b7;border-color:rgba(85,214,167,.3)}.goal-action.reject{color:#e2aeb8;border-color:rgba(215,130,150,.25)}.goals-empty{padding:22px!important;text-align:center;color:#bbaeb7;font-size:12px}
+@media(max-width:760px){.goals-form{grid-template-columns:repeat(2,minmax(0,1fr))}.goals-hero{padding:19px}.goals-hero h2{font-size:22px}.goals-form-actions{align-items:flex-start;flex-direction:column}.goals-player-panel,.goals-staff-panel{padding:14px!important}}
+@media(max-width:460px){.goals-form{grid-template-columns:1fr}.goals-form-actions{grid-column:1}.goals-note-field{grid-column:auto}.goals-hero-mark{width:46px;height:46px;flex-basis:46px;font-size:27px}}
 </style></head><body class="auth-locked">
 <div aria-labelledby="authTitle" aria-modal="true" id="authGate" role="dialog">
 <div class="auth-panel">
@@ -2503,7 +2575,7 @@ select option[data-position-class="pos-att"]{background:#c83b45;color:#fff}
 </div>
 <header><div class="brand"><img alt="Escudo Cheer FC" class="crest-img" src="data:image/webp;base64,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"/><div><b>CHEER FC</b><small>PLAYER DATABASE</small></div></div><div class="header-tag">SCOUTING DE ELENCO · 2026</div></header>
 <main><div class="hero"><div><div class="eyebrow">FOOTBALL IDENTITY / Cheer FC</div><h1>Central de jogadores</h1><p>Explore os atributos do elenco, encontre especialistas e compare jogadores lado a lado.</p></div></div>
-<div class="toolbar mode-toolbar" id="globalModeToolbar"><label for="attributeMode">Visualizar atributos:</label><select id="attributeMode"><option value="base">Ficha base</option><option value="final">Ficha final</option><option value="finalBonus5">Ficha final + Bônus 5%</option></select><span class="sub" id="modeHint">Exibindo valores originais, sem planejador de itens.</span></div><div class="tabs"><button class="tab active" id="tabPlayer">Jogador</button><button class="tab" id="tabCompare">Comparar</button><button class="tab" id="tabRanking">Rankings</button><button class="tab" id="tabTactics">Escalação</button><button class="tab" id="tabSimulator" type="button"><span class="cheer-nav-icon" aria-hidden="true">↔</span> Simulador Tático</button><button class="tab" id="tabVideosPregame" type="button"><span class="cheer-nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#F4EEE8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3.5" width="16" height="18" rx="2"/><path d="M9 3.5v-1h6v1M8 9h8M8 13h8M8 17h5"/></svg></span> Vídeos Pré-Jogo</button><button class="tab" id="tabVideos">Repositório de Vídeos</button><button class="tab" id="tabImport">Atualizar fichas</button><button class="tab" id="tabShirts">Números e Traits</button><button class="tab" id="tabTraitsGuide">Função das Traits</button></div>
+<div class="toolbar mode-toolbar" id="globalModeToolbar"><label for="attributeMode">Visualizar atributos:</label><select id="attributeMode"><option value="base">Ficha base</option><option value="final">Ficha final</option><option value="finalBonus5">Ficha final + Bônus 5%</option></select><span class="sub" id="modeHint">Exibindo valores originais, sem planejador de itens.</span></div><div class="tabs"><button class="tab active" id="tabPlayer">Jogador</button><button class="tab" id="tabCompare">Comparar</button><button class="tab" id="tabRanking">Rankings</button><button class="tab" id="tabTactics">Escalação</button><button class="tab" id="tabSimulator" type="button"><span class="cheer-nav-icon" aria-hidden="true">↔</span> Simulador Tático</button><button class="tab" id="tabVideosPregame" type="button"><span class="cheer-nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#F4EEE8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3.5" width="16" height="18" rx="2"/><path d="M9 3.5v-1h6v1M8 9h8M8 13h8M8 17h5"/></svg></span> Vídeos Pré-Jogo</button><button class="tab" id="tabVideos">Repositório de Vídeos</button><button class="tab" id="tabGoals" type="button"><svg class="goals-tab-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19V5m0 14h15M8 15l3-4 3 2 5-7"/><path d="M16 6h3v3"/></svg><span>Metas de Ficha</span></button><button class="tab" id="tabImport">Atualizar fichas</button><button class="tab" id="tabShirts">Números e Traits</button><button class="tab" id="tabTraitsGuide">Função das Traits</button></div>
 <section id="playerView"><div class="toolbar"><select id="playerTeamFilter"><option value="">Todos os Times</option><option value="CHEER FC">Cheer FC</option></select><select id="playerSelect"></select><select id="positionFilter"><option value="">Todas as posições</option></select><select id="playerShirtFilter" aria-label="Filtrar por número da camisa"><option value="">Todas as camisas</option></select><input id="search" placeholder="Buscar jogador..."/><span class="count" id="count"></span></div>
 <div class="layout"><div class="card" id="playerCard"></div><div class="card detail"><div class="detail-head player-report-head"><div><h2>Relatório de atributos</h2><div class="sub" id="attributeReportSubtitle">Valores originais da ficha do Football Identity</div></div><div class="player-report-tools"><div class="chips" id="metaChips"></div><div class="player-export-actions"><button class="player-export-button" id="exportPlayerCsv" type="button" onclick="exportSelectedPlayerCSV()" title="Exportar todos os atributos em CSV"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h10l4 4v14H5z"/><path d="M14 3v5h5M8 13h8M8 17h8"/></svg><span>Exportar CSV</span></button><button class="player-export-button primary" id="exportPlayerPng" type="button" onclick="exportSelectedPlayerPNG()" title="Exportar card visual com todos os atributos"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><span>Exportar card PNG</span></button></div></div></div><div class="radar-panel"><div class="section-title">PERFIL DE ATRIBUTOS</div><div id="radarChart"></div></div><div class="categories" id="categories"></div></div></div></section>
 <section class="compare-wrap" id="compareView"><div class="toolbar view-mode-toolbar"><label>Visualizar:</label><select id="attributeModeCompare"><option value="base">Ficha base</option><option value="final">Ficha final</option><option value="finalBonus5">Ficha final + Bônus 5%</option></select><span class="sub">A comparação usa a versão selecionada para os dois jogadores.</span></div><div class="compare-controls team-compare-controls">
@@ -2553,6 +2625,11 @@ select option[data-position-class="pos-att"]{background:#c83b45;color:#fff}
 <div class="toolbar" style="margin-top:16px"><button class="tab active" id="confirmImport">Confirmar atualização</button><button class="tab" id="cancelImport">Cancelar</button></div>
 </div>
 <p class="import-note">As alterações são gravadas no Supabase somente após sua confirmação. O acesso de edição depende da função da conta e da ficha vinculada ao usuário.</p>
+<div class="card detail team-update-panel" id="teamUpdatePanel">
+ <div class="detail-head"><div><h3>Última atualização por time</h3><div class="sub">Data da alteração mais recente em qualquer ficha de cada clube.</div></div><button class="tab" id="refreshTeamUpdates" type="button">Atualizar tabela</button></div>
+ <div class="team-update-table-wrap"><table class="team-update-table"><thead><tr><th>TIME</th><th>JOGADORES</th><th>DATA DA ÚLTIMA ATUALIZAÇÃO</th></tr></thead><tbody id="teamUpdateTableBody"><tr><td colspan="3" class="sub">Abra esta página para carregar as datas.</td></tr></tbody></table></div>
+ <div class="sub team-update-footnote" id="teamUpdateStatus">As datas são exibidas no horário de Brasília.</div>
+</div>
 </section>
 <section class="hidden" id="shirtsView">
 <div class="detail-head"><div><h2>Números e Traits</h2><div class="sub" id="shirtSectionSubtitle">Consulte a numeração dos atletas. As mudanças aparecem nos cartões do jogador, no campo e no banco.</div></div><span class="chip" id="shirtModeChip">Consulta do elenco</span></div>
@@ -2628,6 +2705,42 @@ select option[data-position-class="pos-att"]{background:#c83b45;color:#fff}
 <div class="traits-guide-empty" hidden="" id="traitsGuideEmpty">Nenhuma Trait encontrada. Tente pesquisar por outro nome ou efeito.</div>
 <p class="traits-guide-footnote">As condições de ativação e os efeitos reproduzem as descrições dos cards oficiais do Football Identity enviados pela comissão técnica.</p>
 </div>
+</section>
+<section class="hidden" id="goalsView">
+ <div class="goals-hero">
+  <div><div class="goals-kicker">DESENVOLVIMENTO INDIVIDUAL · CHEER FC</div><h2>Metas de Ficha</h2><p>Defina objetivos de evolução usando exclusivamente os atributos da Ficha Base. Acompanhe o progresso sem prazo obrigatório.</p></div>
+  <div class="goals-hero-mark" aria-hidden="true">◎</div>
+ </div>
+ <div class="goals-player-panel card detail" id="goalsPlayerPanel">
+  <div class="detail-head"><div><h3>Minhas metas</h3><div class="sub">Acompanhe suas prioridades de evolução, na ordem definida pela comissão.</div></div><span class="chip" id="myGoalsCount">0 metas</span></div>
+  <div class="goals-grid" id="myGoalsList"><div class="goals-empty">Carregando suas metas...</div></div>
+  <div class="goals-proposal card detail">
+   <div class="detail-head"><div><h3>Sugerir nova meta</h3><div class="sub">Sua sugestão ficará pendente até a comissão técnica analisar.</div></div><span class="goals-status pending">Pendente de aprovação</span></div>
+   <form id="playerGoalForm" class="goals-form">
+    <label>Atributo<select id="playerGoalAttribute" required><option value="">Selecione um atributo</option></select></label>
+    <label>Valor desejado<input id="playerGoalTarget" type="number" min="1" max="99" step="0.01" placeholder="Ex.: 75" required/></label>
+    <label class="goals-note-field">Comentário (opcional)<input id="playerGoalNote" maxlength="240" placeholder="Por que você escolheu essa meta?"/></label>
+    <div class="goals-form-actions"><span class="sub" id="playerGoalStatus">A meta só será ativada após aprovação.</span><button class="tab active" id="playerGoalSubmit" type="submit">Enviar sugestão</button></div>
+   </form>
+  </div>
+ </div>
+ <div class="goals-staff-panel card detail" id="goalsStaffPanel" hidden>
+  <div class="detail-head"><div><h3>Painel da comissão</h3><div class="sub">Organize as prioridades de cada jogador. Use as setas para subir ou descer cada meta.</div></div><span class="chip" id="allGoalsCount">0 metas</span></div>
+  <div class="goals-staff-create">
+   <h3>Definir meta para um jogador</h3>
+   <form id="staffGoalForm" class="goals-form">
+    <label>Jogador<select id="staffGoalPlayer" class="goal-player-select" required><option value="">Selecione um jogador</option></select></label>
+    <label>Atributo<select id="staffGoalAttribute" required><option value="">Selecione um atributo</option></select></label>
+    <label>Valor desejado<input id="staffGoalTarget" type="number" min="1" max="99" step="0.01" placeholder="Ex.: 80" required/></label>
+    <label class="goals-note-field">Observação (opcional)<input id="staffGoalNote" maxlength="240" placeholder="Orientação para o jogador"/></label>
+    <div class="goals-form-actions"><span class="sub" id="staffGoalStatus">A meta será ativada imediatamente.</span><button class="tab active" id="staffGoalSubmit" type="submit">Definir meta</button></div>
+   </form>
+  </div>
+  <div class="goals-staff-toolbar">
+   <label>Filtrar por situação<select id="goalsStatusFilter"><option value="">Todas as situações</option><option value="pending">Pendentes</option><option value="active">Ativas</option><option value="completed">Concluídas</option><option value="reached">Atingidas (não arquivadas)</option><option value="rejected">Rejeitadas</option><option value="cancelled">Canceladas</option></select></label>
+  </div>
+  <div class="goals-table-wrap" id="allGoalsTableBody"><div class="goals-empty">Carregando...</div></div>
+ </div>
 </section>
 <section class="hidden" id="videosPregameView">
 <div class="videos-hero">
@@ -3746,6 +3859,231 @@ $("externalClub")?.addEventListener("input",()=>{
  if(select&&normalizeText(input.value)!==normalizeText(select.value))select.value="";
 });
 async function persistPlayerData(){if(window.cheerCloudSavePlayers)return await window.cheerCloudSavePlayers();throw new Error("Banco de dados ainda não conectado. Nenhuma alteração foi salva.")}
+async function refreshTeamUpdateTable(){
+ const body=$("teamUpdateTableBody"),status=$("teamUpdateStatus");if(!body)return;
+ body.innerHTML='<tr><td colspan="3" class="team-update-empty">Carregando times e datas de atualização...</td></tr>';
+ try{
+  if(!window.cheerCloudGetTeamLastUpdates)throw new Error("A consulta de atualização ainda não está disponível.");
+  const rows=await window.cheerCloudGetTeamLastUpdates();
+  if(!rows.length){body.innerHTML='<tr><td colspan="3" class="team-update-empty">Nenhum time encontrado.</td></tr>';if(status)status.textContent="Não há fichas cadastradas no banco.";return;}
+  const branding=window.cheerTeamBranding;
+  body.innerHTML=rows.map(row=>{
+   const club=row.club||"Time sem nome",brand=branding?.brandFor(club)||{};
+   const date=row.last_updated_at?new Date(row.last_updated_at):null;
+   const validDate=date&&!Number.isNaN(date.getTime());
+   const formatted=validDate?date.toLocaleString("pt-BR",{timeZone:"America/Sao_Paulo",day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"}):"Sem registro";
+   const crest=brand.logo?`<img class="team-update-crest" src="${brand.logo}" alt="Escudo ${escapeHtml(brand.label||club)}" loading="lazy">`:`<span class="team-update-crest-fallback" style="--team-primary:${brand.primary||"#5A1028"};--team-accent:${brand.accent||"#E8DCCB"}" aria-hidden="true">✦</span>`;
+   return `<tr><td><div class="team-update-club-cell">${crest}<span class="team-update-club-name">${escapeHtml(brand.label||club)}</span></div></td><td><span class="team-update-player-count">${Number(row.player_count)||0}</span></td><td>${validDate?`<span class="team-update-date"><i class="team-update-date-dot"></i>${formatted}</span>`:`<span class="team-update-no-date">${formatted}</span>`}</td></tr>`;
+  }).join("");
+  if(status)status.textContent=`${rows.length} times no cadastro · Dados consultados diretamente no Supabase · Horário de Brasília.`;
+ }catch(err){
+  body.innerHTML=`<tr><td colspan="3" class="team-update-empty">Não foi possível carregar: ${escapeHtml(err.message||"erro desconhecido")}</td></tr>`;
+  if(status)status.textContent="Verifique sua conexão e tente atualizar a tabela.";
+ }
+}
+let goalsPageCache=[];
+function goalAssignedPlayers(){
+ const ids=(window.CHEERFC_AUTH?.assignedPlayerIds||[]).map(String);
+ return players.filter(p=>p.dbId&&ids.includes(String(p.dbId))&&!p.external);
+}
+function goalStaffPlayers(){return players.filter(p=>p.dbId&&!p.external).sort((a,b)=>a.name.localeCompare(b.name,"pt-BR"));}
+function goalBaseAttrs(player){return player?.attrsBase||player?.attrs||{};}
+function goalAttributeOptions(select,player,selected=""){
+ if(!select)return;
+ const attrs=Object.keys(goalBaseAttrs(player)||{}).sort((a,b)=>a.localeCompare(b,"pt-BR",{sensitivity:"base"}));
+ select.innerHTML='<option value="">Selecione um atributo</option>'+attrs.map(a=>`<option value="${escapeHtml(a)}">${escapeHtml(a)}</option>`).join("");
+ if(selected&&attrs.includes(selected))select.value=selected;
+}
+function goalPlayerForRow(goal){return players.find(p=>String(p.dbId)===String(goal.player_id))||null;}
+function goalCurrentValue(goal){
+ const player=goalPlayerForRow(goal),attrs=goalBaseAttrs(player),value=attrs?.[goal.attribute_name];
+ return value===undefined||value===null||!Number.isFinite(Number(value))?null:Number(value);
+}
+function goalProgress(goal){
+ const current=goalCurrentValue(goal),target=Number(goal.target_value);
+ if(current===null||!Number.isFinite(target)||target<=0)return {current,target,remaining:null,pct:0,reached:false};
+ return {current,target,remaining:Math.max(0,target-current),pct:Math.min(100,Math.max(0,current/target*100)),reached:current>=target};
+}
+function goalStatusInfo(goal){
+ const progress=goalProgress(goal);
+ const map={active:["active","Em andamento"],pending:["pending","Pendente"],completed:["completed","Concluída"],rejected:["rejected","Rejeitada"],cancelled:["cancelled","Cancelada"]};
+ const item=map[goal.status]||["cancelled",goal.status||"—"];
+ if(goal.status==="active"&&progress.reached)return {key:"reached",label:"Atingida"};
+ return {key:item[0],label:item[1]};
+}
+async function completeReachedGoals(rows){
+ const reached=rows.filter(g=>g.status==="active"&&goalProgress(g).reached);
+ for(const goal of reached){
+  const value=goalCurrentValue(goal);
+  if(value===null)continue;
+  await window.cheerCloudUpdateGoal(goal.id,{status:"completed",completed_at:new Date().toISOString(),achieved_value:Number(value.toFixed(2))});
+  goal.status="completed";goal.completed_at=new Date().toISOString();goal.achieved_value=Number(value.toFixed(2));
+ }
+}
+function sortPlayerGoals(items){
+ return [...items].sort((a,b)=>(Number(a.priority)||100)-(Number(b.priority)||100)||new Date(a.created_at)-new Date(b.created_at));
+}
+function renderGoalItem(goal,index,staff=false){
+ const p=goalProgress(goal),status=goalStatusInfo(goal),current=goal.status==="completed"&&goal.achieved_value!==null&&goal.achieved_value!==undefined?Number(goal.achieved_value).toFixed(2):(p.current===null?"—":p.current.toFixed(2)),target=Number(goal.target_value).toFixed(2);
+ const remaining=goal.status==="completed"?"Meta concluída":p.remaining===null?"Atributo indisponível":p.reached?"Meta atingida":`Faltam ${p.remaining.toFixed(2)} pontos`;
+ const completedDate=goal.completed_at?new Date(goal.completed_at).toLocaleDateString("pt-BR"):"";
+ let actions="";
+ if(staff){
+  const order=`<button class="goal-action" data-goal-action="up" data-goal-id="${escapeHtml(goal.id)}" title="Subir prioridade">↑</button><button class="goal-action" data-goal-action="down" data-goal-id="${escapeHtml(goal.id)}" title="Descer prioridade">↓</button>`;
+  if(goal.status==="pending")actions=`${order}<button class="goal-action" data-goal-action="edit" data-goal-id="${escapeHtml(goal.id)}">Editar</button><button class="goal-action approve" data-goal-action="approve" data-goal-id="${escapeHtml(goal.id)}">Aprovar</button><button class="goal-action reject" data-goal-action="reject" data-goal-id="${escapeHtml(goal.id)}">Rejeitar</button>`;
+  if(goal.status==="active")actions=`${order}<button class="goal-action" data-goal-action="edit" data-goal-id="${escapeHtml(goal.id)}">Editar</button><button class="goal-action reject" data-goal-action="cancel" data-goal-id="${escapeHtml(goal.id)}">Cancelar</button>`;
+ }
+ return `<div class="goal-priority-item ${goal.status==="completed"?"goal-completed-item":""}"><div class="goal-priority-number">${goal.status==="completed"?"✓":`P${index+1}`}</div><div class="goal-priority-main"><div class="goal-card-top"><div><div class="goal-attribute">${escapeHtml(goal.attribute_name)}</div><div class="goal-player-name">${escapeHtml(goal.note||"Meta de desenvolvimento")}</div></div><span class="goals-status ${status.key}">${status.label}</span></div><div class="goal-values"><span class="goal-current">${current}</span><span class="goal-target">/ ${target}</span><span class="goal-remaining">${remaining}</span></div><div class="goal-progress"><i style="width:${p.pct}%"></i></div><div class="goal-card-foot"><span>${goal.status==="completed"?`Concluída em ${completedDate||"—"} · ${goal.source==="staff"?"Definida pela comissão":"Sugestão do jogador"}`:(goal.source==="staff"?"Definida pela comissão":"Sugestão do jogador")}</span><span>${goal.status==="completed"?"100%":`${p.pct.toFixed(0)}%`}</span></div>${actions?`<div class="goal-actions">${actions}</div>`:""}</div></div>`;
+}
+function renderMyGoals(rows){
+ const list=$("myGoalsList"),count=$("myGoalsCount");if(!list)return;
+ const linked=goalAssignedPlayers(),ids=new Set(linked.map(p=>String(p.dbId)));
+ const mine=rows.filter(g=>ids.has(String(g.player_id))&&["active","pending"].includes(g.status));
+ const completed=rows.filter(g=>ids.has(String(g.player_id))&&g.status==="completed");
+ if(count)count.textContent=`${mine.length} ${mine.length===1?"prioridade":"prioridades"}`;
+ if(!linked.length){list.innerHTML='<div class="goals-empty">Sua conta ainda não está vinculada a uma ficha de jogador. Peça à comissão para configurar seu vínculo.</div>';$("playerGoalForm")?.setAttribute("hidden","");return;}
+ $("playerGoalForm")?.removeAttribute("hidden");
+ if(!mine.length&&!completed.length){list.innerHTML='<div class="goals-empty">Você ainda não possui metas. Pode sugerir uma nova meta abaixo ou aguardar a comissão.</div>';return;}
+ const activeMarkup=linked.map(player=>{
+  const goals=sortPlayerGoals(mine.filter(g=>String(g.player_id)===String(player.dbId)));
+  return goals.length?`<details class="goal-player-group goal-player-collapsible" open><summary class="goal-player-heading"><span class="goal-player-title"><strong>${escapeHtml(player.name)}</strong><em>${escapeHtml(player.pos||"Posição não informada")}</em></span><span class="goal-player-meta">Camisa ${escapeHtml(String(player.shirtNumber??"—"))} · ${goals.length} ${goals.length===1?"prioridade":"prioridades"}<i class="goal-collapse-icon" aria-hidden="true"></i></span></summary><div class="goal-priority-list">${goals.map((g,i)=>renderGoalItem(g,i,false)).join("")}</div></details>`:"";
+ }).join("");
+ const completedMarkup=completed.length?`<details class="goal-history"><summary>Metas concluídas (${completed.length})</summary>${linked.map(player=>{const goals=sortPlayerGoals(completed.filter(g=>String(g.player_id)===String(player.dbId)));return goals.length?`<details class="goal-player-group goal-player-collapsible"><summary class="goal-player-heading"><span class="goal-player-title"><strong>${escapeHtml(player.name)}</strong><em>${escapeHtml(player.pos||"Posição não informada")}</em></span><span class="goal-player-meta">${goals.length} ${goals.length===1?"conquista":"conquistas"}<i class="goal-collapse-icon" aria-hidden="true"></i></span></summary><div class="goal-priority-list">${goals.map((g,i)=>renderGoalItem(g,i,false)).join("")}</div></details>`:"";}).join("")}</details>`:"";
+ list.innerHTML=activeMarkup+completedMarkup;
+}
+function renderStaffGoals(rows){
+ const body=$("allGoalsTableBody"),count=$("allGoalsCount");if(!body)return;
+ const statusFilter=$("goalsStatusFilter")?.value||"";
+ const filtered=rows.filter(g=>{const status=g.status==="completed"?"completed":goalStatusInfo(g).key;return !statusFilter||status===statusFilter;});
+ if(count)count.textContent=`${filtered.length} ${filtered.length===1?"meta":"metas"}`;
+ const activeRows=filtered.filter(g=>["active","pending"].includes(g.status));
+ const completedRows=filtered.filter(g=>g.status==="completed");
+ const grouped=goalStaffPlayers().map(player=>({player,goals:sortPlayerGoals(activeRows.filter(g=>String(g.player_id)===String(player.dbId)))})).filter(x=>x.goals.length);
+ const completedGrouped=goalStaffPlayers().map(player=>({player,goals:sortPlayerGoals(completedRows.filter(g=>String(g.player_id)===String(player.dbId)))})).filter(x=>x.goals.length);
+ if(!grouped.length&&!completedGrouped.length){body.innerHTML='<div class="goals-empty">Nenhuma meta encontrada para os filtros selecionados.</div>';return;}
+ const activeMarkup=grouped.map(({player,goals})=>`<details class="goal-player-group goal-player-collapsible" open><summary class="goal-player-heading"><span class="goal-player-title"><strong>${escapeHtml(player.name)}</strong><em>${escapeHtml(player.pos||"Posição não informada")}</em></span><span class="goal-player-meta">Camisa ${escapeHtml(String(player.shirtNumber??"—"))} · ${goals.length} ${goals.length===1?"prioridade":"prioridades"}<i class="goal-collapse-icon" aria-hidden="true"></i></span></summary><div class="goal-priority-list">${goals.map((g,i)=>renderGoalItem(g,i,true)).join("")}</div></details>`).join("");
+ const historyMarkup=completedGrouped.length?`<details class="goal-history"><summary>Metas concluídas (${completedRows.length})</summary>${completedGrouped.map(({player,goals})=>`<details class="goal-player-group goal-player-collapsible"><summary class="goal-player-heading"><span class="goal-player-title"><strong>${escapeHtml(player.name)}</strong><em>${escapeHtml(player.pos||"Posição não informada")}</em></span><span class="goal-player-meta">${goals.length} ${goals.length===1?"conquista":"conquistas"}<i class="goal-collapse-icon" aria-hidden="true"></i></span></summary><div class="goal-priority-list">${goals.map((g,i)=>renderGoalItem(g,i,true)).join("")}</div></details>`).join("")}</details>`:"";
+ body.innerHTML=activeMarkup+historyMarkup;
+}
+async function refreshGoalsPage(){
+ const staff=["admin","assistant"].includes(window.CHEERFC_AUTH?.role),staffPanel=$("goalsStaffPanel"),playerPanel=$("goalsPlayerPanel");
+ if(staffPanel)staffPanel.hidden=!staff;
+ if(playerPanel)playerPanel.hidden=staff;
+ const linked=goalAssignedPlayers(),staffPlayers=goalStaffPlayers();
+ const staffPlayerSelect=$("staffGoalPlayer");
+ if(staffPlayerSelect){
+  const previous=staffPlayerSelect.value;
+  staffPlayerSelect.innerHTML='<option value="">Selecione um jogador</option>'+staffPlayers.map(p=>`<option value="${escapeHtml(p.dbId)}">${escapeHtml(p.name)} · ${escapeHtml(p.pos||"Posição não informada")} · Camisa ${escapeHtml(String(p.shirtNumber??"—"))}</option>`).join("");
+  if(staffPlayers.some(p=>String(p.dbId)===previous))staffPlayerSelect.value=previous;
+
+ }
+ const player=linked[0]||null;
+ goalAttributeOptions($("playerGoalAttribute"),player);
+ const selectedStaff=staffPlayers.find(p=>String(p.dbId)===$("staffGoalPlayer")?.value)||staffPlayers[0]||null;
+ goalAttributeOptions($("staffGoalAttribute"),selectedStaff);
+ try{
+  if(!window.cheerCloudListGoals)throw new Error("O serviço de metas ainda não está disponível.");
+  goalsPageCache=await window.cheerCloudListGoals();
+  await completeReachedGoals(goalsPageCache);
+  renderMyGoals(goalsPageCache);
+  if(staff)renderStaffGoals(goalsPageCache);
+ }catch(err){
+  $("myGoalsList").innerHTML=`<div class="goals-empty">Não foi possível carregar as metas: ${escapeHtml(err.message||"erro desconhecido")}. A comissão precisa instalar a estrutura da página no Supabase.</div>`;
+  if(staff)$("allGoalsTableBody").innerHTML=`<div class="goals-empty">${escapeHtml(err.message||"Erro ao carregar metas")}</div>`;
+ }
+}
+$("staffGoalPlayer")?.addEventListener("change",()=>{
+ const player=goalStaffPlayers().find(p=>String(p.dbId)===$("staffGoalPlayer").value);
+ goalAttributeOptions($("staffGoalAttribute"),player);
+ const search=$("staffGoalPlayerSearch");if(search&&player)search.value=`${player.name} · ${player.pos||"Posição não informada"} · Camisa ${player.shirtNumber??"—"}`;
+});
+
+$("playerGoalForm")?.addEventListener("submit",async e=>{
+ e.preventDefault();const status=$("playerGoalStatus"),btn=$("playerGoalSubmit"),player=goalAssignedPlayers()[0];
+ try{
+  if(!player?.dbId)throw new Error("Sua conta não está vinculada a uma ficha.");
+  const attribute=$("playerGoalAttribute").value,target=Number($("playerGoalTarget").value),current=Number(goalBaseAttrs(player)?.[attribute]);
+  if(!attribute||!Number.isFinite(target)||target<=current||target>99)throw new Error("Escolha um atributo e uma meta acima do valor atual da Ficha Base (máximo 99).");
+  btn.disabled=true;status.textContent="Enviando sugestão...";
+  await window.cheerCloudCreateGoal({player_id:player.dbId,attribute_name:attribute,target_value:target,note:$("playerGoalNote").value});
+  $("playerGoalForm").reset();status.textContent="Sugestão enviada. Ela ficará pendente até a comissão analisar.";
+  await refreshGoalsPage();
+ }catch(err){status.textContent=err.message||"Não foi possível enviar a sugestão.";}
+ finally{btn.disabled=false;}
+});
+$("staffGoalForm")?.addEventListener("submit",async e=>{
+ e.preventDefault();const status=$("staffGoalStatus"),btn=$("staffGoalSubmit");
+ try{
+  const player=goalStaffPlayers().find(p=>String(p.dbId)===$("staffGoalPlayer").value),attribute=$("staffGoalAttribute").value,target=Number($("staffGoalTarget").value),current=Number(goalBaseAttrs(player)?.[attribute]);
+  if(!player)throw new Error("Selecione um jogador.");
+  if(!attribute||!Number.isFinite(target)||target<=current||target>99)throw new Error("A meta precisa ser maior que o valor atual da Ficha Base e não pode ultrapassar 99.");
+  btn.disabled=true;status.textContent="Salvando meta...";
+  await window.cheerCloudCreateGoal({player_id:player.dbId,attribute_name:attribute,target_value:target,note:$("staffGoalNote").value});
+  $("staffGoalForm").reset();goalAttributeOptions($("staffGoalAttribute"),goalStaffPlayers()[0]||null);
+  status.textContent="Meta definida e ativada.";
+  await refreshGoalsPage();
+ }catch(err){status.textContent=err.message||"Não foi possível definir a meta.";}
+ finally{btn.disabled=false;}
+});
+
+$("goalsStatusFilter")?.addEventListener("change",()=>renderStaffGoals(goalsPageCache));
+$("allGoalsTableBody")?.addEventListener("click",async e=>{
+ const btn=e.target.closest("[data-goal-action]");if(!btn)return;
+ const goal=goalsPageCache.find(g=>String(g.id)===btn.dataset.goalId);if(!goal)return;
+ const action=btn.dataset.goalAction;btn.disabled=true;
+ try{
+  if(action==="up"||action==="down"){
+   const siblings=sortPlayerGoals(goalsPageCache.filter(g=>String(g.player_id)===String(goal.player_id)&&["active","pending"].includes(g.status)));
+   const at=siblings.findIndex(g=>String(g.id)===String(goal.id)),nextAt=at+(action==="up"?-1:1);
+   if(nextAt<0||nextAt>=siblings.length)return;
+   const reordered=siblings.slice();[reordered[at],reordered[nextAt]]=[reordered[nextAt],reordered[at]];
+   // Normalize legacy priorities (which may all be 100) and persist the new order.
+   for(let i=0;i<reordered.length;i++){
+    const wanted=i+1;
+    if(Number(reordered[i].priority)!==wanted){
+     await window.cheerCloudUpdateGoal(reordered[i].id,{priority:wanted});
+     reordered[i].priority=wanted;
+    }
+   }
+  }
+  else if(action==="approve")await window.cheerCloudReviewGoal(goal.id,"active");
+  else if(action==="reject"){if(!confirm("Rejeitar esta sugestão de meta?"))return;await window.cheerCloudReviewGoal(goal.id,"rejected");}
+  else if(action==="cancel"){if(!confirm("Cancelar esta meta? O histórico será preservado."))return;await window.cheerCloudCancelGoal(goal.id);}
+  else if(action==="edit"){
+   const player=goalPlayerForRow(goal),attrs=Object.keys(goalBaseAttrs(player)||{}).sort((a,b)=>a.localeCompare(b,"pt-BR"));
+   if(!attrs.length)throw new Error("Não foi possível carregar os atributos da Ficha Base deste jogador.");
+   const options=attrs.map(a=>`<option value="${escapeHtml(a)}" ${a===goal.attribute_name?"selected":""}>${escapeHtml(a)}</option>`).join("");
+   const modal=document.createElement("div");
+   modal.className="goal-edit-backdrop";
+   modal.innerHTML=`<form class="goal-edit-modal" role="dialog" aria-modal="true" aria-label="Editar meta">
+    <h3>Editar prioridade</h3>
+    <label>Atributo<select name="attribute" required>${options}</select></label>
+    <label>Valor desejado<input name="target" type="number" min="0.01" max="99" step="0.01" inputmode="decimal" value="${escapeHtml(String(goal.target_value))}" required></label>
+    <div class="goal-edit-current"></div><div class="goal-edit-error" role="alert"></div>
+    <div class="goal-edit-actions"><button type="button" class="goal-action" data-close>Voltar</button><button type="submit" class="goal-action approve">Salvar</button></div>
+   </form>`;
+   document.body.appendChild(modal);
+   const form=modal.querySelector("form"),attrSelect=form.elements.attribute,targetInput=form.elements.target,currentLine=modal.querySelector(".goal-edit-current"),errorLine=modal.querySelector(".goal-edit-error");
+   const updateCurrent=()=>{const v=Number(goalBaseAttrs(player)?.[attrSelect.value]||0);currentLine.textContent=`Valor atual na Ficha Base: ${v.toFixed(2)} · A meta deve ser maior que esse valor.`;};
+   updateCurrent();attrSelect.addEventListener("change",updateCurrent);
+   const saved=await new Promise(resolve=>{
+    let settled=false;
+    const finish=value=>{if(settled)return;settled=true;modal.remove();resolve(value);};
+    modal.addEventListener("click",ev=>{if(ev.target===modal||ev.target.closest("[data-close]"))finish(null);});
+    form.addEventListener("submit",ev=>{
+     ev.preventDefault();const attribute=attrSelect.value,target=Number(targetInput.value),base=Number(goalBaseAttrs(player)?.[attribute]||0);
+     if(!Number.isFinite(target)||target<=base||target>99){errorLine.textContent=`Informe um valor acima de ${base.toFixed(2)} e no máximo 99.`;return;}
+     finish({attribute,target});
+    });
+   });
+   if(!saved)return;
+   await window.cheerCloudUpdateGoal(goal.id,{attribute_name:saved.attribute,target_value:saved.target});
+  }
+  await refreshGoalsPage();
+ }catch(err){alert(err.message||"Não foi possível atualizar a meta.");}
+ finally{btn.disabled=false;}
+});
+$("refreshTeamUpdates")?.addEventListener("click",refreshTeamUpdateTable);
 function hasShirtAdminAccess(){return ["admin","assistant"].includes(window.CHEERFC_AUTH?.role)}
 function populateShirtFilters(){const el=$("shirtTeamFilter");if(!el)return;const old=el.value||"CHEER FC";el.innerHTML=clubNames().map(c=>`<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join("");el.value=clubNames().includes(old)?old:(clubNames().includes("CHEER FC")?"CHEER FC":(clubNames()[0]||"CHEER FC"))}
 function renderShirtEditor(){
@@ -3973,19 +4311,19 @@ $("search").addEventListener("input",updateList);$("positionFilter").addEventLis
 
 function showTab(which,refreshVideos=true){
  $("globalModeToolbar").style.display=["player","ranking"].includes(which)?"flex":"none";
- ["playerView","compareView","rankingView","tacticsView","simulatorView","videosPregameView","videosView","importView","shirtsView","traitsGuideView"].forEach(id=>$(id).classList.add("hidden"));
+ ["playerView","compareView","rankingView","tacticsView","simulatorView","videosPregameView","videosView","goalsView","importView","shirtsView","traitsGuideView"].forEach(id=>$(id).classList.add("hidden"));
  $("compareView").style.display=which==="compare"?"block":"none";
- const viewId=which==="player"?"playerView":which==="compare"?"compareView":which==="ranking"?"rankingView":which==="tactics"?"tacticsView":which==="simulator"?"simulatorView":which==="videosPregame"?"videosPregameView":which==="videos"?"videosView":which==="shirts"?"shirtsView":which==="traitsGuide"?"traitsGuideView":"importView";
+ const viewId=which==="player"?"playerView":which==="compare"?"compareView":which==="ranking"?"rankingView":which==="tactics"?"tacticsView":which==="simulator"?"simulatorView":which==="videosPregame"?"videosPregameView":which==="videos"?"videosView":which==="goals"?"goalsView":which==="shirts"?"shirtsView":which==="traitsGuide"?"traitsGuideView":"importView";
  $(viewId).classList.remove("hidden");
- ["tabPlayer","tabCompare","tabRanking","tabTactics","tabSimulator","tabVideosPregame","tabVideos","tabImport","tabShirts","tabTraitsGuide"].forEach(id=>$(id).classList.remove("active"));
- const tabName=which==="player"?"Player":which==="compare"?"Compare":which==="ranking"?"Ranking":which==="tactics"?"Tactics":which==="simulator"?"Simulator":which==="videosPregame"?"VideosPregame":which==="videos"?"Videos":which==="shirts"?"Shirts":which==="traitsGuide"?"TraitsGuide":"Import";
+ ["tabPlayer","tabCompare","tabRanking","tabTactics","tabSimulator","tabVideosPregame","tabVideos","tabGoals","tabImport","tabShirts","tabTraitsGuide"].forEach(id=>$(id).classList.remove("active"));
+ const tabName=which==="player"?"Player":which==="compare"?"Compare":which==="ranking"?"Ranking":which==="tactics"?"Tactics":which==="simulator"?"Simulator":which==="videosPregame"?"VideosPregame":which==="videos"?"Videos":which==="goals"?"Goals":which==="shirts"?"Shirts":which==="traitsGuide"?"TraitsGuide":"Import";
  $("tab"+tabName).classList.add("active");
- if(which==="compare")compare();if(which==="ranking")ranking();if(which==="tactics"){renderPitch();renderRoster()}if(which==="simulator"){refreshSimulatorLineupOptions();ensureSimulatorReady()}if(which==="videos"||which==="videosPregame"){activeVideoView=which==="videosPregame"?"pregame":"repository";if(refreshVideos)window.refreshVideoLibrary?.();}if(which==="traitsGuide")renderTraitsGuide();
+ if(which==="import")refreshTeamUpdateTable();if(which==="goals")refreshGoalsPage();if(which==="compare")compare();if(which==="ranking")ranking();if(which==="tactics"){renderPitch();renderRoster()}if(which==="simulator"){refreshSimulatorLineupOptions();ensureSimulatorReady()}if(which==="videos"||which==="videosPregame"){activeVideoView=which==="videosPregame"?"pregame":"repository";if(refreshVideos)window.refreshVideoLibrary?.();}if(which==="traitsGuide")renderTraitsGuide();
 }
 $("tabPlayer").onclick=()=>showTab("player");
 $("tabCompare").onclick=()=>showTab("compare");
 $("tabRanking").onclick=()=>showTab("ranking");
-$("tabTactics").onclick=()=>showTab("tactics");$("tabSimulator").onclick=()=>showTab("simulator");$("tabVideosPregame").onclick=()=>showTab("videosPregame");$("tabVideos").onclick=()=>showTab("videos");$("tabImport").onclick=()=>showTab("import");$("tabShirts").onclick=()=>{populateShirtFilters();renderShirtEditor();showTab("shirts")};
+$("tabTactics").onclick=()=>showTab("tactics");$("tabSimulator").onclick=()=>showTab("simulator");$("tabVideosPregame").onclick=()=>showTab("videosPregame");$("tabVideos").onclick=()=>showTab("videos");$("tabGoals").onclick=()=>showTab("goals");$("tabImport").onclick=()=>showTab("import");$("tabShirts").onclick=()=>{populateShirtFilters();renderShirtEditor();showTab("shirts")};
 $("tabTraitsGuide").onclick=()=>{renderTraitsGuide();showTab("traitsGuide")};
 $("formationSelect").onchange=()=>{lineup={};selectedSlot=null;saveLineup();renderPitch();renderRoster()};
 $("rosterSearch").oninput=renderRoster;
@@ -4621,6 +4959,7 @@ $("confirmImport").onclick=async()=>{
   }
   if(deleted){try{localStorage.setItem("cheerfc-imported-players-v1",JSON.stringify(players));saveLineup()}catch(e){}}
  }
+ if(!document.getElementById("importView")?.classList.contains("hidden"))refreshTeamUpdateTable();
  removeTestPlayer();sortPlayersAlphabetically();const completedKind=importJob.kind;const pendingClubToSelect=completedKind==="external"?importJob.items[0]?.club:null;
  $("importPreviewPanel").classList.add("hidden");pendingImport=null;
  players.forEach(p=>{p.attrs=attributesForMode(p,attributeMode);p.ovr=overallForMode(p,attributeMode)});
@@ -5686,6 +6025,57 @@ window.setVideoAdminVisibility=setVideoAdminVisibility;
     if(typeof refreshSavedLineups==="function")refreshSavedLineups();
     return fresh;
   };
+  window.cheerCloudListGoals=async()=>{
+    if(!activeUserId)throw new Error("Faça login para consultar as metas.");
+    const {data,error}=await supabaseClient.from("player_goals").select("*").order("created_at",{ascending:false});
+    if(error)throw error;return data||[];
+  };
+  window.cheerCloudCreateGoal=async(goal)=>{
+    if(!activeUserId)throw new Error("Faça login para criar uma meta.");
+    const staff=["admin","assistant"].includes(activeRole);
+    const playerId=String(goal?.player_id||""),attribute=String(goal?.attribute_name||"").trim(),target=Number(goal?.target_value);
+    if(!playerId||!attribute||!Number.isFinite(target)||target<=0||target>99)throw new Error("Confira jogador, atributo e valor desejado.");
+    const {data:existing,error:existingError}=await supabaseClient.from("player_goals").select("priority").eq("player_id",playerId).in("status",["active","pending"]).order("priority",{ascending:false}).limit(1);
+    if(existingError)throw existingError;
+    const payload={player_id:playerId,attribute_name:attribute,target_value:target,priority:(Number(existing?.[0]?.priority)||0)+1,source:staff?"staff":"player",status:staff?"active":"pending",created_by:activeUserId,note:String(goal?.note||"").trim().slice(0,240)};
+    const {data,error}=await supabaseClient.from("player_goals").insert(payload).select("*").single();
+    if(error)throw error;return data;
+  };
+  window.cheerCloudReviewGoal=async(goalId,decision)=>{
+    if(!activeUserId||!["admin","assistant"].includes(activeRole))throw new Error("Somente a comissão pode revisar sugestões.");
+    if(!["active","rejected"].includes(decision))throw new Error("Decisão inválida.");
+    const {data,error}=await supabaseClient.from("player_goals").update({status:decision,reviewed_by:activeUserId,reviewed_at:new Date().toISOString()}).eq("id",goalId).eq("status","pending").select("*").single();
+    if(error)throw error;return data;
+  };
+  window.cheerCloudUpdateGoal=async(goalId,changes)=>{
+    if(!activeUserId||!["admin","assistant"].includes(activeRole))throw new Error("Somente a comissão pode editar metas.");
+    const payload={};
+    if(changes?.attribute_name!==undefined)payload.attribute_name=String(changes.attribute_name).trim();
+    if(changes?.target_value!==undefined){const n=Number(changes.target_value);if(!Number.isFinite(n)||n<=0||n>99)throw new Error("O valor da meta deve ficar entre 0 e 99.");payload.target_value=n;}
+    if(changes?.note!==undefined)payload.note=String(changes.note||"").trim().slice(0,240);
+    if(changes?.priority!==undefined)payload.priority=Math.max(1,Math.floor(Number(changes.priority)||100));
+    const {data,error}=await supabaseClient.from("player_goals").update(payload).eq("id",goalId).select("*").single();
+    if(error)throw error;return data;
+  };
+  window.cheerCloudCancelGoal=async(goalId)=>{
+    if(!activeUserId||!["admin","assistant"].includes(activeRole))throw new Error("Somente a comissão pode cancelar metas.");
+    const {data,error}=await supabaseClient.from("player_goals").update({status:"cancelled"}).eq("id",goalId).in("status",["active","pending"]).select("*").single();
+    if(error)throw error;return data;
+  };
+  window.cheerCloudGetTeamLastUpdates=async()=>{
+    if(!activeUserId)throw new Error("Faça login para consultar as datas de atualização.");
+    const {data,error}=await supabaseClient.from("players").select("club,updated_at").order("club");
+    if(error)throw error;
+    const grouped=new Map();
+    for(const row of (data||[])){
+      const club=String(row.club||"Time sem nome").trim()||"Time sem nome";
+      const current=grouped.get(club)||{club,player_count:0,last_updated_at:null};
+      current.player_count++;
+      if(row.updated_at&&(!current.last_updated_at||new Date(row.updated_at)>new Date(current.last_updated_at)))current.last_updated_at=row.updated_at;
+      grouped.set(club,current);
+    }
+    return [...grouped.values()].sort((a,b)=>a.club.localeCompare(b.club,"pt-BR",{sensitivity:"base"}));
+  };
   window.cheerCloudSavePlayers=async()=>{
     if(!activeUserId||!["admin","assistant"].includes(activeRole))throw new Error("Somente administração e auxiliares podem importar ou atualizar o elenco.");
     const payload=players.map(toDbPlayer);
@@ -6430,6 +6820,94 @@ select option:checked{background:#383039!important;color:#fff!important}
     transform: translateY(2px) scaleX(.80) !important;
   }
 }
+ 
+/* Metas de Ficha: controles refinados */
+.goals-staff-toolbar{display:flex;align-items:end;gap:12px;flex-wrap:wrap;padding:13px 14px;margin:16px 0 20px;border:1px solid rgba(232,220,203,.14);border-radius:14px;background:linear-gradient(135deg,rgba(90,16,40,.22),rgba(232,220,203,.035))}
+.goals-staff-toolbar label{min-width:220px;max-width:320px;gap:8px;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:#d9c8ce}
+.goals-staff-toolbar select{appearance:none;min-height:43px;padding:10px 38px 10px 13px;border:1px solid rgba(232,220,203,.23);border-radius:10px;background-color:#211a20;color:#f6eee8;font-size:13px;font-weight:650;box-shadow:0 3px 12px rgba(0,0,0,.14)}
+.goals-form input[type="search"]{width:100%;min-height:40px;padding:9px 12px;border:1px solid rgba(232,220,203,.24);border-radius:9px;background:#f8f5f1;color:#211a20;font-size:13px}
+.goals-staff-toolbar select:focus,.goals-form input:focus,.goals-form select:focus{outline:2px solid rgba(232,220,203,.5);outline-offset:2px}
+@media(max-width:650px){.goals-staff-toolbar{padding:11px;gap:9px}.goals-staff-toolbar label{min-width:100%;max-width:none}.goals-staff-toolbar select{min-height:45px}}
+
+/* Seletor nativo de jogador: dropdown com lista rolável e busca por digitação */
+.goals-form select.goal-player-select{width:100%;min-width:0;min-height:43px;padding:10px 38px 10px 12px;border:1px solid rgba(232,220,203,.26);border-radius:9px;background:#211a20;color:#f6eee8;font-size:13px;font-weight:600;appearance:auto}
+.goals-form select.goal-player-select option{background:#211a20;color:#f6eee8;padding:7px}
+.goals-form select.goal-player-select:focus{outline:2px solid rgba(232,220,203,.5);outline-offset:2px}
+
+/* Alinhamento do item Metas de Ficha com os demais itens da sidebar */
+#cheerSidebar #tabGoals{
+ display:flex!important;
+ flex-direction:row!important;
+ align-items:center!important;
+ justify-content:flex-start!important;
+ gap:9px!important;
+ width:100%!important;
+ min-height:44px;
+ padding:14px 13px!important;
+ text-align:left!important;
+ box-sizing:border-box;
+}
+#cheerSidebar #tabGoals .goals-tab-icon{
+ display:block;
+ width:17px;
+ height:17px;
+ flex:0 0 17px;
+ margin:0;
+}
+#cheerSidebar #tabGoals span{display:inline;line-height:1.2}
+
+/* Padronização visual de todos os campos da área Metas de Ficha */
+#goalsView .goals-form input,
+#goalsView .goals-form select,
+#goalsView .goals-staff-toolbar select{
+ width:100%!important;
+ min-width:0!important;
+ min-height:43px!important;
+ box-sizing:border-box!important;
+ padding:10px 12px!important;
+ border:1px solid rgba(232,220,203,.28)!important;
+ border-radius:9px!important;
+ background:#211a20!important;
+ color:#f6eee8!important;
+ font:600 13px/1.25 'Segoe UI',Arial,sans-serif!important;
+ box-shadow:inset 0 1px 2px rgba(0,0,0,.18)!important;
+ color-scheme:dark;
+}
+#goalsView .goals-form select,
+#goalsView .goals-staff-toolbar select{
+ appearance:auto!important;
+ cursor:pointer;
+}
+#goalsView .goals-form select option,
+#goalsView .goals-staff-toolbar select option{
+ background:#211a20!important;
+ color:#f6eee8!important;
+}
+#goalsView .goals-form input::placeholder{color:#a99ba4!important;opacity:1}
+#goalsView .goals-form input:focus,
+#goalsView .goals-form select:focus,
+#goalsView .goals-staff-toolbar select:focus{
+ outline:2px solid rgba(232,220,203,.48)!important;
+ outline-offset:2px!important;
+ border-color:#e8dccb!important;
+}
+#goalsView .goals-form label,
+#goalsView .goals-staff-toolbar label{gap:7px}
+
+/* Grupos de jogadores recolhíveis */
+.goal-player-collapsible{padding:12px 12px 10px}
+.goal-player-collapsible>.goal-player-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:2px 2px 11px;margin:0 0 10px;cursor:pointer;list-style:none}
+.goal-player-collapsible>.goal-player-heading::-webkit-details-marker{display:none}
+.goal-player-title{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;min-width:0}
+.goal-player-title strong{font-size:15px;color:#f5eee8}
+.goal-player-title em{font-size:11px;font-style:normal;font-weight:700;color:#d2b7c3}
+.goal-player-meta{display:inline-flex;align-items:center;gap:9px;font-size:11px;color:#bcaeb7;white-space:nowrap}
+.goal-collapse-icon{display:inline-flex;width:20px;height:20px;align-items:center;justify-content:center;border:1px solid rgba(232,220,203,.25);border-radius:6px;color:#e8dccb;font-style:normal;flex:0 0 20px}
+.goal-collapse-icon:before{content:"+";font-size:16px;line-height:1}
+.goal-player-collapsible[open]>.goal-player-heading .goal-collapse-icon:before{content:"−"}
+.goal-player-collapsible:not([open])>.goal-player-heading{border-bottom:0;margin-bottom:0;padding-bottom:2px}
+.goal-player-collapsible>.goal-priority-list{padding-top:0}
+@media(max-width:560px){.goal-player-collapsible>.goal-player-heading{align-items:flex-start}.goal-player-meta{font-size:10px;gap:5px}.goal-player-title{gap:5px}}
 </style>
 
 </body></html>
