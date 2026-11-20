@@ -5195,7 +5195,7 @@ function updateTrackerSample(tracker,current,duration){
  tracker.lastTime=current;tracker.lastWall=now;
  if(tracker.seconds.size){
   if(!videoProgressById.has(tracker.videoId))markVideoViewedLocal(tracker.videoId);
-  const badge=videoPlayerPanel()?.querySelector(".video-player-status");if(badge){badge.textContent="✓ Visto";badge.classList.add("seen")}
+  setVideoTrackerStatus(tracker,"Sincronizando progresso…","pending");
   if(tracker.lastSentCount===0||tracker.seconds.size-tracker.lastSentCount>=8||now-tracker.lastFlushAt>=10000)flushVideoTracker(tracker);
  }
 }
@@ -5211,6 +5211,7 @@ async function flushVideoTracker(tracker){
   // permanecem pendentes e serão sincronizados logo em seguida.
   tracker.lastSentCount=Math.max(tracker.lastSentCount||0,sentCount);
   tracker.lastFlushAt=Date.now();saved=true;
+  if(activeVideoTracker===tracker)setVideoTrackerStatus(tracker,"✓ Progresso salvo","success");
  }catch(err){console.warn("Não foi possível sincronizar o progresso do vídeo:",err)}
  finally{
   tracker.sending=false;
@@ -5220,10 +5221,44 @@ async function flushVideoTracker(tracker){
   }
  }
 }
+function setVideoTrackerStatus(tracker,message,kind=""){
+ if(!tracker||activeVideoTracker!==tracker)return;
+ const badge=videoPlayerPanel()?.querySelector(".video-player-status");
+ if(!badge)return;
+ badge.textContent=message;
+ badge.classList.toggle("seen",kind==="success");
+ badge.classList.toggle("error",kind==="error");
+ badge.classList.toggle("pending",kind==="pending");
+}
+async function ensureVideoWatchStarted(tracker){
+ if(!tracker||activeVideoTracker!==tracker)return false;
+ if(tracker.startConfirmed)return true;
+ if(tracker.startPromise)return tracker.startPromise;
+ if(!window.cheerCloudStartTrainingVideo){
+  tracker.startError=new Error("Serviço de acompanhamento indisponível.");
+  setVideoTrackerStatus(tracker,"⚠ Acompanhamento indisponível","error");
+  return false;
+ }
+ setVideoTrackerStatus(tracker,"Registrando abertura…","pending");
+ tracker.startPromise=(async()=>{
+  try{
+   await window.cheerCloudStartTrainingVideo(tracker.videoId);
+   if(activeVideoTracker!==tracker)return false;
+   tracker.startConfirmed=true;tracker.startError=null;
+   setVideoTrackerStatus(tracker,"✓ Acompanhamento ativo","success");
+   return true;
+  }catch(err){
+   tracker.startError=err;console.warn("Não foi possível registrar a abertura do vídeo:",err);
+   setVideoTrackerStatus(tracker,"⚠ Falha ao registrar abertura","error");
+   return false;
+  }finally{tracker.startPromise=null}
+ })();
+ return tracker.startPromise;
+}
 function startTrackerClock(tracker,getTime,getDuration,getPlaybackRate){
  if(!tracker||activeVideoTracker!==tracker)return;
  tracker.getTime=getTime;tracker.getDuration=getDuration;tracker.getPlaybackRate=getPlaybackRate||(()=>tracker.playbackRate||1);
- if(!tracker.started){tracker.started=true;if(window.cheerCloudStartTrainingVideo)window.cheerCloudStartTrainingVideo(tracker.videoId).catch(err=>console.warn("Não foi possível iniciar o registro do vídeo:",err));}
+ if(!tracker.startConfirmed)ensureVideoWatchStarted(tracker);
  // Atualiza a barra/relógio cinco vezes por segundo. O YouTube entrega o
  // currentTime em passos curtos; 200 ms deixa o corte visualmente mais fluido
  // sem alterar a contabilização (que continua registrando segundos únicos).
@@ -5234,6 +5269,17 @@ function startTrackerClock(tracker,getTime,getDuration,getPlaybackRate){
 }
 function pauseTracker(tracker){if(!tracker||activeVideoTracker!==tracker)return;try{if(tracker.getTime)updateTrackerSample(tracker,tracker.getTime(),tracker.getDuration())}catch(e){}stopTrackerTimer(tracker);flushVideoTracker(tracker);syncYoutubeCustomControls(tracker)}
 function stopActiveVideoTracker(){const t=activeVideoTracker;if(!t)return;pauseTracker(t);activeVideoTracker=null;try{t.player?.destroy?.()}catch(e){};}
+// Sincroniza o lote pendente quando o navegador suspende a aba ou inicia a navegação.
+// Não pausa o tracker em visibilitychange: ao voltar à aba, a reprodução pode continuar.
+function flushVideoTrackerOnLifecycle(){
+ const tracker=activeVideoTracker;if(!tracker)return;
+ try{if(tracker.getTime)updateTrackerSample(tracker,tracker.getTime(),tracker.getDuration())}catch(e){}
+ flushVideoTracker(tracker);
+}
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")flushVideoTrackerOnLifecycle()});
+window.addEventListener("pagehide",flushVideoTrackerOnLifecycle);
+window.addEventListener("beforeunload",flushVideoTrackerOnLifecycle);
+
 
 function formatVideoClock(seconds){
  const n=Math.max(0,Math.floor(Number(seconds)||0));
@@ -5296,14 +5342,14 @@ function bindYoutubeCustomControls(tracker){
 
 function attachVideoProgressTracker(row,parsed){
  stopActiveVideoTracker();
- const tracker={videoId:row.id,provider:parsed.provider,clipStart:parsed.clipStart||0,clipEnd:parsed.clipEnd??null,seconds:new Set(),duration:parsed.clipDuration||0,lastTime:null,lastWall:Date.now(),lastSentCount:0,lastFlushAt:Date.now(),started:false,sending:false,timer:null,player:null,getTime:null,getDuration:null,getPlaybackRate:null,playbackRate:1};
+ const tracker={videoId:row.id,provider:parsed.provider,clipStart:parsed.clipStart||0,clipEnd:parsed.clipEnd??null,seconds:new Set(),duration:parsed.clipDuration||0,lastTime:null,lastWall:Date.now(),lastSentCount:0,lastFlushAt:Date.now(),started:false,startConfirmed:false,startPromise:null,startError:null,sending:false,timer:null,player:null,getTime:null,getDuration:null,getPlaybackRate:null,playbackRate:1};
  activeVideoTracker=tracker;
  if(parsed.provider==="youtube"){
   ensureYouTubeIframeApi().then(YT=>{
    if(activeVideoTracker!==tracker)return;
    const origin=/^https?:$/.test(window.location.protocol)?window.location.origin:undefined;
    tracker.player=new YT.Player("ytPlayerHost",{videoId:parsed.id,width:"100%",height:"100%",playerVars:{playsinline:1,rel:0,controls:0,fs:0,disablekb:1,enablejsapi:1,...(parsed.clipStart?{start:parsed.clipStart}:{}),...(parsed.clipEnd!==null?{end:parsed.clipEnd}:{}),...(origin?{origin}: {})},events:{
-    onReady:()=>{if(activeVideoTracker===tracker){const clipStart=parsed.clipStart||0,clipEnd=parsed.clipEnd;tracker.clipStart=clipStart;tracker.clipEnd=clipEnd;tracker.getTime=()=>Math.max(0,tracker.player.getCurrentTime()-clipStart);tracker.getDuration=()=>clipEnd!==null?clipEnd-clipStart:Math.max(0,tracker.player.getDuration()-clipStart);if(clipStart>0&&tracker.player.getCurrentTime()<clipStart-1)tracker.player.seekTo(clipStart,true);bindYoutubeCustomControls(tracker);syncYoutubeCustomControls(tracker);}},
+    onReady:()=>{if(activeVideoTracker===tracker){const clipStart=parsed.clipStart||0,clipEnd=parsed.clipEnd;tracker.clipStart=clipStart;tracker.clipEnd=clipEnd;tracker.getTime=()=>Math.max(0,tracker.player.getCurrentTime()-clipStart);tracker.getDuration=()=>clipEnd!==null?clipEnd-clipStart:Math.max(0,tracker.player.getDuration()-clipStart);if(clipStart>0&&tracker.player.getCurrentTime()<clipStart-1)tracker.player.seekTo(clipStart,true);bindYoutubeCustomControls(tracker);syncYoutubeCustomControls(tracker);ensureVideoWatchStarted(tracker);}},
     onStateChange:event=>{if(activeVideoTracker!==tracker)return;if(event.data===YT.PlayerState.PLAYING){$("ytEndOverlay")?.setAttribute("hidden","");startTrackerClock(tracker,()=>Math.max(0,tracker.player.getCurrentTime()-(parsed.clipStart||0)),()=>parsed.clipEnd!==null?parsed.clipEnd-(parsed.clipStart||0):Math.max(0,tracker.player.getDuration()-(parsed.clipStart||0)),()=>tracker.player.getPlaybackRate());syncYoutubeCustomControls(tracker)}else if(event.data===YT.PlayerState.PAUSED){pauseTracker(tracker);syncYoutubeCustomControls(tracker)}else if(event.data===YT.PlayerState.ENDED){pauseTracker(tracker);$("ytEndOverlay")?.removeAttribute("hidden");syncYoutubeCustomControls(tracker)}},
     onPlaybackRateChange:event=>{if(activeVideoTracker===tracker){tracker.playbackRate=Number(event.data)||1;syncYoutubeCustomControls(tracker)}}
    }});
@@ -5311,13 +5357,19 @@ function attachVideoProgressTracker(row,parsed){
  }else if(parsed.provider==="file"){
   const media=$("nativeVideoPlayer");if(!media)return;
   tracker.getTime=()=>media.currentTime;tracker.getDuration=()=>media.duration;
+  const registerNativeOpen=()=>{if(activeVideoTracker===tracker)ensureVideoWatchStarted(tracker)};
+  media.addEventListener("loadedmetadata",registerNativeOpen,{once:true});
+  if(media.readyState>=1)registerNativeOpen();
   media.addEventListener("play",()=>startTrackerClock(tracker,()=>media.currentTime,()=>media.duration,()=>media.playbackRate));
+  // Um seek não é tempo assistido. Reinicia a referência antes/depois do salto.
+  media.addEventListener("seeking",()=>{tracker.lastTime=null;tracker.lastWall=Date.now()});
+  media.addEventListener("seeked",()=>{tracker.lastTime=media.currentTime;tracker.lastWall=Date.now()});
   media.addEventListener("timeupdate",()=>{if(!media.paused)updateTrackerSample(tracker,media.currentTime,media.duration)});
   media.addEventListener("pause",()=>pauseTracker(tracker));media.addEventListener("ended",()=>pauseTracker(tracker));
  }else if(parsed.provider==="vimeo"){
   const frame=$("vimeoPlayerFrame");if(!frame)return;
-  const attach=()=>{if(activeVideoTracker!==tracker||!window.Vimeo?.Player)return;tracker.player=new window.Vimeo.Player(frame);tracker.player.on("play",()=>{tracker.player.getPlaybackRate().then(rate=>{tracker.playbackRate=Number(rate)||1}).catch(()=>{});startTrackerClock(tracker,()=>tracker.lastTime??0,()=>tracker.duration,()=>tracker.playbackRate)});tracker.player.on("timeupdate",data=>{if(activeVideoTracker===tracker){tracker.duration=Math.floor(data.duration||0);updateTrackerSample(tracker,Number(data.seconds)||0,tracker.duration)}});tracker.player.on("pause",()=>pauseTracker(tracker));tracker.player.on("ended",()=>pauseTracker(tracker));};
-  if(window.Vimeo?.Player)attach();else{const script=document.createElement("script");script.src="https://player.vimeo.com/api/player.js";script.async=true;script.onload=attach;document.head.appendChild(script)}
+  const attach=()=>{if(activeVideoTracker!==tracker||!window.Vimeo?.Player)return;tracker.player=new window.Vimeo.Player(frame);tracker.player.ready().then(()=>ensureVideoWatchStarted(tracker)).catch(err=>{console.warn("Não foi possível inicializar o player Vimeo:",err);setVideoTrackerStatus(tracker,"⚠ Falha ao inicializar player","error")});tracker.player.on("play",()=>{tracker.player.getPlaybackRate().then(rate=>{tracker.playbackRate=Number(rate)||1}).catch(()=>{});startTrackerClock(tracker,()=>tracker.lastTime??0,()=>tracker.duration,()=>tracker.playbackRate)});tracker.player.on("timeupdate",data=>{if(activeVideoTracker===tracker){tracker.duration=Math.floor(data.duration||0);updateTrackerSample(tracker,Number(data.seconds)||0,tracker.duration)}});tracker.player.on("pause",()=>pauseTracker(tracker));tracker.player.on("ended",()=>pauseTracker(tracker));};
+  if(window.Vimeo?.Player)attach();else{const script=document.createElement("script");script.src="https://player.vimeo.com/api/player.js";script.async=true;script.onload=attach;script.onerror=()=>setVideoTrackerStatus(tracker,"⚠ Falha ao carregar acompanhamento","error");document.head.appendChild(script)}
  }
 }
 function openTrainingVideo(row,scroll=true){
@@ -5339,7 +5391,7 @@ function openTrainingVideo(row,scroll=true){
  const viewed=videoProgressById.has(row.id);
  const youtubeControls=parsed.provider==="youtube"?'<div class="video-custom-controls" id="youtubeCustomControls" aria-label="Controles de vídeo"><button type="button" id="ytCustomPlay" disabled>▶ Reproduzir</button><div class="yt-seek-group"><input id="ytCustomSeek" type="range" min="0" max="1000" value="0" step="1" aria-label="Progresso do vídeo" disabled><span class="yt-time-readout" id="ytCustomTime">0:00 / 0:00</span></div><button type="button" id="ytCustomSpeed" disabled aria-label="Velocidade de reprodução 1 vez. Clique para acelerar." title="Velocidade: 1× · Clique para alterar">1×</button><div class="yt-volume-group" aria-label="Controle de volume"><button type="button" id="ytCustomMute" disabled aria-label="Silenciar ou ativar o som">Som</button><input type="range" id="ytCustomVolume" min="0" max="100" step="1" value="100" aria-label="Volume do vídeo" title="Volume: 100%" disabled><span class="yt-volume-value" id="ytCustomVolumeValue">100%</span></div><button type="button" id="ytCustomFullscreen" disabled>Tela cheia</button></div>':'';
  const playerShell=parsed.provider==="youtube"?`<div class="video-player-shell" id="youtubePlayerShell"><div class="video-player-frame">${player}</div>${youtubeControls}</div>`:`<div class="video-player-frame">${player}</div>`;
- panel.innerHTML=`${playerShell}<div class="video-player-caption"><div><h3>${escapeHtml(row.title)}</h3><span>${escapeHtml(row.category)}</span></div>${viewed?'<span class="video-player-status seen">✓ Visto</span>':'<span class="video-player-status">○ Não visto</span>'}</div>`;
+ panel.innerHTML=`${playerShell}<div class="video-player-caption"><div><h3>${escapeHtml(row.title)}</h3><span>${escapeHtml(row.category)}</span></div>${viewed?'<span class="video-player-status seen">✓ Visto</span>':'<span class="video-player-status pending">Registrando abertura…</span>'}</div>`;
  document.querySelectorAll(".video-card").forEach(el=>el.classList.toggle("active",el.dataset.videoId===row.id));
  if(parsed.provider==="youtube"&&panel.querySelector("#ytPlayerHost"))attachVideoProgressTracker(row,parsed);
  else if(parsed.provider==="file"||parsed.provider==="vimeo")attachVideoProgressTracker(row,parsed);
@@ -6097,8 +6149,26 @@ window.setVideoAdminVisibility=setVideoAdminVisibility;
   window.cheerCloudSavePlayers=async()=>{
     if(!activeUserId||!["admin","assistant"].includes(activeRole))throw new Error("Somente administração e auxiliares podem importar ou atualizar o elenco.");
     const payload=players.map(toDbPlayer);
-    const {error}=await supabaseClient.from("players").upsert(payload,{onConflict:"identity_key"});
-    if(error)throw error;
+    // Importações recebem o elenco inteiro em memória, mas somente fichas realmente
+    // alteradas devem sofrer UPDATE no banco. Caso contrário, o trigger de updated_at
+    // marca todos os jogadores como atualizados, mesmo quando seus dados não mudaram.
+    const {data:existingRows,error:existingError}=await supabaseClient.from("players").select("*");
+    if(existingError)throw existingError;
+    const existingByKey=new Map((existingRows||[]).map(row=>[String(row.identity_key),row]));
+    const stable=value=>{
+      if(Array.isArray(value))return value.map(stable);
+      if(value&&typeof value==="object")return Object.fromEntries(Object.keys(value).sort().map(key=>[key,stable(value[key])]));
+      return value===undefined?null:value;
+    };
+    const changed=payload.filter(item=>{
+      const old=existingByKey.get(String(item.identity_key));
+      if(!old)return true;
+      return Object.keys(item).some(key=>JSON.stringify(stable(item[key]))!==JSON.stringify(stable(old[key])));
+    });
+    if(changed.length){
+      const {error}=await supabaseClient.from("players").upsert(changed,{onConflict:"identity_key"});
+      if(error)throw error;
+    }
     // Nunca reconciliar apagando linhas ausentes da memória do navegador.
     // A remoção de um atleta é uma operação explícita e individual.
     const {data:rows,error:readErr}=await supabaseClient.from("players").select("id,identity_key");
