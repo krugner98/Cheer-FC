@@ -3410,8 +3410,10 @@ function shortAttrLabel(label){
   'condicao fisica':'CFI','controle de bola':'CBO',drible:'DRI',
   'passe baixo':'PBA','passe alto':'PAL','um toque':'UTO',curva:'CUR',
   'visao de jogo':'VDJ','tomada de decisao':'TDD',antecipacao:'ANT',
-  'trabalho em equipe':'TEQ',coragem:'COR','precisao do chute':'PCH',
-  'forca do chute':'FCH',cabeceio:'CAB',desarme:'DES',marcacao:'MAR',
+  'trabalho em equipe':'TEQ',coragem:'COR',
+  'precisao da finalizacao':'PFI','precisao do chute':'PFI',
+  'forca da finalizacao':'FFI','forca do chute':'FFI',
+  cabeceio:'CAB',desarme:'DES',marcacao:'MAR',
   agilidade:'AGI',equilibrio:'EQU'
  };
  return map[key]||key.replace(/[^a-z]/g,'').slice(0,3).toUpperCase();
@@ -7041,3 +7043,40 @@ select option:checked{background:#383039!important;color:#fff!important}
 </style>
 
 </body></html>
+
+<style id="v6-77-lineup-bench-assigned-state">
+/* Banco: reserva neutra; titular escalado recebe a identidade do clube em desktop e mobile. */
+#tacticsView .roster-list .roster-player.team-player-card:not(.is-assigned){
+  background:linear-gradient(145deg,#3A363D,#252229)!important;
+  border:1px solid #5A535D!important;
+  border-left:3px solid #77717C!important;
+  box-shadow:0 2px 6px #0005!important;
+}
+#tacticsView .roster-list .roster-player.team-player-card:not(.is-assigned) .roster-shirt-ball{
+  background:#514A54!important;border:1.5px solid #9B929D!important;color:#F4EEE8!important;
+}
+#tacticsView .roster-list .roster-player.team-player-card:not(.is-assigned) .roster-identity .rp-name{
+  color:#F4EEE8!important;
+}
+#tacticsView .roster-list .roster-player.team-player-card:not(.is-assigned) .roster-identity .rp-overall{
+  color:#D4CBD2!important;
+}
+#tacticsView .roster-list .roster-player.team-player-card.is-assigned{
+  background:linear-gradient(145deg,color-mix(in srgb,var(--club-primary,#5A1028) 78%,#29242B),var(--club-dark,#260B16))!important;
+  border:1px solid color-mix(in srgb,var(--club-accent,#E8DCCB) 78%,#5A535D)!important;
+  border-left:4px solid var(--club-accent,#E8DCCB)!important;
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--club-accent,#E8DCCB) 22%,transparent),0 3px 9px #0008!important;
+}
+#tacticsView .roster-list .roster-player.team-player-card.is-assigned .roster-shirt-ball{
+  background:var(--club-primary,#5A1028)!important;
+  border:1.5px solid var(--club-accent,#E8DCCB)!important;
+  color:var(--club-ball-secondary,var(--club-accent,#E8DCCB))!important;
+}
+#tacticsView .roster-list .roster-player.team-player-card.is-assigned .roster-identity .rp-name{
+  color:var(--club-text,#FFF7EB)!important;
+}
+#tacticsView .roster-list .roster-player.team-player-card.is-assigned .roster-identity .rp-overall{
+  color:var(--club-accent,#E8DCCB)!important;
+}
+</style>
+
